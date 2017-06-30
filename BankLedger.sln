@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankHtmlClient", "HtmlAtmClient\BankHtmlClient.csproj", "{DE568D24-8698-496E-A7F7-DCBA1C6F3B4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlClient", "HtmlAtmClient\HtmlClient.csproj", "{DE568D24-8698-496E-A7F7-DCBA1C6F3B4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bank", "Bank\Bank.csproj", "{724DFC8C-4B57-4C3F-811C-0463BE2A2829}"
 EndProject
