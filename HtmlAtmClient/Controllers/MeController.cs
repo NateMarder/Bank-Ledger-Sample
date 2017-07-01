@@ -10,22 +10,17 @@ namespace HtmlAtmClient.Controllers
     public class MeController : ApiController
     {
         private ApplicationUserManager _userManager;
-
+        public ApplicationUserManager UserManager
+            => _userManager ?? (_userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>());
+          
         public MeController()
         {
         }
 
         public MeController( ApplicationUserManager userManager )
         {
-            UserManager = userManager;
+            _userManager = userManager;
         }
-
-        public ApplicationUserManager UserManager
-        {
-            get => _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            private set => _userManager = value;
-        }
-
 
         // GET api/Me
         public GetViewModel Get()
