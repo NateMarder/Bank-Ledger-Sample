@@ -58,6 +58,7 @@
     </None>
     <None Include="protos\bank.proto" />
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\packages\Grpc.Core.1.2.2\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.2.2\build\net45\Grpc.Core.targets')" />
