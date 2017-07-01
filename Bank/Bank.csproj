@@ -56,6 +56,7 @@
     <None Include="..\generate_protos.bat">
       <Link>generate_protos.bat</Link>
     </None>
+    <None Include="protos\bank.proto" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

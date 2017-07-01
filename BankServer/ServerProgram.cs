@@ -8,8 +8,8 @@ namespace BankServer
 {
     internal class BankImpl : Bank.Bank.BankBase
     {
-        // Server side handler of the SayHello RPC
-        public override Task<HelloReply> SayHello( HelloRequest request, ServerCallContext context )
+        // Server side handler of the Interact RPC
+        public override Task<HelloReply> Interact( InteractionRequest request, ServerCallContext context )
         {
             Task<HelloReply> reply = Task.FromResult( new HelloReply
             {

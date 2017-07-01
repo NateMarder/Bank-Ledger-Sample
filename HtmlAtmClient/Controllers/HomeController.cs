@@ -18,7 +18,7 @@ namespace HtmlAtmClient.Controllers
         {
             var channel = new Channel( "127.0.0.1:50051", ChannelCredentials.Insecure );
             var client = new Bank.Bank.BankClient( channel );
-            var reply = client.SayHello( new HelloRequest
+            var reply = client.SayHello( new InteractionRequest
             {
                 Name = model.Message
             } );
@@ -29,7 +29,7 @@ namespace HtmlAtmClient.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
 
-            //client.SayHello(  )
+            //client.Interact(  )
 
             return result;
         }

@@ -12,7 +12,7 @@ namespace BankClient
 
       var client = new Bank.Bank.BankClient( channel );
       var user = "you";
-      var reply = client.SayHello( new HelloRequest {Name = user} );
+      var reply = client.SayHello( new InteractionRequest {Name = user} );
 
       Console.WriteLine( "Greeting: " + reply.Message );
       Console.WriteLine( "Welcome to the echo chamber..." );
