@@ -1,26 +1,23 @@
 ﻿<!-- ko with: home -->
-<div class="jumbotron">
-  <h1>ASP.NET</h1>
-  <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-  <p>
-    <a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a>
-  </p>
-</div>
-<div class="row">
-  <div class="col-md-10">
-    <h2>Your information</h2>
-    <p>This section shows how you can call ASP.NET Web API to get the user details.</p>
-    <p data-bind="text: myHometown"></p>
 
-    <p>
-      <button id="test" class="btn btn-default">Test This</button>
-    </p>
-  </div>
-  <div class="col-md-2">
-    <h2>Display Endpoint Result</h2>
-    <div id="result"></div>
+<div class="row home-row">
+    <div class="col-md-12">
+        <h2>Welcome Back!</h2>
+        <p>This section shows how you can call ASP.NET Web API to get the user details.</p>
+        <p data-bind="text: myHometown"></p>
 
-  </div>
+        <p>
+            <button id="test" class="btn btn-default">Do Something!</button>
+        </p>
+
+        <br>
+        <h2>Display Endpoint Result</h2>
+        <div id="result"></div>
+    </div>
+    <div class="col-md-2">
+
+
+    </div>
 
 
 </div>
@@ -30,37 +27,37 @@
 <script type="text/javascript">
 
 
-  $(document).ready(function() {
+    $(document).ready(function() {
 
-    var url = "@Url.Action( "Echo", "Home" )";
+        var data = {
+            Message: "nate is cool"
+        };
+        $("#test").click(function() {
 
-    $("#test").click(function() {
+            var request = $.ajax({
+                async: true,
+                type: "GET",
+                dataType: "JSON",
+                url: "@Url.Action( "Echo", "Home" )",
+                data: data
+            });
+
+            request.done((result) => {
 
 
-      var request = $.ajax({
-        async: true,
-        type: "GET",
-        dataType: "JSON",
-        url: url,
-        data: "nate is cool"
-      });
+                var message = result;
+                alert(message);
+                $("#result").text(message);
+                if (result.status === 200) {
 
-      request.done((result) => {
+                }
 
+            });
 
-        var message = result;
-        alert(message);
-        $("#result").text(message);
-        if (result.status === 200) {
+        });
 
-        }
-
-      });
 
     });
-
-
-  });
 
 </script>
 

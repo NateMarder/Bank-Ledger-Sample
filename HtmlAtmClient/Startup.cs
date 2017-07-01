@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using HtmlAtmClient;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup( typeof( HtmlAtmClient.Startup ) )]
+[assembly: OwinStartup( typeof( Startup ) )]
 
 namespace HtmlAtmClient
 {
-  public partial class Startup
-  {
-    public void Configuration( IAppBuilder app )
+    public partial class Startup
     {
-      ConfigureAuth( app );
+        public void Configuration( IAppBuilder app )
+        {
+            ConfigureAuth( app );
+        }
     }
-  }
 }

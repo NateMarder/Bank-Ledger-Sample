@@ -43,7 +43,7 @@ namespace BankServer
     }
   }
 
-  internal class Program
+  internal class ServerProgram
   {
     private const int Port = 50051;
 

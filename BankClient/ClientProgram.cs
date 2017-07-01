@@ -4,7 +4,7 @@ using Grpc.Core;
 
 namespace BankClient
 {
-  internal class Program
+  internal class ClientProgram
   {
     public static void Main( string[] args )
     {
