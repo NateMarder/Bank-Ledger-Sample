@@ -98,6 +98,38 @@ namespace ConsoleBanking.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a valid email address:.
+        /// </summary>
+        public static string NewUserGetEmail {
+            get {
+                return ResourceManager.GetString("NewUserGetEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the name of your home town:.
+        /// </summary>
+        public static string NewUserGetHomeTown {
+            get {
+                return ResourceManager.GetString("NewUserGetHomeTown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a password meeting the following criteria:
+        ///  - at least 12 characters long
+        ///  - at least 1 uppercase non-numeric character
+        ///  - at least 1 lowercase non-numeric character
+        ///  - at least 1 numeric character
+        ///  - at least one special character .
+        /// </summary>
+        public static string NewUserGetPassword {
+            get {
+                return ResourceManager.GetString("NewUserGetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 
         ///Please select on of the following options:
         ///    - Press [1] to log into the system.

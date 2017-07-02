@@ -1,8 +1,12 @@
 ﻿using System;
-using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity.Owin;
+using ConsoleBanking.Models;
+using ConsoleBanking.Properties;
+using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Xml;
+using System.Xml.Linq;
 
 
 namespace ConsoleBanking.Classes
@@ -10,7 +14,9 @@ namespace ConsoleBanking.Classes
     public class BankUserOperationsHelper
     {
         private WebRequestHelper _requestHelper;
-        public WebRequestHelper RequestHelper => _requestHelper ?? ( _requestHelper = new WebRequestHelper() );
+
+        public WebRequestHelper RequestHelper
+            => _requestHelper ?? ( _requestHelper = new WebRequestHelper() );
 
         public BankUserOperationsHelper( WebRequestHelper requestHelper )
         {
@@ -23,22 +29,16 @@ namespace ConsoleBanking.Classes
 
         public bool GreetUserBeforeLogin()
         {
-            Console.WriteLine( Properties.Resources.AsciiArtDollarBill );
-            Console.WriteLine( "\r\n" + Properties.Resources.InitialGreeting );
-            Console.WriteLine( Properties.Resources.UserOptionsChoiceSet1 );
+            Console.WriteLine( Resources.AsciiArtDollarBill );
+            Console.WriteLine( "\r\n" + Resources.InitialGreeting );
+            Console.WriteLine( Resources.UserOptionsChoiceSet1 );
 
             var input = int.TryParse( Console.ReadLine(), out int userSelection );
 
-            while ( !input || ( userSelection != 1 && userSelection != 2 ) )
+            while ( !input || userSelection != 1 && userSelection != 2 )
             {
-                Console.WriteLine( Properties.Resources.UserOptionsChoiceSet1 );
+                Console.WriteLine( Resources.UserOptionsChoiceSet1 );
                 input = int.TryParse( Console.ReadLine(), out userSelection );
-
-                if ( userSelection == (int) UserChoice.SecretTest )
-                {
-                    Console.WriteLine( TestRequestAsync().Result );
-                    break;
-                }
             }
 
             var bankingAction = (UserChoice) userSelection;
@@ -47,7 +47,7 @@ namespace ConsoleBanking.Classes
                 case UserChoice.Login:
                     Login();
                     return true;
-                case UserChoice.CreateAccount:
+                case UserChoice.RegisterNewAccount:
                     CreateUser();
                     return true;
             }
@@ -60,11 +60,15 @@ namespace ConsoleBanking.Classes
         {
             Console.WriteLine( "welcome to log in process" );
 
-           
-            //Task<SignInStatus> status =
+            var model = new LoginFromConsoleViewModel
+            {
+                Email = "admin@email.com",
+                Password = "HireNate1!",
+                RememberMe = false
+            };
 
-
-
+            var result = await RequestHelper.UserSignIn( model );
+            Console.WriteLine( "Result: " + Enum.GetName( typeof(SignInStatus), result ) );
         }
 
         public void Logout()
@@ -74,11 +78,6 @@ namespace ConsoleBanking.Classes
         public void CreateUser()
         {
             Console.WriteLine( "Welcome to account creation..." );
-        }
-
-        public async Task<string> TestRequestAsync()
-        {
-            return await RequestHelper.TestRequestAsync();
         }
 
         public string GreetBankCustomer()

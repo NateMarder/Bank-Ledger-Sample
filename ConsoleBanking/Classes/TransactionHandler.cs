@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ConsoleBanking.Classes
+﻿namespace ConsoleBanking.Classes
 {
     public class TransactionHandler
     {
         private WebRequestHelper _requestHelper;
-        public WebRequestHelper RequestHelper => _requestHelper ?? ( _requestHelper = new WebRequestHelper() );
 
         public TransactionHandler( WebRequestHelper requestHelper )
         {
@@ -17,6 +12,8 @@ namespace ConsoleBanking.Classes
         public TransactionHandler()
         {
         }
+
+        public WebRequestHelper RequestHelper => _requestHelper ?? ( _requestHelper = new WebRequestHelper() );
 
         public void WithdrawFunds()
         {

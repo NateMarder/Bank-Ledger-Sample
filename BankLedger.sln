@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleBanking", "ConsoleBa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlBanking", "HtmlBanking\HtmlBanking.csproj", "{DE568D24-8698-496E-A7F7-DCBA1C6F3B4A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{32B367DC-A248-43F1-AD99-3E6D16B31421}"
+	ProjectSection(SolutionItems) = preProject
+		SharedResources.xml = SharedResources.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

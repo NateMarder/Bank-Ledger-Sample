@@ -29,9 +29,9 @@ namespace HtmlBanking
     }
 
     // Configure the application user manager which is used in this application.
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : UserManager<BankUser>
     {
-        public ApplicationUserManager( IUserStore<ApplicationUser> store )
+        public ApplicationUserManager( IUserStore<BankUser> store )
             : base( store )
         {
         }
@@ -40,9 +40,9 @@ namespace HtmlBanking
             IOwinContext context )
         {
             var manager =
-                new ApplicationUserManager( new UserStore<ApplicationUser>( context.Get<ApplicationDbContext>() ) );
+                new ApplicationUserManager( new UserStore<BankUser>( context.Get<ApplicationDbContext>() ) );
             // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<ApplicationUser>( manager )
+            manager.UserValidator = new UserValidator<BankUser>( manager )
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
@@ -65,11 +65,11 @@ namespace HtmlBanking
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider( "Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
+            manager.RegisterTwoFactorProvider( "Phone Code", new PhoneNumberTokenProvider<BankUser>
             {
                 MessageFormat = "Your security code is {0}"
             } );
-            manager.RegisterTwoFactorProvider( "Email Code", new EmailTokenProvider<ApplicationUser>
+            manager.RegisterTwoFactorProvider( "Email Code", new EmailTokenProvider<BankUser>
             {
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
@@ -79,14 +79,14 @@ namespace HtmlBanking
             var dataProtectionProvider = options.DataProtectionProvider;
             if ( dataProtectionProvider != null )
                 manager.UserTokenProvider =
-                    new DataProtectorTokenProvider<ApplicationUser>(
+                    new DataProtectorTokenProvider<BankUser>(
                         dataProtectionProvider.Create( "ASP.NET Identity" ) );
             return manager;
         }
     }
 
     // Configure the application sign-in manager which is used in this application.  
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
+    public class ApplicationSignInManager : SignInManager<BankUser, string>
     {
         public ApplicationSignInManager( ApplicationUserManager userManager,
             IAuthenticationManager authenticationManager ) :
@@ -94,7 +94,7 @@ namespace HtmlBanking
         {
         }
 
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync( ApplicationUser user )
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync( BankUser user )
         {
             return user.GenerateUserIdentityAsync( (ApplicationUserManager) UserManager );
         }

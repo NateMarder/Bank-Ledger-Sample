@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using ConsoleBanking.Models;
 
 namespace ConsoleBanking.Interfaces
 {
     public interface IWebRequestHelper
     {
-        Task<string> TestRequestAsync();
+        Task<int> UserSignIn( LoginFromConsoleViewModel model );
+        Task<int> RegisterNewUser( LoginFromConsoleViewModel model );
     }
 }
