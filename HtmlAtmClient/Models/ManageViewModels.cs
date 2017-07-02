@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace HtmlAtmClient.Models
+namespace HtmlBanking.Models
 {
     public class IndexViewModel
     {

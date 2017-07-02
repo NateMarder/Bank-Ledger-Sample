@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using HtmlAtmClient.Models;
+using HtmlBanking.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 
-namespace HtmlAtmClient
+namespace HtmlBanking
 {
     public class EmailService : IIdentityMessageService
     {

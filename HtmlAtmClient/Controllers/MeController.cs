@@ -1,10 +1,10 @@
 ﻿using System.Web;
 using System.Web.Http;
-using HtmlAtmClient.Models;
+using HtmlBanking.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
-namespace HtmlAtmClient.Controllers
+namespace HtmlBanking.Controllers
 {
     [Authorize]
     public class MeController : ApiController

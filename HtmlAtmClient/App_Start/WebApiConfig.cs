@@ -2,7 +2,7 @@
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
-namespace HtmlAtmClient
+namespace HtmlBanking
 {
     public static class WebApiConfig
     {

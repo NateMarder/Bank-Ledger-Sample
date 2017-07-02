@@ -1,10 +1,10 @@
-﻿using HtmlAtmClient;
+﻿using HtmlBanking;
 using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartup( typeof( Startup ) )]
 
-namespace HtmlAtmClient
+namespace HtmlBanking
 {
     public partial class Startup
     {

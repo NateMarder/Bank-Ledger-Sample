@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace HtmlAtmClient.Models
+namespace HtmlBanking.Models
 {
     // Models returned by AccountController actions.
     public class ExternalLoginConfirmationViewModel

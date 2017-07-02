@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace HtmlAtmClient.Results
+namespace HtmlBanking.Results
 {
     public class ChallengeResult : IHttpActionResult
     {

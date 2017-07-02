@@ -52,12 +52,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Bank\Bank.csproj">
-      <Project>{724DFC8C-4B57-4C3F-811C-0463BE2A2829}</Project>
-      <Name>Bank</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\packages\Grpc.Core.1.2.2\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.2.2\build\net45\Grpc.Core.targets')" />

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace HtmlAtmClient
+namespace HtmlBanking
 {
     public class FilterConfig
     {

@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using HtmlAtmClient.Models;
+using HtmlBanking.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 
-namespace HtmlAtmClient.Controllers
+namespace HtmlBanking.Controllers
 {
     [Authorize]
     public class UserOperationsController : Controller

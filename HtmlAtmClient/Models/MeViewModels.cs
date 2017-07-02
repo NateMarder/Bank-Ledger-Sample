@@ -1,4 +1,4 @@
-﻿namespace HtmlAtmClient.Models
+﻿namespace HtmlBanking.Models
 {
     // Models returned by MeController actions.
     public class GetViewModel

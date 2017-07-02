@@ -1,6 +1,6 @@
 ﻿using System;
-using HtmlAtmClient.Models;
-using HtmlAtmClient.Providers;
+using HtmlBanking.Models;
+using HtmlBanking.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -8,7 +8,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 
-namespace HtmlAtmClient
+namespace HtmlBanking
 {
     public partial class Startup
     {
