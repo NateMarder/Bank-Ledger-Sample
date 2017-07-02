@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
+    <ProjectReference Include="..\HtmlBanking\HtmlBanking.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AspNet.Identity.Owin">

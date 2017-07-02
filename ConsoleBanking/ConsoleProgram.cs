@@ -5,9 +5,9 @@ namespace ConsoleBanking
 {
     public class ConsoleProgram
     {
-        private static UserOperationsHelper _userOperationsHelper;
-        public static UserOperationsHelper UserOperationsHelper
-            => _userOperationsHelper ?? ( _userOperationsHelper = new UserOperationsHelper() );
+        private static BankUserOperationsHelper _bankUserOperationsHelper;
+        public static BankUserOperationsHelper BankUserOperationsHelper
+            => _bankUserOperationsHelper ?? ( _bankUserOperationsHelper = new BankUserOperationsHelper() );
 
         private static TransactionHandler _transactionHandler;
         public static TransactionHandler TransactionHandler
@@ -15,7 +15,7 @@ namespace ConsoleBanking
 
         public static void Main()
         {
-            UserOperationsHelper.GreetUserBeforeLogin();
+            BankUserOperationsHelper.GreetUserBeforeLogin();
             Console.ReadKey();
         }
     }

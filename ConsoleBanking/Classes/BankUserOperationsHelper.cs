@@ -1,22 +1,23 @@
 ﻿using System;
-using System.Net.Http;
+using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.Owin;
 
 
 namespace ConsoleBanking.Classes
 {
-    public class UserOperationsHelper
+    public class BankUserOperationsHelper
     {
         private WebRequestHelper _requestHelper;
         public WebRequestHelper RequestHelper => _requestHelper ?? ( _requestHelper = new WebRequestHelper() );
 
-        public UserOperationsHelper( WebRequestHelper requestHelper )
+        public BankUserOperationsHelper( WebRequestHelper requestHelper )
         {
             _requestHelper = requestHelper;
         }
 
-        public UserOperationsHelper()
+        public BankUserOperationsHelper()
         {
         }
 
