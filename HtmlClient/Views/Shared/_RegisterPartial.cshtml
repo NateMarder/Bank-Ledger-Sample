@@ -1,22 +1,20 @@
 ﻿@model HtmlClient.Models.RegisterViewModel
 
 
-@using( Html.BeginForm( "Register", "Register" ) )
+@using ( Html.BeginForm( "Register", "Register", new {@id = string.Empty}, FormMethod.Post, new {@id = "user-register"} ) )
 {
-
-    <form id="user-register">
-        <h2>New User?<br>Register Here:</h2>
-        <label for="register-email" class="sr-only">Email address</label>
-        <input type="email" name="Email" id="register-email" class="form-control" placeholder="Email address" required autofocus>
-        <label for="register-password" class="sr-only">Password</label>
-        <input type="password" name="Password" id="register-password" class="form-control" placeholder="Password" required>
-        <div id="registration-validation" class="validation-text"></div>
-        <button class="btn btn-lg btn-primary" type="submit">Register</button>
-    </form>
-
+    <h2>
+        New User?<br>Register Here:
+    </h2>
+    <label for="register-email" class="sr-only">Email address</label>
+    <input type="email" name="Email" id="register-email" class="form-control" placeholder="Email address" required autofocus>
+    <label for="register-password" class="sr-only">Password</label>
+    <input type="password" name="Password" id="register-password" class="form-control" placeholder="Password" required>
+    <div id="registration-validation" class="validation-text"></div>
+    <button class="btn btn-lg btn-primary" type="submit">Register</button>
 }
 
-@if( TempData["RegisterMessage"] != null )
+@if ( TempData["RegisterMessage"] != null )
 {
-    <span style="color:red;">@TempData["RegisterMessage"].ToString()</span>
+    <span>@TempData["RegisterMessage"].ToString()</span>
 }

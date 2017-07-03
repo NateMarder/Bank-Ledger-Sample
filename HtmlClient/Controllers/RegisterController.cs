@@ -24,7 +24,14 @@ namespace HtmlClient.Controllers
                 try
                 {
                     var dataHandler = new DalHandler();
-                    dataHandler.RegisterNewUser( model );
+                    var newUser = new UserViewModel
+                    {
+                        Email = model.Email,
+                        Password = model.Password,
+                        LastLogin = DateTime.Now.ToUniversalTime(),
+                        AccountBalance = 0.00,
+                    };
+                    dataHandler.RegisterNewUser( newUser );
 
                     // auto-login new users
                     return RedirectToAction( "UserSignIn", "Login", new {Email = model.Email, Password = model.Password} );
@@ -38,13 +45,8 @@ namespace HtmlClient.Controllers
             }
 
             Response.StatusCode = (int) HttpStatusCode.BadRequest;
-            var result = new JsonResult()
-            {
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                Data = results.Errors.Select( e => e.ErrorMessage ).ToArray(),
-            };
-
-            return result;
+            TempData["RegisterMessage"] = results.Errors.Select( e => e.ErrorMessage ).ToArray().ToString();
+            return View("../Home/Index");
         }
     }
 }
