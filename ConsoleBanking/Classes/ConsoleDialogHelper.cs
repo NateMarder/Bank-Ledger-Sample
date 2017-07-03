@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using ConsoleBanking.Properties;
-using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace ConsoleBanking.Classes
 {

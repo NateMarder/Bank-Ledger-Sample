@@ -1,0 +1,92 @@
+﻿@model HtmlClient.Models.HomeViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>
+            @HtmlClient.Properties.Resources.ApplicationTitle
+        </h1>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        
+        @{ Html.RenderPartial( "_LoginPartial" ); }
+
+        <br>   
+
+        @{ Html.RenderPartial( "_RegisterPartial" ); }
+
+    </div>
+    <div class="col-md-8">
+        <h2>User Info:</h2>
+        <table class="table table-bordered table-striped" aria-disabled="True" disabled>
+            <thead>
+            <tr>
+                <th>Property</th>
+                <th>Status/Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>User Id</td>
+                <td id="user-id">Unknown</td>
+            </tr>
+            <tr>
+                <td>User Logged In</td>
+                <td id="user-login-status">False</td>
+            </tr>
+            <tr>
+                <td>Recent User Logins</td>
+                <td id="user-logins">Uknown</td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <h2>Recent Transactions:</h2>
+        <table class="table table-bordered table-striped" aria-disabled="True" disabled>
+            <thead>
+            <tr>
+                <th>User</th>
+                <th>Transaction Type</th>
+                <th>Transaction Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Unknown</td>
+                <td>Uknown</td>
+                <td>Unknown</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        var signInForm = $("#user-signin");
+        var registerForm = $("#user-register");
+
+
+        signInForm.on("submit", function(e) {
+            e.preventDefault();
+            alert("You're trying to sign in.");
+        });
+
+
+        registerForm.on("submit", function(e) {
+            e.preventDefault();
+            alert("now you're trying to register.");
+        });
+
+
+    });
+</script>

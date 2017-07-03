@@ -1,0 +1,22 @@
+﻿@model HtmlClient.Models.UserViewModel
+
+
+@using( Html.BeginForm( "Validate", "Login" ) )
+{
+
+    <form id="user-signin">
+        <h2>User Login:</h2>
+        <label for="sign-in-email" class="sr-only">Email address</label>
+        <input type="email" name="Email" id="sign-in-email" class="form-control" placeholder="Email address" required autofocus>
+        <label for="sign-in-password" class="sr-only">Password</label>
+        <input type="password" name="Password" id="sign-in-password" class="form-control" placeholder="Password" required>
+        <div id="signin-validation" class="validation-text"></div>
+        <button class="btn btn-lg btn-primary" type="submit">Log in</button>
+    </form>
+
+}
+
+@if( TempData["LoginMessage"] != null )
+{
+    <span style="color:red;">@TempData["LoginMessage"].ToString()</span>
+}

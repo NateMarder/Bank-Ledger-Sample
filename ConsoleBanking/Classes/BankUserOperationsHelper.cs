@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
 using ConsoleBanking.Models;
 using ConsoleBanking.Properties;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Xml;
-using System.Xml.Linq;
 
 
 namespace ConsoleBanking.Classes

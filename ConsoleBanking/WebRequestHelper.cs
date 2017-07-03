@@ -3,21 +3,18 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ConsoleBanking.Interfaces;
 using ConsoleBanking.Models;
-using System.IO;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace ConsoleBanking
 {
     public class WebRequestHelper : IWebRequestHelper
     {
-        private XDocument _document;
+        private XDocument _sharedSettingsDocument;
 
-        public XDocument XDocument
-            => _document ?? ( _document = XDocument.Load( "../SharedResources.xml" ) );
+        public XDocument SharedSettingsDocument
+            => _sharedSettingsDocument 
+            ?? ( _sharedSettingsDocument = XDocument.Load( "../SharedResources/Settings.xml" ) );
 
         private static HttpClient _httpClient;
 
@@ -37,7 +34,7 @@ namespace ConsoleBanking
         {
             string stringResponse;
 
-            var signInUrl = XDocument.Descendants()
+            var signInUrl = SharedSettingsDocument.Descendants()
                 .ToList()
                 .Find( node => node.Value.ToString() == "signin" )
                 .NextNode
@@ -71,7 +68,7 @@ namespace ConsoleBanking
         {
             string stringResponse;
 
-            var signInUrl = XDocument.Descendants()
+            var signInUrl = SharedSettingsDocument.Descendants()
                 .ToList()
                 .Find( node => node.Value.ToString() == "signin" )
                 .NextNode
