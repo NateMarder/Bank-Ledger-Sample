@@ -1,17 +1,20 @@
-﻿using System;
-using System.Linq;
-using FluentValidation;
+﻿using FluentValidation;
+using HtmlClient.Dal;
 using HtmlClient.Models;
 using ValidationMessages = HtmlClient.Properties.Resources;
 
 namespace HtmlClient.Validators
 {
-    public class LoginValidator : AbstractValidator<LoginViewModel>
+    public class LoginValidator : AbstractValidator<UserViewModel>
     {
+        private DalHandler _dal;
+        public DalHandler DalHandler => _dal ?? ( _dal = new DalHandler() );
+
         public LoginValidator()
         {
             // email validation
             RuleFor( model => model.Email )
+                .NotEmpty()
                 .EmailAddress()
                 .Must( Exist )
                 .WithMessage( ValidationMessages.EmailDoesntExist );
@@ -25,15 +28,19 @@ namespace HtmlClient.Validators
 
         private bool Exist( string email )
         {
-            return true;
+            return DalHandler.EmailExists( email );
         }
 
         private bool MatchUsersEmail( string password, string email )
         {
-            var passwordShouldBe = "get the passord";
+            return DalHandler.VerifyPasswordEmailComboExists(
+                new UserViewModel {Email = email, Password = password} );
+        }
 
-            return password == passwordShouldBe;
+        // for testing
+        public void setDalHandler( DalHandler dalHandler )
+        {
+            _dal = dalHandler;
         }
     }
 }
-

@@ -4,17 +4,55 @@
 @using ( Html.BeginForm( "Register", "Register", new {@id = string.Empty}, FormMethod.Post, new {@id = "user-register"} ) )
 {
     <h2>
-        New User?<br>Register Here:
+        New User? Register Here:
     </h2>
     <label for="register-email" class="sr-only">Email address</label>
     <input type="email" name="Email" id="register-email" class="form-control" placeholder="Email address" required autofocus>
     <label for="register-password" class="sr-only">Password</label>
     <input type="password" name="Password" id="register-password" class="form-control" placeholder="Password" required>
     <div id="registration-validation" class="validation-text"></div>
-    <button class="btn btn-lg btn-primary" type="submit">Register</button>
+    <button id="submit-register" class="btn btn-lg btn-primary" type="submit">Register</button>          
+    
 }
 
 @if ( TempData["RegisterMessage"] != null )
 {
     <span>@TempData["RegisterMessage"].ToString()</span>
-}
+}   
+<br>
+<button id="debug1" class="btn btn-lg btn-default">"admin@email.com / #HireNate1!"</button>
+<br>
+
+<script>
+
+    $(document).ready(function() {
+        
+        $("#debug1").click(function() {
+
+            $("#register-email")
+                .focus()
+                .val("admin@email.com");
+            $("#register-password")
+                .focus()
+                .val("#HireNate1!");
+            $("#submit-register").focus();
+
+        });
+
+        $("#debug2").click(function() {
+
+            $("#sign-in-email")
+                .focus()
+                .val("admin@email.com");
+            $("#sign-in-password")
+                .focus()
+                .val("#HireNate1!");
+            $("#submit-sign-in").focus();
+
+        });
+
+        $("#debug1").focus();
+
+    });
+
+</script>

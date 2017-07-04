@@ -1,7 +1,4 @@
-﻿@using System.Runtime.Versioning
-@using System.Web.Optimization
-@using HtmlClient.Properties;
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -21,8 +18,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </button>   
-            <a class="navbar-brand">Sign Out</a>
+            </button>                      
+            
+            
+            <ul class="nav navbar-nav">  
+
+                @{ var userId = Session["UserId"] ?? "Unknown";  
+                   var guid = Session["SessionGuid"] ?? "Uknown"; }
+                <li class="navbar-brand">User: @userId </li>
+                <li class="navbar-brand">Session Id: @guid </li>
+                
+                <li><a class="navbar-brand"> @Html.ActionLink( "   [SIGN OUT]", "SignOut", "Login" )  </a></li>
+            </ul>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

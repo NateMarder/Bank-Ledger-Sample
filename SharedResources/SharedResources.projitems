@@ -13,6 +13,5 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Settings.xml" />
-    <Content Include="$(MSBuildThisFileDirectory)UserDataStore.xml" />
   </ItemGroup>
 </Project>

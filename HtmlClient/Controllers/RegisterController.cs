@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using FluentValidation.Results;
 using HtmlClient.Dal;
 using HtmlClient.Models;
+using HtmlClient.Properties;
 
 namespace HtmlClient.Controllers
 {
@@ -24,28 +22,23 @@ namespace HtmlClient.Controllers
                 try
                 {
                     var dataHandler = new DalHandler();
-                    var newUser = new UserViewModel
-                    {
-                        Email = model.Email,
-                        Password = model.Password,
-                        LastLogin = DateTime.Now.ToUniversalTime(),
-                        AccountBalance = 0.00,
-                    };
-                    dataHandler.RegisterNewUser( newUser );
+                    dataHandler.RegisterNewUser( model );
 
                     // auto-login new users
-                    return RedirectToAction( "UserSignIn", "Login", new {Email = model.Email, Password = model.Password} );
+                    return RedirectToAction( "UserSignIn", "Login",
+                        new {Email = model.Email, Password = model.Password} );
+
                 }
                 catch (Exception exception)
                 {
                     Response.StatusCode = (int) HttpStatusCode.InternalServerError;
-                    TempData["RegisterMessage"] = Properties.Resources.GenericErrorMessage + exception.Message;
+                    TempData["RegisterMessage"] = Resources.GenericErrorMessage + exception.Message;
                     return View("../Home/Index");
                 }
             }
 
             Response.StatusCode = (int) HttpStatusCode.BadRequest;
-            TempData["RegisterMessage"] = results.Errors.Select( e => e.ErrorMessage ).ToArray().ToString();
+            TempData["RegisterMessage"] = Resources.GenericErrorMessage;
             return View("../Home/Index");
         }
     }

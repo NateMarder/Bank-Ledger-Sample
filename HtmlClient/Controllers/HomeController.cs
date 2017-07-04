@@ -2,7 +2,6 @@
 
 namespace HtmlClient.Controllers
 {
-
     [Authorize]
     public class HomeController : Controller
     {
@@ -10,6 +9,5 @@ namespace HtmlClient.Controllers
         {
             return View();
         }
-
     }
 }

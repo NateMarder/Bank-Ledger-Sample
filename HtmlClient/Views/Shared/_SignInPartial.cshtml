@@ -1,7 +1,7 @@
 ﻿@model HtmlClient.Models.UserViewModel
 
 
-@using( Html.BeginForm( "Validate", "Login", new { @id = string.Empty }, FormMethod.Post, new { @id = "user-signin" } ) )
+@using( Html.BeginForm( "ValidateSignIn", "Login", new { @id = string.Empty }, FormMethod.Post, new { @id = "user-signin" } ) )
 {
         <h2>User Login:</h2>
         <label for="sign-in-email" class="sr-only">Email address</label>
@@ -9,9 +9,11 @@
         <label for="sign-in-password" class="sr-only">Password</label>
         <input type="password" name="Password" id="sign-in-password" class="form-control" placeholder="Password" required>
         <div id="signin-validation" class="validation-text"></div>
-        <button class="btn btn-lg btn-primary" type="submit">Log in</button>
-}
-
+        <button id="submit-sign-in" class="btn btn-lg btn-primary" type="submit">Log in</button>
+}                         
+<br>
+<button id="debug2" class="btn btn-lg btn-default">"admin@email.com / #HireNate1!"</button>
+<br>
 @if( TempData["LoginMessage"] != null )
 {
     <span>@TempData["LoginMessage"].ToString()</span>

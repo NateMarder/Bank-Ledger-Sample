@@ -1,7 +1,7 @@
 ﻿@model HtmlClient.Models.HomeViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = HtmlClient.Properties.Resources.ApplicationTitle;
     Layout = "../Shared/_Layout.cshtml";
 }
 
@@ -14,16 +14,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4">
-        
-        @{ Html.RenderPartial( "_LoginPartial" ); }
-
-        <br>   
-
-        @{ Html.RenderPartial( "_RegisterPartial" ); }
-
-    </div>
-    <div class="col-md-8">
+    <div class="col-md-12">
         <h2>User Info:</h2>
         <table class="table table-bordered table-striped" aria-disabled="True" disabled>
             <thead>
@@ -67,26 +58,3 @@
         </table>
     </div>
 </div>
-
-<script type="text/javascript">
-
-    $(document).ready(function() {
-
-        var signInForm = $("#user-signin");
-        var registerForm = $("#user-register");
-
-
-        signInForm.on("submit", function(e) {
-            e.preventDefault();
-            alert("You're trying to sign in.");
-        });
-
-
-        registerForm.on("submit", function(e) {
-            e.preventDefault();
-            alert("now you're trying to register.");
-        });
-
-
-    });
-</script>

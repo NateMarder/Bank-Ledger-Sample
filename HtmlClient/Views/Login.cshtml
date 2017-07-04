@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = HtmlClient.Properties.Resources.ApplicationTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>
+            @HtmlClient.Properties.Resources.ApplicationTitle
+        </h1>
+    </div>
+</div>
+<br>
+<hr>
+<div class="row">
+
+    <div class="col-md-6">
+        @{ Html.RenderPartial( "_SignInPartial" ); }
+    </div>
+    <div class="col-md-6">
+        @{ Html.RenderPartial( "_RegisterPartial" ); }
+    </div>
+</div>
+<hr>
+<br>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        $("div.navbar.navbar-inverse.navbar-fixed-top").hide();
+
+        var signInForm = $("#user-signin");
+        var registerForm = $("#user-register");
+
+        signInForm.on("submit",
+            function(e) {
+                //e.preventDefault();
+                //alert("You're trying to sign in.");
+            });
+
+        registerForm.on("submit",
+            function(e) {
+                e.preventDefault();
+                
+                var data = {
+                    Email: $("#register-email").val(),
+                    Password: $("#register-password").val()
+                }                                                              
+
+                var promise = $.ajax({
+                    global:true,
+                    async:true,
+                    dataType:"JSON",
+                    type: "POST",
+                    url: "@Url.Action( "Register", "Register" )",
+                    data: data
+                });
+
+                promise.done(function(result) {
+
+                    alert("promise came back: " + result.status);
+                });
+
+            });
+
+
+    });
+</script>
