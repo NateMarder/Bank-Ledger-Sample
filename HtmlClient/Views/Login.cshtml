@@ -32,37 +32,12 @@
         $("div.navbar.navbar-inverse.navbar-fixed-top").hide();
 
         var signInForm = $("#user-signin");
-        var registerForm = $("#user-register");
+
 
         signInForm.on("submit",
             function(e) {
                 //e.preventDefault();
                 //alert("You're trying to sign in.");
-            });
-
-        registerForm.on("submit",
-            function(e) {
-                e.preventDefault();
-                
-                var data = {
-                    Email: $("#register-email").val(),
-                    Password: $("#register-password").val()
-                }                                                              
-
-                var promise = $.ajax({
-                    global:true,
-                    async:true,
-                    dataType:"JSON",
-                    type: "POST",
-                    url: "@Url.Action( "Register", "Register" )",
-                    data: data
-                });
-
-                promise.done(function(result) {
-
-                    alert("promise came back: " + result.status);
-                });
-
             });
 
 

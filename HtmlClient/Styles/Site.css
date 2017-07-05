@@ -41,7 +41,7 @@ textarea { max-width: 280px; }
 /* Custom styles for sign-in area */
 .validation-text {
     margin: 5px 0;
-    display: none;
+    color: red;
 }
 
 button[type="submit"] {
@@ -50,8 +50,4 @@ button[type="submit"] {
 
 input[type="email"] {
     margin-bottom: 15px;
-}
-
-input[type="password"] {
-
 }

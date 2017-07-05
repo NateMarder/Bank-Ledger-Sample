@@ -11,14 +11,15 @@
     <label for="register-password" class="sr-only">Password</label>
     <input type="password" name="Password" id="register-password" class="form-control" placeholder="Password" required>
     <div id="registration-validation" class="validation-text"></div>
-    <button id="submit-register" class="btn btn-lg btn-primary" type="submit">Register</button>          
-    
+    <button id="submit-register" class="btn btn-lg btn-primary" type="submit">Register</button>
 }
 
-@if ( TempData["RegisterMessage"] != null )
+@if ( TempData["RegistrationErrors"] != null )
 {
-    <span>@TempData["RegisterMessage"].ToString()</span>
-}   
+    <div id="register-validation" class="validation-text">
+        @TempData["RegistrationErrors"].ToString()
+    </div>
+}
 <br>
 <button id="debug1" class="btn btn-lg btn-default">"admin@email.com / #HireNate1!"</button>
 <br>
@@ -26,7 +27,7 @@
 <script>
 
     $(document).ready(function() {
-        
+
         $("#debug1").click(function() {
 
             $("#register-email")
@@ -52,6 +53,37 @@
         });
 
         $("#debug1").focus();
+
+        var registerForm = $("#user-register");
+        registerForm.on("submit",
+            function(e) {
+                e.preventDefault();
+
+                var data = {
+                    Email: $("#register-email").val(),
+                    Password: $("#register-password").val()
+                }
+
+                var promise = $.ajax({
+                    global: true,
+                    async: true,
+                    dataType: "JSON",
+                    type: "POST",
+                    url: "@Url.Action( "Register", "Register" )",
+                    data: data
+                });
+
+                promise.done(function(result) {
+
+                    //register-validation
+                    console.log(result);
+                    if (result.status != 200) {
+                        $("#register-validation").text(result.Data);
+                    }
+                    //alert("promise came back: " + result.status);
+                });
+
+            });
 
     });
 

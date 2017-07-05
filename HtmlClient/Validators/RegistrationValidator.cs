@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using FluentValidation;
+using HtmlClient.Dal;
 using HtmlClient.Models;
 using ValidationMessages = HtmlClient.Properties.Resources;
 
@@ -7,6 +8,9 @@ namespace HtmlClient.Validators
 {
     public class RegistrationValidator : AbstractValidator<RegisterViewModel>
     {
+        private DalHandler _dal;
+        public DalHandler DalHandler => _dal ?? ( _dal = new DalHandler() );
+
         public RegistrationValidator()
         {
             // email validation
@@ -18,7 +22,6 @@ namespace HtmlClient.Validators
 
             // password password validation
             RuleFor( model => model.Password )
-                .NotEmpty()
                 .Length( 4, 20 )
                 .Must( ContainNumericCharacter )
                 .Must( ContainNonNumericCharacter )
@@ -27,46 +30,35 @@ namespace HtmlClient.Validators
                 .WithMessage( ValidationMessages.PasswordMustHaveNecessaryComponents );
         }
 
-        private bool BeValidEmail( string email )
-        {
-            try
-            {
-                var validForMicrosoft = new System.Net.Mail.MailAddress( email );
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         private bool NotAlreadyExist( string email )
         {
-            // lookwithin local data store if it's there, then
-            // no - can use
-
-            return true;
+            return !DalHandler.EmailExists( email );
         }
 
         private bool ContainNumericCharacter( string password )
         {
-            return password.ToCharArray().Any( c => char.IsNumber( c ) );
+            //Todo: Figure out why fluent validation isn't working intermitently, as this is a terrrible pattern. 
+            try { return password.ToCharArray().Any( c => char.IsNumber( c ) ); }
+            catch {  return false; }
         }
 
         private bool ContainNonNumericCharacter( string password )
         {
-            return password.ToCharArray().Any( c => char.IsLetter( c ) );
+            try { return password.ToCharArray().Any( c => char.IsLetter( c ) ); }
+            catch {  return false; }
         }
 
         private bool ContainUpperCaseCharacter( string password )
         {
-            return password.ToCharArray().Any( c => char.IsUpper( c ) );
+            try { return password.ToCharArray().Any( c => char.IsUpper( c ) ); }
+            catch {  return false; }
         }
 
         private bool ContainSpecialCharacter( string password )
         {
-            return password.ToCharArray()
-                .Any( c => ( !char.IsLetter( c ) && !char.IsNumber( c ) ) );
+            try { return password.ToCharArray()
+                .Any( c => ( !char.IsLetter( c ) && !char.IsNumber( c ) ) ); }
+            catch {  return false; }
         }
     }
 }

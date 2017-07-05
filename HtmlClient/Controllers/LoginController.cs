@@ -21,15 +21,6 @@ namespace HtmlClient.Controllers
             return View( "../Login" );
         }
 
-        [HttpGet]
-        public ActionResult RegistrationSuccess( LoginViewModel model )
-        {
-            // first manually sign the user in, then redirect to the main home page
-
-            return View( "../Home/Index" );
-        }
-
-
         [AllowAnonymous]
         [HttpGet]
         public ActionResult SignInSuccess( LoginViewModel model )
@@ -42,8 +33,6 @@ namespace HtmlClient.Controllers
         {
             try
             {
-                // 'userIsOkay' look in the local data store to make sure
-                // the user now exists there!
                 var result = LoginValidator.Validate( user );
                 if ( result.IsValid )
                 {

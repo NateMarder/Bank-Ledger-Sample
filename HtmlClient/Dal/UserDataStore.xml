@@ -18,4 +18,40 @@
     <Balance>0</Balance>
     <LastLogin>11:53 PM</LastLogin>
   </User>
+  <User>
+    <Email>admin4@email.com</Email>
+    <Password>#HireNate1!</Password>
+    <Balance>0</Balance>
+    <LastLogin>12:13 AM</LastLogin>
+  </User>
+  <User>
+    <Email>admin6@email.com</Email>
+    <Password>#HireNate1!</Password>
+    <Balance>0</Balance>
+    <LastLogin>12:20 AM</LastLogin>
+  </User>
+  <User>
+    <Email>admin7@email.com</Email>
+    <Password>#HireNate1!</Password>
+    <Balance>0</Balance>
+    <LastLogin>12:22 AM</LastLogin>
+  </User>
+  <User>
+    <Email>admin8@email.com</Email>
+    <Password>#HireNate1!</Password>
+    <Balance>0</Balance>
+    <LastLogin>12:28 AM</LastLogin>
+  </User>
+  <User>
+    <Email>admin9@email.com</Email>
+    <Password>#HireNate1!</Password>
+    <Balance>0</Balance>
+    <LastLogin>12:31 AM</LastLogin>
+  </User>
+  <User>
+    <Email>admin13@email.com</Email>
+    <Password>#HireNate1!</Password>
+    <Balance>0</Balance>
+    <LastLogin>1:18 AM</LastLogin>
+  </User>
 </UserDataStore>
