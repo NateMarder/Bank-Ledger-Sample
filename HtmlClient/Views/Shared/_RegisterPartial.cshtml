@@ -1,8 +1,7 @@
 ﻿@model HtmlClient.Models.RegisterViewModel
 
 
-@using ( Html.BeginForm( "Register", "Register", new {@id = string.Empty}, FormMethod.Post, new {@id = "user-register"} ) )
-{
+<form id="user-register">
     <h2>
         New User? Register Here:
     </h2>
@@ -11,24 +10,65 @@
     <label for="register-password" class="sr-only">Password</label>
     <input type="password" name="Password" id="register-password" class="form-control" placeholder="Password" required>
     <div id="registration-validation" class="validation-text"></div>
-    <button id="submit-register" class="btn btn-lg btn-primary" type="submit">Register</button>
-}
+    <button id="submit-register" class="btn btn-lg btn-primary" type="submit">Register &nbsp;</button>
+</form>
 
-@if ( TempData["RegistrationErrors"] != null )
-{
-    <div id="register-validation" class="validation-text">
-        @TempData["RegistrationErrors"].ToString()
-    </div>
-}
+
+<div id="register-validation" class="validation-text"></div>
+
 <br>
-<button id="debug1" class="btn btn-lg btn-default">"admin@email.com / #HireNate1!"</button>
+<button id="debug1" class="btn btn-lg btn-default">AutoFill </button>
 <br>
 
 <script>
 
     $(document).ready(function() {
 
+        $("#user-register").on("submit",
+            function(e) {
+                e.preventDefault();
+
+                $("#debug1").blur();
+
+                var data = {
+                    Email: $("#register-email").val(),
+                    Password: $("#register-password").val()
+                }
+
+                $("#progress-spinner").show();
+                var jqxhr = $.ajax({
+                    dataType: "JSON",
+                    beforeSend: function() {
+                        $("#register-validation")
+                            .css({ "display": "none" })
+                            .text("");
+                    },
+                    type: "POST",
+                    url: "@Url.Action( "Register", "Register" )",
+                    data: data
+                });
+
+                var _jqxhr = jqxhr;
+                jqxhr.always( function() {
+
+                    if (_jqxhr.status === 200) {
+                        $("#sign-in-password").val(data.Password);
+                        $("#sign-in-email").val(data.Email);
+                        $("#submit-sign-in").click();
+                    }
+
+                    $("#register-validation")
+                        .css({ "display": "block" })
+                        .text(_jqxhr.responseJSON.toString());
+                });
+
+
+            });
+
+
         $("#debug1").click(function() {
+
+            $("#register-validation").hide();
 
             $("#register-email")
                 .focus()
@@ -51,40 +91,9 @@
             $("#submit-sign-in").focus();
 
         });
-
+        $("#progress-spinner").hide();
         $("#debug1").focus();
-
-        var registerForm = $("#user-register");
-        registerForm.on("submit",
-            function(e) {
-                e.preventDefault();
-
-                var data = {
-                    Email: $("#register-email").val(),
-                    Password: $("#register-password").val()
-                }
-
-                var promise = $.ajax({
-                    global: true,
-                    async: true,
-                    dataType: "JSON",
-                    type: "POST",
-                    url: "@Url.Action( "Register", "Register" )",
-                    data: data
-                });
-
-                promise.done(function(result) {
-
-                    //register-validation
-                    console.log(result);
-                    if (result.status != 200) {
-                        $("#register-validation").text(result.Data);
-                    }
-                    //alert("promise came back: " + result.status);
-                });
-
-            });
-
     });
+
 
 </script>

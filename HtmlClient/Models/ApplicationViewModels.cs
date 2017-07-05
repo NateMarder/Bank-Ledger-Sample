@@ -27,4 +27,6 @@ namespace HtmlClient.Models
         public string Name { get; set; }
         public string LinkValue { get; set; }
     }
+
+    public class HomeViewModel{}
 }

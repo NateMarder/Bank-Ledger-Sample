@@ -3,6 +3,28 @@
     padding-top: 50px;
 }
 
+/*font faces*/
+
+@font-face {
+    font-family: 'glyphicons-halflings-regular';
+    src: url('../fonts/glyphicons-halflings-regular.eot') format('embedded-opentype');
+}
+
+@font-face {
+    font-family: 'glyphicons-halflings-regular';
+    src: url('../fonts/glyphicons-halflings-regular.svg') format('svg');
+}
+
+@font-face {
+    font-family: 'glyphicons-halflings-regular';
+    src: url('../fonts/glyphicons-halflings-regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'glyphicons-halflings-regular';
+    src: url('../fonts/glyphicons-halflings-regular.woff') format('woff');
+}
+
 /* Set padding to keep content from hitting the edges */
 
 .body-content {
@@ -39,15 +61,41 @@ textarea { max-width: 280px; }
 
 
 /* Custom styles for sign-in area */
+
 .validation-text {
     margin: 5px 0;
     color: red;
 }
 
-button[type="submit"] {
-    margin-top: 15px;
+button[type="submit"] { margin-top: 15px; }
+
+input[type="email"] { margin-bottom: 15px; }
+
+
+@keyframes progress {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+.glyphicon-repeat {
+    display: none;
+    -webkit-animation: fa-spin 6s infinite linear;
+    animation: progress 3s infinite linear;
+    transform-origin: 50% 50%;
 } 
 
-input[type="email"] {
-    margin-bottom: 15px;
+
+.loading {
+    color: #337AB7;
+    background-image: url('../fonts/glyphicons-halflings-regular.svg');
+    -webkit-animation: fa-spin 6s infinite linear;
+    animation: progress 2s infinite linear;
+    transform-origin: 50% 50%;
 }

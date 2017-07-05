@@ -29,13 +29,19 @@ namespace HtmlClient.Controllers
                     return new HttpStatusCodeResult( HttpStatusCode.OK );
                 }
 
-                TempData["RegistrationErrors"] = result.Errors as List<ValidationFailure>;
-                return new HttpStatusCodeResult( HttpStatusCode.Conflict );
+                Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                return new JsonResult
+                {
+                    Data = result.Errors.ToList().Select( er => er.ErrorMessage ).ToList().Distinct()
+                };
             }
             catch ( Exception ex)
             {
-                TempData["RegistrationErrors"] = Resources.GenericErrorMessage +"\r\n"+ ex.Message;
-                return new HttpStatusCodeResult( HttpStatusCode.Conflict );
+                Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                return new JsonResult
+                {
+                    Data = Resources.GenericErrorMessage
+                };
             }
         }
     }

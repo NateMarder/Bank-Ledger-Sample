@@ -15,10 +15,8 @@ namespace HtmlClient.Validators
         {
             // email validation
             RuleFor( model => model.Email )
-                .EmailAddress()
-                .WithMessage( ValidationMessages.EmailNotValidGenericMessage )
-                .Must( NotAlreadyExist )
-                .WithMessage( ValidationMessages.EmailAlreadyExists );
+                .EmailAddress().WithMessage( ValidationMessages.EmailNotValidGenericMessage )
+                .Must( NotAlreadyExist ).WithMessage( ValidationMessages.EmailAlreadyExists );
 
             // password password validation
             RuleFor( model => model.Password )
@@ -26,8 +24,7 @@ namespace HtmlClient.Validators
                 .Must( ContainNumericCharacter )
                 .Must( ContainNonNumericCharacter )
                 .Must( ContainUpperCaseCharacter )
-                .Must( ContainSpecialCharacter )
-                .WithMessage( ValidationMessages.PasswordMustHaveNecessaryComponents );
+                .Must( ContainSpecialCharacter ).WithMessage( ValidationMessages.PasswordMustHaveNecessaryComponents );
         }
 
         private bool NotAlreadyExist( string email )
