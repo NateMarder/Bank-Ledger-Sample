@@ -53,7 +53,7 @@ namespace HtmlClient.Controllers
                 }
 
                 Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                TempData["LoginMessage"] = result.Errors.Select( e => e.ErrorMessage ).ToArray().ToString();
+                TempData["LoginMessage"] = result.Errors.Select( e => e.ErrorMessage ).ToString();
                 return View( "../Login" );
             }
             catch ( Exception ex )

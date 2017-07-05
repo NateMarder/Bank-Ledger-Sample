@@ -12,13 +12,17 @@ namespace HtmlClient.Dal
     public class DalHandler
     {
         private string _userDataXmlPath;
+        public string UserDataXmlPath 
+            => _userDataXmlPath ?? (_userDataXmlPath = Directory.GetFiles( 
+                    AppDomain.CurrentDomain.BaseDirectory + "\\Dal",
+                    "UserDataStore*" )[0]);
+
         private string _sharedAppSettingsPath;
         private string _hostName;
 
         public DalHandler()
         {
             _hostName = Settings.Default.LocalDomainWithPort;
-            _userDataXmlPath = AppDomain.CurrentDomain.BaseDirectory + "\\Dal";
             _sharedAppSettingsPath = _hostName + "Settings.xml";
         }
 
@@ -39,34 +43,33 @@ namespace HtmlClient.Dal
         public virtual bool RegisterNewUser( RegisterViewModel model )
         {
             var doc = new XmlDocument();
-
-            var localFiles = Directory.GetFiles( _userDataXmlPath, "UserDataStore*" );
-            var xmlFile = localFiles[0];
-            doc.Load( xmlFile );
+            doc.Load( UserDataXmlPath );
 
             //Create New User Node
             var userNode = doc.CreateElement( "User" );
 
-            // last login
-            var lastLogin = doc.CreateElement( "LastLogin" );
-            lastLogin.InnerText = DateTime.UtcNow.ToShortDateString();
-            userNode.AppendChild( lastLogin );
+            // add email
+            var email = doc.CreateElement( "Email" );
+            email.InnerText = model.Email;
+            userNode.AppendChild( email );
 
-            // balance (starts at zero)
+            // add password
+            var password = doc.CreateElement( "Password" );
+            password.InnerText = model.Password;
+            userNode.AppendChild( password );
+
+            // add balance
             var balance = doc.CreateElement( "Balance" );
             balance.InnerText = "0";
             userNode.AppendChild( balance );
 
-            var emailAttribute = doc.CreateAttribute( "email" );
-            emailAttribute.Value = model.Email;
-            userNode.Attributes.SetNamedItem( emailAttribute );
-
-            var passwordAttribute = doc.CreateAttribute( "pw" );
-            passwordAttribute.Value = model.Password;
-            userNode.Attributes.SetNamedItem( passwordAttribute );
+            // add login
+            var lastLogin = doc.CreateElement( "LastLogin" );
+            lastLogin.InnerText = DateTime.UtcNow.ToShortTimeString();
+            userNode.AppendChild( lastLogin );
 
             doc.DocumentElement?.AppendChild( userNode );
-            doc.Save( xmlFile );
+            doc.Save( UserDataXmlPath );
 
             return true;
         }
@@ -74,38 +77,46 @@ namespace HtmlClient.Dal
         public bool VerifyPasswordEmailComboExists( UserViewModel model )
         {
             var doc = new XmlDocument();
-            doc.Load( _userDataXmlPath );
-            var root = doc.DocumentElement;
-            var nodes = root?.SelectNodes( "UserViewModel" );
+            doc.Load( UserDataXmlPath );
+            var root = doc.DocumentElement;  // <UserDataStore>  is root
+            var userNodes = root?.SelectNodes( "//User" ); //all <User> Nodes
 
-            if ( nodes == null ) return false;
+            if ( userNodes == null ) return false;
 
-            return (
-                from XmlNode node in nodes
-                let email = node.SelectSingleNode( "Email" )
-                let password = node.SelectSingleNode( "Password" )
-                where email != null && password != null
-                where email.Value.ToString() == model.Email
-                      && password.Value.ToString() == model.Password
-                select email
-            ).Any();
+            foreach ( XmlNode userNode in userNodes )
+            {
+                var emailNode = userNode.FirstChild;
+                if ( emailNode == null || emailNode.InnerText != model.Email ) continue;
+                var passwordNode = emailNode.NextSibling;
+                if ( passwordNode != null && passwordNode.InnerText == model.Password )
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool EmailExists( string searchEmail )
         {
             var doc = new XmlDocument();
-            doc.Load( _userDataXmlPath );
-            var root = doc.DocumentElement;
-            var nodes = root?.SelectNodes( "UserViewModel" ); // You can also use XPath here
+            doc.Load( UserDataXmlPath );
+            var root = doc.DocumentElement;  // <UserDataStore>  is root
+            var userNodes = root?.SelectNodes( "//User" ); //all <User> Nodes
 
-            if ( nodes == null ) return false;
+            if ( userNodes == null ) return false;
 
-            return (
-                from XmlNode node in nodes
-                let email = node.SelectSingleNode( "Email" )
-                where email.Value.ToString() == searchEmail
-                select email
-            ).Any();
+            foreach ( XmlNode userNode in userNodes )
+            {
+                var emailNode = userNode.FirstChild;
+                if ( emailNode != null && emailNode.InnerText == searchEmail )
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
+
     }
 }
