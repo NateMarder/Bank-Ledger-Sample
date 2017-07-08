@@ -1,89 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using HtmlClient.Dal;
+using HtmlClient.Models;
 
 namespace HtmlClient.Controllers
 {
     public class TransactionController : Controller
     {
-        // GET: Transaction
-        public ActionResult Index()
-        {
-            return View();
-        }
 
-        // GET: Transaction/Details/5
-        public ActionResult Details(int id)
+        
+        [HttpGet]
+        public ActionResult TransactionHistory()
         {
-            return View();
-        }
 
-        // GET: Transaction/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+            var valid = Session["UserId"] != null;
+            var dataHandler = new DalHandler();
 
-        // POST: Transaction/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if ( valid )
+                {
+                    var transactions = dataHandler.getTransactions( Session["UserId"].ToString() );
+                    return new JsonResult
+                    {
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                        Data = transactions
+                    };
+                }
             }
             catch
             {
-                return View();
+                return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
             }
+            return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
         }
 
-        // GET: Transaction/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Transaction/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Transaction(TransactionViewModel model)
         {
+
+            var valid = model != null;
+            var dataHandler = new DalHandler();
+
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if ( valid )
+                {
+                    dataHandler.SubmitTransaction( model );  
+                    return new HttpStatusCodeResult( HttpStatusCode.OK );
+                }
             }
             catch
             {
-                return View();
+                return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
             }
-        }
-
-        // GET: Transaction/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Transaction/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
         }
     }
 }

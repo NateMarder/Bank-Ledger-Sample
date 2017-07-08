@@ -1,0 +1,167 @@
+﻿@model HtmlClient.Models.TransactionViewModel
+
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Withdraw</h2>
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input id="withdraw-input" type="number" class="form-control" placeholder="Enter Withdraw Amount">
+            <button id="submit-withdraw" class="btn btn-primary" type="button">Submit</button>
+        </div>
+        <br>
+    </div>
+    <div class="col-md-6">
+        <h2>Deposit</h2>
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input id="deposit-input" type="number" class="form-control" placeholder="Enter Deposit Amount" min=".01">
+            <button id="submit-deposit" class="btn btn-primary" type="button">Submit</button>
+        </div>
+        <br>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Transaction History:</h2>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Balance</th>
+            </tr>
+            </thead>
+            <tbody id="transactions">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    function getTransactions() {
+        var i;
+        var temp;
+
+        var jqxhr = $.ajax({
+            dataType: "JSON",
+            type: "GET",
+            url: "@Url.Action( "TransactionHistory", "Transaction" )"
+        });
+
+        var _jqxhr = jqxhr;
+        jqxhr.always(function() {
+            if (_jqxhr.status === 200) {
+
+                var balance = 0;
+                var childNodes = [];
+                for (i = 0; i < _jqxhr.responseJSON.length; i++) {
+
+                    temp = _jqxhr.responseJSON[i];
+
+                    var tempRow = document.createElement("tr");
+                    var tdDate = document.createElement("td");
+                    var tdType = document.createElement("td");
+                    var tdAmount = document.createElement("td");
+                    var tdBalance = document.createElement("td");
+
+                    tdDate.innerHTML = temp.Date;
+                    tdType.innerHTML = temp.IsDeposit === true ? "Deposit" : "Withdraw";
+                    tdAmount.innerHTML = parseFloat(temp.Amount).toFixed(2).toString();
+
+                    if (tdType.innerHTML === "Deposit") {
+                        balance += parseFloat(temp.Amount);
+                    } else {
+                        balance -= parseFloat(temp.Amount);
+                        tdAmount.innerHTML = "-" + tdAmount.innerHTML;
+                        tdAmount.style.color = "red";
+                        tdType.style.color = "red";
+                    }
+
+                    tdBalance.innerHTML = balance.toFixed(2).toString();
+
+                    tempRow.appendChild(tdDate);
+                    tempRow.appendChild(tdType);
+                    tempRow.appendChild(tdAmount);
+                    tempRow.appendChild(tdBalance);
+
+                    childNodes[i] = tempRow;
+                }
+
+                for (i = childNodes.length - 1; i >= 0; i--) {
+                    document.getElementById("transactions").appendChild(childNodes[i]);
+                }
+            }
+        });
+    }
+
+    $(document).ready(function() {
+
+        getTransactions();
+
+
+        //Deposit
+        $("#submit-deposit").click(function() {
+
+            var data = {
+                UserEmail: "@Session["UserId"]",
+                Date: new Date(),
+                IsWithdraw: false,
+                IsDeposit: true,
+                Amount: $("#deposit-input").val()
+            }
+
+            var jqxhr = $.ajax({
+                dataType: "JSON",
+                type: "POST",
+                url: "@Url.Action( "Transaction", "Transaction" )",
+                data: data
+            });
+
+            var _jqxhr = jqxhr;
+            jqxhr.always(function() {
+                if (_jqxhr.status === 200) {
+                    location.reload(true);
+                }
+            });
+        });
+
+
+        //Withdraw
+        $("#submit-withdraw").click(function() {
+
+            var data = {
+                UserEmail: "@Session["UserId"]",
+                Date: new Date(),
+                IsWithdraw: true,
+                IsDeposit: false,
+                Amount: $("#withdraw-input").val()
+            }
+
+            var jqxhr = $.ajax({
+                dataType: "JSON",
+                type: "POST",
+                url: "@Url.Action( "Transaction", "Transaction" )",
+                data: data
+            });
+
+            var _jqxhr = jqxhr;
+            jqxhr.always(function() {
+                if (_jqxhr.status === 200) {
+                    location.reload(true);
+                }
+
+
+            });
+        });
+
+
+    });
+
+
+</script>

@@ -164,6 +164,7 @@
     <Content Include="Views\Shared\_RegisterPartial.cshtml" />
     <Content Include="Views\Login.cshtml" />
     <Content Include="Views\SignOutComplete.cshtml" />
+    <Content Include="Views\Shared\_Transaction.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

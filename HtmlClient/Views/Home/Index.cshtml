@@ -13,48 +13,6 @@
         <hr>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <h2>User Info:</h2>
-        <table class="table table-bordered table-striped" aria-disabled="True" disabled>
-            <thead>
-            <tr>
-                <th>Property</th>
-                <th>Status/Value</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>User Id</td>
-                <td id="user-id">Unknown</td>
-            </tr>
-            <tr>
-                <td>User Logged In</td>
-                <td id="user-login-status">False</td>
-            </tr>
-            <tr>
-                <td>Recent User Logins</td>
-                <td id="user-logins">Uknown</td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <h2>Recent Transactions:</h2>
-        <table class="table table-bordered table-striped" aria-disabled="True" disabled>
-            <thead>
-            <tr>
-                <th>User</th>
-                <th>Transaction Type</th>
-                <th>Transaction Amount</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Unknown</td>
-                <td>Uknown</td>
-                <td>Unknown</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+
+@{ Html.RenderPartial( "_Transaction" ); }
+

@@ -2,6 +2,7 @@
 
 namespace HtmlClient.Models
 {
+
     public class LoginViewModel
     {
         public string Email { get; set; }
@@ -26,6 +27,15 @@ namespace HtmlClient.Models
     {
         public string Name { get; set; }
         public string LinkValue { get; set; }
+    }
+
+    public class TransactionViewModel
+    {
+        public string UserEmail { get; set; }
+        public string Date { get; set; }
+        public bool IsWithdraw { get; set; }
+        public bool IsDeposit { get; set; }
+        public double Amount { get; set; }
     }
 
     public class HomeViewModel{}

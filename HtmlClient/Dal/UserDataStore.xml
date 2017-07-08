@@ -1,63 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <UserDataStore>
   <User>
-    <Email>admin3@email.com</Email>
-    <Password>#HireNate1!</Password>
-    <Balance>0</Balance>
-    <LastLogin>11:20 PM</LastLogin>
-  </User>
-  <User>
     <Email>admin@email.com</Email>
     <Password>#HireNate1!</Password>
     <Balance>0</Balance>
     <LastLogin>11:53 PM</LastLogin>
+    <Transaction>
+      <TransactionDate>Sat Jul 08 2017 16:08:21 GMT-0700 (Pacific Daylight Time)</TransactionDate>
+      <Amount>100</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>Sat Jul 08 2017 16:08:24 GMT-0700 (Pacific Daylight Time)</TransactionDate>
+      <Amount>75</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>Sat Jul 08 2017 16:11:28 GMT-0700 (Pacific Daylight Time)</TransactionDate>
+      <Amount>13.13</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>Sat Jul 08 2017 16:11:37 GMT-0700 (Pacific Daylight Time)</TransactionDate>
+      <Amount>100</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>Sat Jul 08 2017 16:16:12 GMT-0700 (Pacific Daylight Time)</TransactionDate>
+      <Amount>14</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>Sat Jul 08 2017 16:16:25 GMT-0700 (Pacific Daylight Time)</TransactionDate>
+      <Amount>90</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>Sat Jul 08 2017 16:16:30 GMT-0700 (Pacific Daylight Time)</TransactionDate>
+      <Amount>12</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>Sat Jul 08 2017 16:17:57 GMT-0700 (Pacific Daylight Time)</TransactionDate>
+      <Amount>175</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
   </User>
   <User>
     <Email>admin9@email.com</Email>
     <Password>#HireNate1!</Password>
     <Balance>0</Balance>
     <LastLogin>4:13 AM</LastLogin>
-  </User>
-  <User>
-    <Email>admin7@email.com</Email>
-    <Password>#HireNate1!</Password>
-    <Balance>0</Balance>
-    <LastLogin>4:25 AM</LastLogin>
-  </User>
-  <User>
-    <Email>admin11@email.com</Email>
-    <Password>#HireNate1!</Password>
-    <Balance>0</Balance>
-    <LastLogin>4:34 AM</LastLogin>
-  </User>
-  <User>
-    <Email>admin12@email.com</Email>
-    <Password>#HireNate1!</Password>
-    <Balance>0</Balance>
-    <LastLogin>4:35 AM</LastLogin>
-  </User>
-  <User>
-    <Email>admin6@email.com</Email>
-    <Password>#HireNate1!</Password>
-    <Balance>0</Balance>
-    <LastLogin>4:47 AM</LastLogin>
-  </User>
-  <User>
-    <Email>admin2@email.com</Email>
-    <Password>#HireNate1!</Password>
-    <Balance>0</Balance>
-    <LastLogin>5:24 AM</LastLogin>
-  </User>
-  <User>
-    <Email>admin50@email.com</Email>
-    <Password>#HireNate1!</Password>
-    <Balance>0</Balance>
-    <LastLogin>5:26 AM</LastLogin>
-  </User>
-  <User>
-    <Email>nate@email.com</Email>
-    <Password>#HireNate1!</Password>
-    <Balance>0</Balance>
-    <LastLogin>5:51 AM</LastLogin>
   </User>
 </UserDataStore>

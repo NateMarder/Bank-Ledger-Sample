@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Xml;
 using HtmlClient.Models;
@@ -115,5 +117,107 @@ namespace HtmlClient.Dal
             return false;
         }
 
+        public bool SubmitTransaction(TransactionViewModel model)
+        {
+            var doc = new XmlDocument();
+            doc.Load( UserDataXmlPath );
+            var root = doc.DocumentElement;  
+            var userNodes = root?.SelectNodes( "//User" );
+
+            if ( userNodes == null ) return false;
+
+            foreach ( XmlNode userNode in userNodes )
+            {
+                if ( userNode.FirstChild.InnerText != model.UserEmail ) continue;
+                
+                //Create New User Node
+                var transaction = doc.CreateElement( "Transaction" );
+
+                // add date
+                var transactionDate = doc.CreateElement( "TransactionDate" );
+                transactionDate.InnerText = model.Date.ToString( CultureInfo.InvariantCulture );
+                transaction.AppendChild( transactionDate );
+
+                // delta amount
+                var amount = doc.CreateElement( "Amount" );
+                amount.InnerText = model.Amount.ToString( CultureInfo.InvariantCulture );
+                transaction.AppendChild( amount );
+
+                // add type
+                var typeDeposit = doc.CreateElement( "IsDeposit" );
+                typeDeposit.InnerText = model.IsDeposit.ToString();
+                transaction.AppendChild( typeDeposit );
+
+                var typeWithdraw = doc.CreateElement( "IsWithdraw" );
+                typeWithdraw.InnerText = model.IsWithdraw.ToString();
+                transaction.AppendChild( typeWithdraw );
+
+                userNode?.AppendChild( transaction );
+                doc.Save( UserDataXmlPath );
+
+                return true;
+            }
+
+            return false;
+        }
+
+
+        private XmlNode GetUserNode( XmlDocument doc, string email )
+        {
+            doc.Load( UserDataXmlPath );
+            var root = doc.DocumentElement;  
+            var userNodes = root?.SelectNodes( "//User" );
+
+            if ( userNodes == null ) return null;
+
+            foreach ( XmlNode userNode in userNodes )
+            {
+                if ( userNode.FirstChild.InnerText == email )
+                {
+                    return userNode;
+                }
+            }
+
+            return null;
+        }
+
+        public TransactionViewModel[] getTransactions( string userId )
+        {
+            var doc = new XmlDocument();
+            doc.Load( UserDataXmlPath );
+            var root = doc.DocumentElement;  
+            var userNodes = root?.SelectNodes( "//User" );
+            var transactionArray = new List<TransactionViewModel>();
+
+            if ( userNodes == null ) return null;
+
+            foreach ( XmlNode userNode in userNodes )
+            {
+                if ( userNode.FirstChild.InnerText != userId ) continue;
+
+                var transactions = userNode.SelectNodes( "//Transaction" );
+
+                if ( transactions == null ) return null;
+
+                foreach ( XmlNode transaction in transactions )
+                {
+                    var nextModel = new TransactionViewModel()
+                    {
+                        Date = transaction.SelectSingleNode( "TransactionDate" )?.InnerText,
+                        Amount = double.Parse( transaction.SelectSingleNode( "Amount" )?.InnerText ),
+                        IsDeposit = transaction.SelectSingleNode( "IsDeposit" )?.InnerText == "True",
+                        IsWithdraw = transaction.SelectSingleNode( "IsWithdraw" )?.InnerText == "True",
+                    };
+                    transactionArray.Add( nextModel );
+                }
+
+                return transactionArray.ToArray();
+            }
+
+            return null;
+        }
     }
+
+
+
 }
