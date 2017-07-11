@@ -18,7 +18,7 @@ namespace ConsoleBanking
         public static void Main()
         {
             BankUserOperationsHelper.GreetUserBeforeLogin();
-            Console.ReadKey();
+            Console.ReadLine();
         }
     }
 }

@@ -185,8 +185,7 @@ Your are currently logged in. Please select an option:
     - Press [5] to deposit money
     - Press [6] to withdraw money
     - Press [3] to sign out and exit
-***********************************************************
-</value>
+***********************************************************</value>
   </data>
   <data name="UserOptionsForNonLoggedInUser" xml:space="preserve">
     <value>***********************************************************

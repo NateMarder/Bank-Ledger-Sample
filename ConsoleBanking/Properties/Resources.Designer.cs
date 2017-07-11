@@ -231,8 +231,7 @@ namespace ConsoleBanking.Properties {
         ///    - Press [5] to deposit money
         ///    - Press [6] to withdraw money
         ///    - Press [3] to sign out and exit
-        ///***********************************************************
-        ///.
+        ///***********************************************************.
         /// </summary>
         public static string UserOptionsForLoggedInUser {
             get {

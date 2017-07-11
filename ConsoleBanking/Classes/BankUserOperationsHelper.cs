@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using ConsoleBanking.Enums;
 using ConsoleBanking.Models;
 using ConsoleBanking.Properties;
@@ -26,37 +27,34 @@ namespace ConsoleBanking.Classes
         {
         }
 
-        public bool GreetUserBeforeLogin()
+        public void GreetUserBeforeLogin()
         {
             Console.WriteLine( Resources.InitialGreeting );
             Console.WriteLine( Resources.UserOptionsForNonLoggedInUser );
 
             var input = Console.ReadLine();
-
             while ( !ValidateOption( input, new[] {'1', '2', '3'} ) )
             {
-                Console.WriteLine( Resources.UserOptionsForLoggedInUser );
-                input = Console.ReadLine().Trim();
+                Console.WriteLine( Resources.UserOptionsForNonLoggedInUser );
+                input = Console.ReadLine();
             }
 
-            switch ( (UserChoice) int.Parse(input) )
+            switch ( (UserChoice) int.Parse( input ) )
             {
                 case UserChoice.Login:
                     Login();
-                    return true;
+                    break;
                 case UserChoice.RegisterNewAccount:
                     CreateUser();
-                    return true;
+                    break;
                 case UserChoice.Logout:
                     Logout();
-                    return true;
+                    break;
             }
-
-            return false;
         }
 
 
-        public async void Login(bool firstTime = true)
+        public async void Login( bool firstTime = true )
         {
             if ( firstTime )
             {
@@ -66,14 +64,14 @@ namespace ConsoleBanking.Classes
             {
                 Console.WriteLine( "\nSorry, that didn't work shall we try again?" );
                 Console.WriteLine( Resources.UserOptionsForNonLoggedInUser );
-                var input = int.TryParse( Console.ReadLine(), out int userSelection );
-                while ( !input || userSelection != 1 && userSelection != 2 && userSelection != 3)
+                var input = Console.ReadLine();
+                while ( !ValidateOption( input, new[] {'1', '2', '3'} ) )
                 {
                     Console.WriteLine( Resources.UserOptionsForNonLoggedInUser );
-                    input = int.TryParse( Console.ReadLine(), out userSelection );
+                    input = Console.ReadLine();
                 }
 
-                switch ( (UserChoice) userSelection )
+                switch ( (UserChoice) int.Parse( input ) )
                 {
                     case UserChoice.Login:
                         break;
@@ -98,46 +96,43 @@ namespace ConsoleBanking.Classes
 
             var result = await RequestHelper.UserSignInGetModel( model );
 
-            
 
             switch ( result.Status )
             {
-               case SignInStatus.Failure:
-                   Console.WriteLine( "\nResult: " + Enum.GetName( typeof(SignInStatus), result.Status ) );
-                   Login();
-                   break;
-               case SignInStatus.Success:
-                   Console.WriteLine( "\nResult: " + Enum.GetName( typeof(SignInStatus), result.Status ) );
-                   ConsoleSession.Instance.Data["SessionGuid"] = result.Content.Replace( '"', ' ' ).Trim();
-                   ConsoleSession.Instance.Data["Email"] = email;
-                   ConsoleSession.Instance.Data["Password"] = password;
-                   var guid = ConsoleSession.Instance.Data["SessionGuid"] ?? "Unknown Guid";
-                   commenceBanking();
-                   break;
+                case SignInStatus.Failure:
+                    Console.WriteLine( "\nResult: " + Enum.GetName( typeof( SignInStatus ), result.Status ) );
+                    Login();
+                    break;
+                case SignInStatus.Success:
+                    Console.WriteLine( "\nResult: " + Enum.GetName( typeof( SignInStatus ), result.Status ) );
+                    ConsoleSession.Instance.Data["SessionGuid"] = result.Content.Replace( '"', ' ' ).Trim();
+                    ConsoleSession.Instance.Data["Email"] = email;
+                    ConsoleSession.Instance.Data["Password"] = password;
+                    var guid = ConsoleSession.Instance.Data["SessionGuid"] ?? "Unknown Guid";
+                    CommenceBanking();
+                    break;
             }
         }
 
 
-        public void commenceBanking()
+        public void CommenceBanking()
         {
-            var bankingAction = UserChoice.Undefined;
-            while ( bankingAction != UserChoice.Logout )
+            Console.WriteLine( "Welcome to the bank! Select one of the following options: " +
+                           "\n   [4] to view transactions   " +
+                           "\n   [5] to deposit funds   " +
+                           "\n   [6] to withdraw funds" +
+                           "\n   [3] to exit the bank");
+
+            string userInput = Console.ReadLine();
+            Console.ReadLine();
+            Console.WriteLine( "you chose: " + userInput );
+
+            try
             {
-                Console.WriteLine( Resources.UserOptionsForLoggedInUser );
-                var input = Console.ReadLine();
-
-                while ( !ValidateOption( input, new[] {'4', '5', '6', '3'} ) )
-                {
-                    Console.WriteLine( Resources.UserOptionsForLoggedInUser );
-                    input = Console.ReadLine().Trim();
-                }
-
-                bankingAction = (UserChoice) int.Parse(input);
-                switch ( bankingAction )
+                switch ( (UserChoice) int.Parse( userInput ) )
                 {
                     case UserChoice.ViewRecentTransactions:
-                        Console.WriteLine( "checkpoint charlie" );
-                        viewRecentTransactions();
+                        ViewRecentTransactions();
                         break;
                     case UserChoice.DepositMoney:
                         Deposit();
@@ -145,76 +140,75 @@ namespace ConsoleBanking.Classes
                     case UserChoice.WithdrawMoney:
                         Withdraw();
                         break;
-                }
-                break;
-            }
-
-            Logout();
-        }
-
-        private bool ValidateOption( string input, char[] validInputs )
-        {
-            if ( input == null ) return false;
-            if ( input.Length > 1 ) return false;
-            if ( input.Length == 0 ) return false;
-
-            var charInput = input.ToCharArray()[0];
-            return char.IsNumber( charInput ) && validInputs.Contains( charInput );
-        }
-
-        public async void viewRecentTransactions()
-        {
-            //TransactionRequestModel model
-            var model = new TransactionRequestModel
-            {
-                Type = TransactionType.GetHistory,
-                Amount = null
-            };
-
-            try
-            {
-                Console.WriteLine( "checkpoint delta" );
-                Console.Read();
-                var result = await RequestHelper.GetTransactionHistory( model );
-                foreach ( var next in result.Transactions )
-                {
-                    Console.WriteLine(next);
+                    case UserChoice.Logout:
+                        Withdraw();
+                        break;
                 }
             }
             catch ( Exception ex )
             {
-                Console.WriteLine(ex.Message);
+
+                Console.WriteLine( ex.Message );
+                CommenceBanking();
             }
+           
+
+        }
 
 
+        public void ViewRecentTransactions()
+        {
+            Console.WriteLine( "Welcome to the view transaction process..." );
+            Console.ReadLine();
+            CommenceBanking();
+
+            ////TransactionRequestModel model
+            //var model = new TransactionRequestModel
+            //{
+            //    Type = TransactionType.GetHistory,
+            //    Amount = null
+            //};
+
+            //try
+            //{
+            //    Console.WriteLine( "checkpoint delta" );
+            //    Console.ReadLine();
+            //    var result = await RequestHelper.GetTransactionHistory( model );
+            //    foreach ( var next in result.Transactions )
+            //    {
+            //        Console.WriteLine( next );
+            //    }
+            //    Console.ReadLine();
+            //}
+            //catch ( Exception ex )
+            //{
+            //    Console.WriteLine( ex.Message );
+            //    Console.ReadLine();
+            //}
 
 
-
-            commenceBanking();
-
+            //CommenceBanking();
         }
 
         public void Deposit()
         {
-            
+            Console.WriteLine( "Welcome to the deposit process..." );
+            Console.ReadLine();
+            CommenceBanking();
         }
 
         public void Withdraw()
         {
-
-
-            //add param: SessionGuid=Session.Instance["SessionGuid"];
+            Console.WriteLine( "Welcome to the withdraw process..." );
+            Console.ReadLine();
+            CommenceBanking();
         }
 
-        public void presentBankingOptions()
-        {
-            
-        }
-
-        public void Logout()
+        public bool Logout()
         {
             Console.WriteLine( "Welcome to logout process..." );
             Console.ReadLine();
+            return true;
         }
 
         public void CreateUser()
@@ -223,9 +217,16 @@ namespace ConsoleBanking.Classes
             Console.ReadLine();
         }
 
-        public string GreetBankCustomer()
+        private bool ValidateOption( string input, char[] validInputs )
         {
-            return null;
+            Console.WriteLine( "about to validate input: " + input );
+            Console.ReadLine();
+
+            if ( input == null ) return false;
+            if ( input.Length > 1 ) return false;
+            if ( input.Length < 1 ) return false;
+
+            return validInputs.Contains( input.ToCharArray()[0] );
         }
     }
 }
