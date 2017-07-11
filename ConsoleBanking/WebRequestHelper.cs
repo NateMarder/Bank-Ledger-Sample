@@ -1,10 +1,16 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Xml;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using ConsoleBanking.Classes;
+using ConsoleBanking.Enums;
 using ConsoleBanking.Interfaces;
 using ConsoleBanking.Models;
-using System.Linq;
-using System.Xml.Linq;
+using ConsoleBanking.Enums;
 
 namespace ConsoleBanking
 {
@@ -13,45 +19,80 @@ namespace ConsoleBanking
         private XDocument _sharedSettingsDocument;
 
         public XDocument SharedSettingsDocument
-            => _sharedSettingsDocument 
-            ?? ( _sharedSettingsDocument = XDocument.Load( "../SharedResources/Settings.xml" ) );
-
-        private static HttpClient _httpClient;
-
-        public static HttpClient HttpClient
-            => _httpClient ?? ( _httpClient = new HttpClient() );
+            => _sharedSettingsDocument
+               ?? ( _sharedSettingsDocument = XDocument.Load( "../SharedResources/Settings.xml" ) );
 
         public WebRequestHelper()
         {
         }
 
-        public WebRequestHelper( HttpClient httpClient )
+        public async Task<int> UserSignIn( LoginViewModel model )
         {
-            _httpClient = httpClient;
+            SignInStatus status;
+            HttpClient client = new HttpClient();
+
+            var url = "http://localhost:54194/Login/LoginFromConsole/"
+                      + "?Email=" + model.Email
+                      + "&Password=" + model.Password;
+            try
+            {
+
+                var response = await client.GetAsync( url );
+                response.EnsureSuccessStatusCode();
+                status = SignInStatus.Success;
+
+            }
+            catch ( Exception )
+            {
+                status = SignInStatus.Failure;
+            }
+
+            client.Dispose();
+            return (int)status;
         }
 
-        public async Task<int> UserSignIn( LoginFromConsoleViewModel model )
+        public async Task<SigninStatusModel> UserSignInGetModel( LoginViewModel model )
         {
+
+            var signInStatus = new SigninStatusModel();
+            HttpClient client = new HttpClient();
+
+            var url = "http://localhost:54194/Login/LoginFromConsole/"
+                      + "?Email=" + model.Email
+                      + "&Password=" + model.Password;
+            try
+            {
+                var response = await client.GetAsync( url );
+                response.EnsureSuccessStatusCode();
+                signInStatus.Content =  await response.Content.ReadAsStringAsync();
+                signInStatus.Status = SignInStatus.Success;
+            }
+            catch ( Exception ex)
+            {
+                signInStatus.Content = ex.Message;
+                signInStatus.Status = SignInStatus.Failure;
+            }
+
+            client.Dispose();
+            return signInStatus;
+        }
+
+        public async Task<int> RegisterNewUser( LoginViewModel model )
+        {
+            var client = new HttpClient();
             string stringResponse;
 
-            var signInUrl = SharedSettingsDocument.Descendants()
-                .ToList()
-                .Find( node => node.Value.ToString() == "signin" )
-                .NextNode
-                .ToString()
-                .Replace( "<LinkValue>", "" )
-                .Replace( "</LinkValue>", "" );
+            var registerNewUserUrl = "http://localhost:54194/Register/Register";
 
-            Console.WriteLine( "Attempting to login at: " + signInUrl );
+            Console.WriteLine( "Attempting to login at: " + registerNewUserUrl );
             Console.WriteLine( "  email: " + model.Email );
             Console.WriteLine( "  password: " + model.Password );
-            Console.WriteLine( "  remember me: " + model.RememberMe );
 
-            signInUrl += "?Email=" + model.Email + "&Password=" + model.Password + "&RememberMe=false";
+            registerNewUserUrl += "?Email=" + model.Email + "&Password=" + model.Password + "&RememberMe=false";
 
             try
             {
-                var response = await HttpClient.GetAsync( signInUrl );
+                var response = await client.GetAsync( registerNewUserUrl );
                 response.EnsureSuccessStatusCode();
                 stringResponse = await response.Content.ReadAsStringAsync();
             }
@@ -60,42 +101,42 @@ namespace ConsoleBanking
                 stringResponse = Enum.GetName( typeof( SignInStatus ), SignInStatus.Failure );
             }
 
-            HttpClient.Dispose();
+            client.Dispose();
             return int.Parse( stringResponse );
         }
 
-        public async Task<int> RegisterNewUser( LoginFromConsoleViewModel model )
+
+        public async Task<TransactionHistoryModel> GetTransactionHistory( TransactionRequestModel model )
         {
-            string stringResponse;
+            var requestResponse = new TransactionHistoryModel();
+            var client = new HttpClient();
+            var type = Enum.GetName( typeof( TransactionType ), model.Type );
+            var amount = model.Amount ?? 0;
 
-            var signInUrl = SharedSettingsDocument.Descendants()
-                .ToList()
-                .Find( node => node.Value.ToString() == "signin" )
-                .NextNode
-                .ToString()
-                .Replace( "<LinkValue>", "" )
-                .Replace( "</LinkValue>", "" );
+            var url = "http://localhost:54194/Transaction/ConsoleTransaction/"
+                      + "?Type=" + type
+                      + "&Amount=" + amount
+                      + "&SessionGuid=" + ConsoleSession.Instance.Data["SessionGuid"];
 
-            Console.WriteLine( "Attempting to login at: " + signInUrl );
-            Console.WriteLine( "  email: " + model.Email );
-            Console.WriteLine( "  password: " + model.Password );
-            Console.WriteLine( "  remember me: " + model.RememberMe );
-
-            signInUrl += "?Email=" + model.Email + "&Password=" + model.Password + "&RememberMe=false";
+            Console.WriteLine("attempting: "+url);
 
             try
             {
-                var response = await HttpClient.GetAsync( signInUrl );
+                
+                var response = await client.GetAsync( url );
                 response.EnsureSuccessStatusCode();
-                stringResponse = await response.Content.ReadAsStringAsync();
+                requestResponse.Content =  await response.Content.ReadAsStringAsync();
+                //history.Transactions = response.Headers["Data"];
+                //history.Transactions = response.Headers["Data"];
             }
-            catch ( Exception )
+            catch ( Exception ex )
             {
-                stringResponse = Enum.GetName( typeof( SignInStatus ), SignInStatus.Failure );
+                requestResponse.Status = HttpStatusCode.BadRequest;
+                requestResponse.Content = ex.Message;
             }
 
-            HttpClient.Dispose();
-            return int.Parse( stringResponse );
+            client.Dispose();
+            return requestResponse;
         }
     }
 }

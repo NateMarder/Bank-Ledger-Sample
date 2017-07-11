@@ -19,8 +19,9 @@ namespace HtmlClient.Dal
         private string _sharedAppSettingsPath;
         private string _hostName;
 
-        public DalHandler()
+        public DalHandler(string sessionId = null)
         {
+            //todo: implement a more rigorous session validation process
             _hostName = Settings.Default.LocalDomainWithPort;
             _sharedAppSettingsPath = _hostName + "Settings.xml";
         }
@@ -159,26 +160,6 @@ namespace HtmlClient.Dal
             }
 
             return false;
-        }
-
-
-        private XmlNode GetUserNode( XmlDocument doc, string email )
-        {
-            doc.Load( UserDataXmlPath );
-            var root = doc.DocumentElement;  
-            var userNodes = root?.SelectNodes( "//User" );
-
-            if ( userNodes == null ) return null;
-
-            foreach ( XmlNode userNode in userNodes )
-            {
-                if ( userNode.FirstChild.InnerText == email )
-                {
-                    return userNode;
-                }
-            }
-
-            return null;
         }
 
         public TransactionViewModel[] getTransactions( string userId )

@@ -14,6 +14,15 @@ namespace HtmlClient.Controllers
         public LoginValidator LoginValidator
             => _loginValidator ?? ( _loginValidator = new LoginValidator() );
 
+        public LoginController( LoginValidator loginValidator ) // for testing
+        {
+            _loginValidator = loginValidator;
+        }
+
+        public LoginController()
+        {
+        }
+
         [AllowAnonymous]
         [HttpGet]
         public ActionResult UserSignIn( LoginViewModel model )
@@ -29,7 +38,7 @@ namespace HtmlClient.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult ValidateSignIn( UserViewModel user )
+        public ActionResult ValidateSignIn( LoginViewModel user )
         {
             try
             {
@@ -37,7 +46,7 @@ namespace HtmlClient.Controllers
                 if ( result.IsValid )
                 {
                     Session["UserId"] = user.Email;
-                    Session["SessionGuid"] = Guid.NewGuid();
+                    Session["SessionGuid"] = GetCustomFormattedGuid();
                     return RedirectToAction( "SignInSuccess" );
                 }
 
@@ -54,10 +63,57 @@ namespace HtmlClient.Controllers
             }
         }
 
+        [AllowAnonymous]
+        public ActionResult LoginFromConsole( LoginViewModel model )
+        {
+            var debug = model;
+            try
+            {
+                var result = LoginValidator.Validate( model );
+                if ( result.IsValid )
+                {
+                    Session["UserId"] = model.Email;
+                    Session["SessionGuid"] = GetCustomFormattedGuid();
+                    Response.StatusCode = (int) HttpStatusCode.Accepted;
+                    return new JsonResult
+                    {
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                        Data = Session["SessionGuid"]
+                    };
+                }
+
+                Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                return new JsonResult
+                {
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                    Data = result.Errors.ToArray().Select( e => e.ErrorMessage )
+                };
+            }
+            catch ( Exception ex )
+            {
+                Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                return new JsonResult
+                {
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                    Data = ex.Message
+                };
+            }
+        }
+
         public ActionResult SignOut()
         {
             Session.Abandon();
             return View( "../SignOutComplete" ); // JsonResult();
+        }
+
+
+        private string GetCustomFormattedGuid()
+        {
+            return Guid
+                .NewGuid()
+                .ToString( "N" )
+                .Replace( '"', ' ' )
+                .Trim();
         }
     }
 }

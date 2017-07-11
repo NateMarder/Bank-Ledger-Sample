@@ -1,5 +1,70 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<appSettings>
-  <add key="WebServerLocalDomainWithPort" value="http://localhost:54194/" />
-  <add key="LocalUserDataStoreLocation" value="UserDataStore.xml"/>
-</appSettings>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XmlLink xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+  <LoginUrl>http://localhost:54194/Login/LoginFromConsole/</LoginUrl>
+</XmlLink>

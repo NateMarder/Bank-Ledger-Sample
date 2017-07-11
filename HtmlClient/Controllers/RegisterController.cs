@@ -13,6 +13,9 @@ namespace HtmlClient.Controllers
 {
     public class RegisterController : Controller
     {
+        private DalHandler _dal;
+        public DalHandler Dal => _dal ?? ( _dal = new DalHandler( Session["UserId"].ToString() ) );
+
 
         [AllowAnonymous]
         public ActionResult Register( RegisterViewModel model )
@@ -24,8 +27,7 @@ namespace HtmlClient.Controllers
 
                 if ( result.IsValid )
                 {
-                    var dataHandler = new DalHandler();
-                    dataHandler.RegisterNewUser( model );   
+                    Dal.RegisterNewUser( model );
                     return new HttpStatusCodeResult( HttpStatusCode.OK );
                 }
 
@@ -35,7 +37,7 @@ namespace HtmlClient.Controllers
                     Data = result.Errors.ToList().Select( er => er.ErrorMessage ).ToList().Distinct()
                 };
             }
-            catch ( Exception ex)
+            catch ( Exception ex )
             {
                 Response.StatusCode = (int) HttpStatusCode.BadRequest;
                 return new JsonResult

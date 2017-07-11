@@ -1,4 +1,5 @@
 ﻿using System;
+using HtmlClient.Enums;
 
 namespace HtmlClient.Models
 {
@@ -36,6 +37,18 @@ namespace HtmlClient.Models
         public bool IsWithdraw { get; set; }
         public bool IsDeposit { get; set; }
         public double Amount { get; set; }
+
+        public override string ToString()
+        {
+            var type = IsWithdraw ? "Withdraw" : "Deposit";
+            return "Date: " + Date + "  Type: " + type + "Amount: " + Amount;
+        }
+    }
+
+    public class TransactionRequestModel
+    {
+        public TransactionType Type { get; set; }
+        public double? Amount { get; set; }
     }
 
     public class HomeViewModel{}

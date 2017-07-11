@@ -16,10 +16,6 @@
 
 <div id="register-validation" class="validation-text"></div>
 
-<br>
-<button id="debug1" class="btn btn-lg btn-default">AutoFill </button>
-<br>
-
 <script>
 
     $(document).ready(function() {
@@ -66,28 +62,14 @@
             });
 
 
-        $("#debug1").click(function() {
-
-            $("#register-validation").hide();
-
-            $("#register-email")
-                .focus()
-                .val("admin@email.com");
-            $("#register-password")
-                .focus()
-                .val("#HireNate1!");
-            $("#submit-register").focus();
-
-        });
-
         $("#debug2").click(function() {
 
             $("#sign-in-email")
                 .focus()
-                .val("admin@email.com");
+                .val("n@n.com");
             $("#sign-in-password")
                 .focus()
-                .val("#HireNate1!");
+                .val("1234");
             $("#submit-sign-in").focus();
 
         });

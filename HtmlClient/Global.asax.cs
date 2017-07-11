@@ -1,7 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Xml;
+using HtmlClient.Filters;
 using HtmlClient.Models;
 
 namespace HtmlClient
@@ -12,6 +15,7 @@ namespace HtmlClient
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            UpdateSharedXmlFile();
         }
 
 
@@ -19,19 +23,19 @@ namespace HtmlClient
         {
             var projectPath = Path.GetDirectoryName( Server.MapPath( "~" ) );
             var solutionPath = Path.GetDirectoryName( projectPath );
-            var xmlPath = solutionPath + "\\SharedResources.xml";
+            var xmlPath = solutionPath + "\\SharedResources\\Settings.xml";
             const string ulrPrefix = "http://localhost:54194/";
 
-            using ( var streamWriter = new StreamWriter( xmlPath ) )
-            {
-                var link = new XmlLink
-                {
-                    Name = "signin",
-                    LinkValue = ulrPrefix + "Account/LoginFromConsole/"
-                };
-                var xmlSerializer = new System.Xml.Serialization.XmlSerializer( link.GetType() );
-                xmlSerializer.Serialize( streamWriter, link );
-            }
+            var doc = new XmlDocument();
+            doc.Load( xmlPath );
+
+            //add link for console-signin
+            var loginUrl = doc.CreateElement( "LoginUrl" );
+            loginUrl.InnerText = ulrPrefix + "Login/LoginFromConsole/";
+            doc.DocumentElement?.AppendChild( loginUrl );
+
+
+            doc.Save( xmlPath );
         }
 
     }

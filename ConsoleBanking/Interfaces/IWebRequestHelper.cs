@@ -5,7 +5,7 @@ namespace ConsoleBanking.Interfaces
 {
     public interface IWebRequestHelper
     {
-        Task<int> UserSignIn( LoginFromConsoleViewModel model );
-        Task<int> RegisterNewUser( LoginFromConsoleViewModel model );
+        Task<int> UserSignIn( LoginViewModel model );
+        Task<int> RegisterNewUser( LoginViewModel model );
     }
 }

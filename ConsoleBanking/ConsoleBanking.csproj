@@ -1,13 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="7.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Owin">
-      <HintPath>..\HtmlBanking\bin\Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml">
-      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Xml.dll</HintPath>
+    <Reference Include="HtmlClient">
+      <HintPath>..\HtmlClient\bin\HtmlClient.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -43,5 +41,9 @@
     <Optimize>True</Optimize>
     <OutputPath>bin\</OutputPath>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='consoledebug|AnyCPU'" />
+
+  <Import Project="..\SharedResources\SharedResources.projitems" Label="Shared" />
 
 </Project>

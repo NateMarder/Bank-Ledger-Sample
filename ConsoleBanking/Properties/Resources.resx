@@ -117,26 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AsciiArtDollarBill" xml:space="preserve">
-    <value>=================================================================
-|/^\\%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;{ Federal Reserve Note }%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;//^\%|
-|inn\)===============------------------------===============(/inn\|
-||UU/              { UNITED STATES OF AMERICA }              \|UU/|
-|\-/     ~~~~~~~~   ~~~~~~~~~~=====~~~~~~~~~~~  P8188928246   \-/&amp;|
-|//)     ~~~_~~~~~          // ___ \\                         (\\%|
-|(/  13    /_\             // /_ _\ \\           ~~~~~~~~  13  \)&amp;|
-|\\       // \\           :| |/ ~ \| |:  3.21  /|  /\   /\     //%|
-|\\\     ((iR$)&gt; }:P ebp  || |"- -"| ||        || |||| ||||   ///&amp;|
-|\\))     \\_//      sge  || (|e,e|? ||        || |||| ||||  ((//%|
-|))/       \_/            :| `._^_,' |:        || |||| ||||   \((&amp;|
-|//)                       \\ \\=// //         || |||| ||||   (\\%|
-|//      R265402524K        \\U/_/ //   series ||  \/   \/     \\&amp;|
-|/&gt;  13                     _\\___//_    1932              13  &lt;\%|
-|/^\      Treasurer  ______{Franklin}________   Secretary     /^\&amp;|
-|inn\                ))--------------------((                /inn\|
-||UU(=================/ ONE HUNDRED DOLLARS \================)|UU(|
-|===}%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;%a%a%a%a%a%a%a%a%a%a%a%a%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;%&amp;{===}|
-===================================================================</value>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>Sorry that email is already in use.</value>
+  </data>
+  <data name="EmailCombinationInvalid" xml:space="preserve">
+    <value>Sorry that email / password combination was not recognized</value>
+  </data>
+  <data name="EmailDoesntExist" xml:space="preserve">
+    <value>Sorry that email is not recognized.</value>
+  </data>
+  <data name="EmailNotEmptyMessage" xml:space="preserve">
+    <value>Please provide an email address that is not empty.</value>
+  </data>
+  <data name="EmailNotValidFormatMessage" xml:space="preserve">
+    <value>Please provide a valid email address which includes an '@'-sign as well as a domain (i.e. '.com'). </value>
+  </data>
+  <data name="EmailNotValidGenericMessage" xml:space="preserve">
+    <value>Please provide a valid email address.</value>
+  </data>
+  <data name="GenericErrorMessage" xml:space="preserve">
+    <value>Sorry, an error occurred on and we couldn't process that request.</value>
+  </data>
+  <data name="GetUserEmail" xml:space="preserve">
+    <value>Please enter your emai address:</value>
+  </data>
+  <data name="GetUserPassword" xml:space="preserve">
+    <value>Please enter your password:</value>
   </data>
   <data name="InitialGreeting" xml:space="preserve">
     <value>
@@ -144,7 +150,7 @@ Welcome to the Bank of Nate!
 </value>
   </data>
   <data name="InvalidInput" xml:space="preserve">
-    <value>Sorry, I didn't understand that request...</value>
+    <value>Sorry, your input was invalid. Please try again below:  </value>
   </data>
   <data name="NewUserGetEmail" xml:space="preserve">
     <value>Please enter a valid email address:</value>
@@ -160,10 +166,34 @@ Welcome to the Bank of Nate!
   - at least 1 numeric character
   - at least one special character </value>
   </data>
-  <data name="UserOptionsChoiceSet1" xml:space="preserve">
+  <data name="PasswordMustHaveNecessaryComponents" xml:space="preserve">
+    <value>Please provide a 4 to 20 character-length password containing letters, numbers, one uppercase letter, and one special character.</value>
+  </data>
+  <data name="PasswordNotEmptyMessage" xml:space="preserve">
     <value>
+Please provide a password that is not empty.</value>
+  </data>
+  <data name="PasswordNotValidGenericMessage" xml:space="preserve">
+    <value>
+Please provide a valid password.</value>
+  </data>
+  <data name="UserOptionsForLoggedInUser" xml:space="preserve">
+    <value>
+***********************************************************
+Your are currently logged in. Please select an option:
+    - Press [4] to view recent transactions
+    - Press [5] to deposit money
+    - Press [6] to withdraw money
+    - Press [3] to sign out and exit
+***********************************************************
+</value>
+  </data>
+  <data name="UserOptionsForNonLoggedInUser" xml:space="preserve">
+    <value>***********************************************************
 Please select on of the following options:
     - Press [1] to log into the system.
-    - Press [2] to create a new account.</value>
+    - Press [2] to create a new account.
+    - Press [3] to exit
+***********************************************************</value>
   </data>
 </root>

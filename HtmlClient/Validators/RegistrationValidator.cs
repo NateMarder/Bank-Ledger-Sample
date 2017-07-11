@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Web;
+using System.Web.ModelBinding;
 using FluentValidation;
 using HtmlClient.Dal;
 using HtmlClient.Models;
@@ -9,7 +11,7 @@ namespace HtmlClient.Validators
     public class RegistrationValidator : AbstractValidator<RegisterViewModel>
     {
         private DalHandler _dal;
-        public DalHandler DalHandler => _dal ?? ( _dal = new DalHandler() );
+        public DalHandler DalHandler => _dal ?? ( _dal = new DalHandler( HttpContext.Current.Session["UserId"].ToString() ) );
 
         public RegistrationValidator()
         {

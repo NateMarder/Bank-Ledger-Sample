@@ -1,14 +1,16 @@
-﻿using FluentValidation;
+﻿using System.Web;
+using FluentValidation;
 using HtmlClient.Dal;
 using HtmlClient.Models;
 using ValidationMessages = HtmlClient.Properties.Resources;
 
 namespace HtmlClient.Validators
 {
-    public class LoginValidator : AbstractValidator<UserViewModel>
+    public class LoginValidator : AbstractValidator<LoginViewModel>
     {
         private DalHandler _dal;
-        public DalHandler DalHandler => _dal ?? ( _dal = new DalHandler() );
+        public DalHandler DalHandler 
+            => _dal ?? ( _dal = new DalHandler() );
 
         public LoginValidator()
         {
