@@ -252,5 +252,16 @@ namespace ConsoleBanking.Properties {
                 return ResourceManager.GetString("UserOptionsForNonLoggedInUser", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to continue banking or call it a day?
+        ///  - type [8] to keep going
+        ///  - type [3] to exit the system.
+        /// </summary>
+        public static string UserOptionsForUnsuccessfulUser {
+            get {
+                return ResourceManager.GetString("UserOptionsForUnsuccessfulUser", resourceCulture);
+            }
+        }
     }
 }

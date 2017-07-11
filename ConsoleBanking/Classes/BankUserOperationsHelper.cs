@@ -27,64 +27,33 @@ namespace ConsoleBanking.Classes
         {
         }
 
-        public void GreetUserBeforeLogin()
+        public async Task<bool> PresentInitialOptions()
         {
-            Console.WriteLine( Resources.InitialGreeting );
-            Console.WriteLine( Resources.UserOptionsForNonLoggedInUser );
+            var choice = DialogHelper.GetUserChoiceForInitialOptions();
 
-            var input = Console.ReadLine();
-            while ( !ValidateOption( input, new[] {'1', '2', '3'} ) )
-            {
-                Console.WriteLine( Resources.UserOptionsForNonLoggedInUser );
-                input = Console.ReadLine();
-            }
-
-            switch ( (UserChoice) int.Parse( input ) )
+            switch ( choice )
             {
                 case UserChoice.Login:
-                    Login();
-                    break;
+                    var result = LoginRequest();
+                    await result;
+                    if ( result.Result.Status == SignInStatus.Success )
+                    {
+                        return PresentOptionsForLoggedInUser();
+                    }
+                    return false;
                 case UserChoice.RegisterNewAccount:
-                    CreateUser();
-                    break;
+                    return CreateUser();
                 case UserChoice.Logout:
-                    Logout();
-                    break;
+                    return Logout();
             }
+
+            return false;
         }
 
 
-        public async void Login( bool firstTime = true )
+        public async Task<SigninStatusModel> LoginRequest( bool firstTime = true )
         {
-            if ( firstTime )
-            {
-                Console.WriteLine( "\nWelcome to log in process" );
-            }
-            else
-            {
-                Console.WriteLine( "\nSorry, that didn't work shall we try again?" );
-                Console.WriteLine( Resources.UserOptionsForNonLoggedInUser );
-                var input = Console.ReadLine();
-                while ( !ValidateOption( input, new[] {'1', '2', '3'} ) )
-                {
-                    Console.WriteLine( Resources.UserOptionsForNonLoggedInUser );
-                    input = Console.ReadLine();
-                }
-
-                switch ( (UserChoice) int.Parse( input ) )
-                {
-                    case UserChoice.Login:
-                        break;
-                    case UserChoice.RegisterNewAccount:
-                        CreateUser();
-                        break;
-                    case UserChoice.Logout:
-                        Logout();
-                        break;
-                }
-            }
-
-
+            Console.WriteLine( "\nWelcome to log in process" );
             var email = DialogHelper.GetUserEmailForLogin();
             var password = DialogHelper.GetUserPasswordForLogin();
 
@@ -95,72 +64,51 @@ namespace ConsoleBanking.Classes
             };
 
             var result = await RequestHelper.UserSignInGetModel( model );
-
-
-            switch ( result.Status )
-            {
-                case SignInStatus.Failure:
-                    Console.WriteLine( "\nResult: " + Enum.GetName( typeof( SignInStatus ), result.Status ) );
-                    Login();
-                    break;
-                case SignInStatus.Success:
-                    Console.WriteLine( "\nResult: " + Enum.GetName( typeof( SignInStatus ), result.Status ) );
-                    ConsoleSession.Instance.Data["SessionGuid"] = result.Content.Replace( '"', ' ' ).Trim();
-                    ConsoleSession.Instance.Data["Email"] = email;
-                    ConsoleSession.Instance.Data["Password"] = password;
-                    var guid = ConsoleSession.Instance.Data["SessionGuid"] ?? "Unknown Guid";
-                    CommenceBanking();
-                    break;
-            }
+            
+            return result;
         }
 
 
-        public void CommenceBanking()
+        public bool PresentOptionsForLoggedInUser()
         {
-            Console.WriteLine( "Welcome to the bank! Select one of the following options: " +
-                           "\n   [4] to view transactions   " +
-                           "\n   [5] to deposit funds   " +
-                           "\n   [6] to withdraw funds" +
-                           "\n   [3] to exit the bank");
 
-            string userInput = Console.ReadLine();
-            Console.ReadLine();
-            Console.WriteLine( "you chose: " + userInput );
+            var choice = DialogHelper.GetUserChoiceForLoggedInOptions();
 
             try
             {
-                switch ( (UserChoice) int.Parse( userInput ) )
+                switch ( choice )
                 {
                     case UserChoice.ViewRecentTransactions:
-                        ViewRecentTransactions();
-                        break;
+                        return ViewRecentTransactions();
                     case UserChoice.DepositMoney:
-                        Deposit();
-                        break;
+                        return Deposit();
                     case UserChoice.WithdrawMoney:
-                        Withdraw();
-                        break;
+                        return Withdraw();
                     case UserChoice.Logout:
-                        Withdraw();
-                        break;
+                        return Withdraw();
+                    case UserChoice.Login:
+                        return PresentOptionsForLoggedInUser();
+                    case UserChoice.RegisterNewAccount:
+                        return PresentOptionsForLoggedInUser();
+                    case UserChoice.Undefined:
+                        return PresentOptionsForLoggedInUser();
+                    default:
+                        return false;
                 }
             }
             catch ( Exception ex )
             {
-
                 Console.WriteLine( ex.Message );
-                CommenceBanking();
+                return false;
             }
-           
-
         }
 
 
-        public void ViewRecentTransactions()
+        public bool ViewRecentTransactions()
         {
             Console.WriteLine( "Welcome to the view transaction process..." );
             Console.ReadLine();
-            CommenceBanking();
+            return true;
 
             ////TransactionRequestModel model
             //var model = new TransactionRequestModel
@@ -187,21 +135,21 @@ namespace ConsoleBanking.Classes
             //}
 
 
-            //CommenceBanking();
+            //PresentOptionsForLoggedInUser();
         }
 
-        public void Deposit()
+        public bool Deposit()
         {
             Console.WriteLine( "Welcome to the deposit process..." );
             Console.ReadLine();
-            CommenceBanking();
+            return true;
         }
 
-        public void Withdraw()
+        public bool Withdraw()
         {
             Console.WriteLine( "Welcome to the withdraw process..." );
             Console.ReadLine();
-            CommenceBanking();
+            return true;
         }
 
         public bool Logout()
@@ -211,17 +159,15 @@ namespace ConsoleBanking.Classes
             return true;
         }
 
-        public void CreateUser()
+        public bool CreateUser()
         {
             Console.WriteLine( "Welcome to user creation..." );
             Console.ReadLine();
+            return true;
         }
 
         private bool ValidateOption( string input, char[] validInputs )
         {
-            Console.WriteLine( "about to validate input: " + input );
-            Console.ReadLine();
-
             if ( input == null ) return false;
             if ( input.Length > 1 ) return false;
             if ( input.Length < 1 ) return false;

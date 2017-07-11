@@ -31,7 +31,7 @@ namespace ConsoleBanking
             SignInStatus status;
             HttpClient client = new HttpClient();
 
-            var url = "http://localhost:54194/Login/LoginFromConsole/"
+            var url = "http://localhost:54194/LoginRequest/LoginFromConsole/"
                       + "?Email=" + model.Email
                       + "&Password=" + model.Password;
             try
@@ -55,13 +55,14 @@ namespace ConsoleBanking
         {
 
             var signInStatus = new SigninStatusModel();
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
 
             var url = "http://localhost:54194/Login/LoginFromConsole/"
                       + "?Email=" + model.Email
                       + "&Password=" + model.Password;
             try
             {
+                Console.WriteLine("\n... attempting login at: "+url+"\n");
                 var response = await client.GetAsync( url );
                 response.EnsureSuccessStatusCode();
                 signInStatus.Content =  await response.Content.ReadAsStringAsync();
@@ -74,6 +75,7 @@ namespace ConsoleBanking
             }
 
             client.Dispose();
+            Console.WriteLine( "Login Status: " + signInStatus.Content );
             return signInStatus;
         }
 

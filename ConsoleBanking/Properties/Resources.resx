@@ -195,4 +195,9 @@ Please select on of the following options:
     - Press [3] to exit
 ***********************************************************</value>
   </data>
+  <data name="UserOptionsForUnsuccessfulUser" xml:space="preserve">
+    <value>Would you like to continue banking or call it a day?
+  - type [8] to keep going
+  - type [3] to exit the system</value>
+  </data>
 </root>

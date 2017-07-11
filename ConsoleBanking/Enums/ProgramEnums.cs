@@ -10,6 +10,7 @@ namespace ConsoleBanking.Enums
         DepositMoney = 5,
         WithdrawMoney = 6,
         Undefined = 7,
+        KeepGoing = 8,
     }
 
     // reflects owin identity sign-in enums
