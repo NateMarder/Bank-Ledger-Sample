@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using HtmlClient.Dal;
 using HtmlClient.Enums;
+using HtmlClient.Filters;
 using HtmlClient.Models;
 
 namespace HtmlClient.Controllers
@@ -36,7 +37,7 @@ namespace HtmlClient.Controllers
             return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
         }
 
-        //[AuthorizeConsoleClient]
+        [AuthorizeConsoleClient]
         [HttpGet]
         public ActionResult ConsoleTransaction( TransactionRequestModel model )
         {
@@ -95,7 +96,7 @@ namespace HtmlClient.Controllers
 
         private string GetTransactionSummaryString(TransactionViewModel[] transactions)
         {
-            var summaryString = "*********************************************\nTransaction Summary:\n\n";
+            var summaryString = "\n*********************************************\nTransaction Summary:\n\n";
             var balance = 0.0;
 
             foreach ( var transaction in transactions )

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using HtmlClient.Filters;
 
 namespace HtmlClient
 {
@@ -6,7 +7,7 @@ namespace HtmlClient
     {
         public static void RegisterGlobalFilters( GlobalFilterCollection filters )
         {
-            //filters.Add( new AuthorizeConsoleClient() );
+            filters.Add( new AuthorizeConsoleClient() );
         }
     }
 }

@@ -47,6 +47,24 @@
       <IsDeposit>True</IsDeposit>
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
+    <Transaction>
+      <TransactionDate>07/12/2017 05:44:21</TransactionDate>
+      <Amount>600</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/12/2017 05:45:11</TransactionDate>
+      <Amount>113.99</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/12/2017 05:45:50</TransactionDate>
+      <Amount>0</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
   </User>
   <User>
     <Email>admin9@email.com</Email>

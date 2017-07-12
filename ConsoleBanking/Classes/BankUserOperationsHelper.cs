@@ -3,23 +3,23 @@ using System.Threading.Tasks;
 using ConsoleBanking.Enums;
 using ConsoleBanking.Models;
 
-
 namespace ConsoleBanking.Classes
 {
     public class BankUserOperationsHelper
     {
-        private WebRequestHelper _requestHelper;
 
+        private WebRequestHelper _requestHelper;
         public WebRequestHelper RequestHelper
             => _requestHelper ?? ( _requestHelper = new WebRequestHelper() );
+
+        private ConsoleDialogHelper _dialogHelper;
+        public ConsoleDialogHelper DialogHelper 
+            => _dialogHelper ?? ( _dialogHelper = new ConsoleDialogHelper() );
 
         public BankUserOperationsHelper( WebRequestHelper requestHelper )
         {
             _requestHelper = requestHelper;
         }
-
-        private ConsoleDialogHelper _dialogHelper;
-        public ConsoleDialogHelper DialogHelper => _dialogHelper ?? ( _dialogHelper = new ConsoleDialogHelper() );
 
         public BankUserOperationsHelper()
         {
@@ -32,20 +32,16 @@ namespace ConsoleBanking.Classes
             switch ( choice )
             {
                 case UserChoice.Login:
-                    var result = Login();
-                    await result;
-                    if ( result.Result.Status == SignInStatus.Success )
-                    {
+                    var loginResult = Login();
+                    await loginResult;
+                    if ( loginResult.Result.Status == SignInStatus.Success )
                         return PresentOptionsForLoggedInUser();
-                    }
                     return false;
                 case UserChoice.RegisterNewAccount:
-                    var registerSuccess = CreateUser();
-                    await registerSuccess;
-                    if ( registerSuccess.Result )
-                    {
+                    var registerResult = CreateUser();
+                    await registerResult;
+                    if ( registerResult.Result )
                         return PresentOptionsForLoggedInUser();
-                    }
                     return false;
                 case UserChoice.Logout:
                     return true;
@@ -53,7 +49,6 @@ namespace ConsoleBanking.Classes
 
             return false;
         }
-
 
         public bool PresentOptionsForLoggedInUser()
         {
@@ -70,7 +65,7 @@ namespace ConsoleBanking.Classes
                     case UserChoice.WithdrawMoney:
                         return Withdraw();
                     case UserChoice.Logout:
-                        return Withdraw();
+                        return true;
                     case UserChoice.Login:
                         return PresentOptionsForLoggedInUser();
                     case UserChoice.RegisterNewAccount:
@@ -87,7 +82,6 @@ namespace ConsoleBanking.Classes
                 return false;
             }
         }
-
 
         private bool ViewRecentTransactionsAsync()
         {
@@ -144,14 +138,8 @@ namespace ConsoleBanking.Classes
             }
         }
 
-        public bool Logout()
-        {
-            return true;
-        }
-
         public async Task<SigninStatusModel> Login( bool firstTime = true )
         {
-
             var model = new LoginViewModel
             {
                 Email = ConsoleSession.Instance.Data["UserId"] ?? DialogHelper.GetUserEmailForLogin(),
@@ -159,11 +147,10 @@ namespace ConsoleBanking.Classes
             };
 
             var result = await RequestHelper.SignInUser( model );
-
             if ( result.Status == SignInStatus.Success )
             {
-                ConsoleSession.Instance.Data["UserId"] =  model.Email;
-                ConsoleSession.Instance.Data["Password"] =  model.Password;
+                ConsoleSession.Instance.Data["UserId"] = model.Email;
+                ConsoleSession.Instance.Data["Password"] = model.Password;
                 ConsoleSession.Instance.Data["SessionID"] = result.Content;
             }
 
@@ -172,13 +159,13 @@ namespace ConsoleBanking.Classes
 
         public async Task<bool> CreateUser()
         {
-            var model = new RegisterViewModel()
+            var model = new RegisterViewModel
             {
                 Email = DialogHelper.GetUserEmailForLogin(),
                 Password = DialogHelper.GetUserPasswordForLogin()
             };
 
-            var result =  RequestHelper.RegisterNewUser( model ).Result;
+            var result = RequestHelper.RegisterNewUser( model ).Result;
             if ( result.Status == RegistrationStatus.Success )
             {
                 ConsoleSession.Instance.Data["UserId"] = model.Email;

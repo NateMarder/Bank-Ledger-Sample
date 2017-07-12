@@ -2,11 +2,10 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ConsoleBanking.Classes;
 using ConsoleBanking.Enums;
 using ConsoleBanking.Models;
 
-namespace ConsoleBanking
+namespace ConsoleBanking.Classes
 {
     public interface IWebRequestHelper
     {
@@ -95,10 +94,11 @@ namespace ConsoleBanking
         {
             var client = new HttpClient();
             var type = isDeposit ? TransactionType.Deposit : TransactionType.Withdraw;
+            var messedUpToken = ConsoleSession.Instance.Data["SessionID"];
 
             var url = "http://localhost:54194/Transaction/ConsoleTransaction/" +
                       $"?Type={type}&UserId={ConsoleSession.Instance.Data["UserId"]}&Amount={amount}" +
-                      $"&Token={ConsoleSession.Instance.Data["SessionID"]}";
+                      $"&Token={messedUpToken}";
 
             try
             {
