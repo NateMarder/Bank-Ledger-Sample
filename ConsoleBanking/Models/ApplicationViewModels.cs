@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
+using System.Threading;
 using ConsoleBanking.Enums;
 
 namespace ConsoleBanking.Models
@@ -25,6 +27,8 @@ namespace ConsoleBanking.Models
 
     public class TransactionRequestModel
     {
+        public string Token {get; set; }
+        public string UserId { get; set; }
         public TransactionType Type { get; set; }
         public double? Amount { get; set; }
     }
@@ -34,6 +38,7 @@ namespace ConsoleBanking.Models
         public string[] Transactions { get; set; }
         public string Content { get; set; }
         public HttpStatusCode Status { get; set; }
+
     }
 
     public class TransactionViewModel

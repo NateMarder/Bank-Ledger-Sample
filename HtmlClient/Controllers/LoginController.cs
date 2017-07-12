@@ -73,12 +73,10 @@ namespace HtmlClient.Controllers
                 if ( result.IsValid )
                 {
                     Session["UserId"] = model.Email;
-                    Session["SessionGuid"] = GetCustomFormattedGuid();
-                    Response.StatusCode = (int) HttpStatusCode.Accepted;
                     return new JsonResult
                     {
                         JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                        Data = Session["SessionGuid"]
+                        Data = Session.SessionID
                     };
                 }
 

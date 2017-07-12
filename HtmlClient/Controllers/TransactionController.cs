@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 using HtmlClient.Dal;
@@ -14,7 +15,7 @@ namespace HtmlClient.Controllers
     public class TransactionController : Controller
     {
         private DalHandler _dal;
-        public DalHandler Dal => _dal ?? ( _dal = new DalHandler( Session["UserId"].ToString() ) );
+        public DalHandler Dal => _dal ?? ( _dal = new DalHandler(Session.SessionID) );
 
         [HttpGet]
         public ActionResult TransactionHistory()
@@ -24,7 +25,7 @@ namespace HtmlClient.Controllers
             {
                 if ( valid )
                 {
-                    var transactions = Dal.getTransactions( Session["UserId"].ToString() );
+                    var transactions = Dal.GetTransactionHistory( Session["UserId"].ToString() );
                     return new JsonResult
                     {
                         JsonRequestBehavior = JsonRequestBehavior.AllowGet,
@@ -43,16 +44,29 @@ namespace HtmlClient.Controllers
         [HttpGet]
         public ActionResult ConsoleTransaction( TransactionRequestModel model )
         {
+
+
+
             try
             {
                 switch ( model.Type )
                 {
                     case TransactionType.GetHistory:
-                        var transactions = Dal.getTransactions( Session["UserId"].ToString() );
-                        return new JsonResult
+                        string transactionHistory;
+                        var transactions = Dal.GetTransactionHistory( model.UserId );
+                        if ( transactions != null && transactions.Length > 0 )
                         {
-                            JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                            Data = transactions
+                            transactionHistory =
+                                transactions.Aggregate( "", ( current, item ) => current + ( item.ToString() + "\n" ) );
+                        }
+                        else
+                        {
+                            transactionHistory = "No transactions found";
+                        }
+
+                        return new ContentResult()
+                        {
+                            Content = transactionHistory
                         };
 
                     default:
@@ -74,7 +88,7 @@ namespace HtmlClient.Controllers
                         };
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
             }

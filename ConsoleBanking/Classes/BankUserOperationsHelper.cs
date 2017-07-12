@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using ConsoleBanking.Enums;
 using ConsoleBanking.Models;
@@ -34,10 +35,12 @@ namespace ConsoleBanking.Classes
             switch ( choice )
             {
                 case UserChoice.Login:
-                    var result = LoginRequest();
+                    var result = Login();
                     await result;
                     if ( result.Result.Status == SignInStatus.Success )
                     {
+                        ConsoleSession.Instance.Data["SessionID"] = result.Result.Content;
+                        
                         return PresentOptionsForLoggedInUser();
                     }
                     return false;
@@ -51,19 +54,23 @@ namespace ConsoleBanking.Classes
         }
 
 
-        public async Task<SigninStatusModel> LoginRequest( bool firstTime = true )
+        public async Task<SigninStatusModel> Login( bool firstTime = true )
         {
-            Console.WriteLine( "\nWelcome to log in process" );
-            var email = DialogHelper.GetUserEmailForLogin();
-            var password = DialogHelper.GetUserPasswordForLogin();
 
             var model = new LoginViewModel
             {
-                Email = email,
-                Password = password
+                Email = DialogHelper.GetUserEmailForLogin(),
+                Password = DialogHelper.GetUserPasswordForLogin()
             };
 
             var result = await RequestHelper.UserSignInGetModel( model );
+
+            if ( result.Status == SignInStatus.Success )
+            {
+                ConsoleSession.Instance.Data["UserId"] = model.Email;
+                ConsoleSession.Instance.Data["Password"] = model.Password;
+                ConsoleSession.Instance.Data["Token"] = result.Content;
+            }
             
             return result;
         }
@@ -79,7 +86,7 @@ namespace ConsoleBanking.Classes
                 switch ( choice )
                 {
                     case UserChoice.ViewRecentTransactions:
-                        return ViewRecentTransactions();
+                        return ViewRecentTransactionsAsync();
                     case UserChoice.DepositMoney:
                         return Deposit();
                     case UserChoice.WithdrawMoney:
@@ -104,38 +111,19 @@ namespace ConsoleBanking.Classes
         }
 
 
-        public bool ViewRecentTransactions()
+        public bool ViewRecentTransactionsAsync()
         {
-            Console.WriteLine( "Welcome to the view transaction process..." );
-            Console.ReadLine();
-            return true;
-
-            ////TransactionRequestModel model
-            //var model = new TransactionRequestModel
-            //{
-            //    Type = TransactionType.GetHistory,
-            //    Amount = null
-            //};
-
-            //try
-            //{
-            //    Console.WriteLine( "checkpoint delta" );
-            //    Console.ReadLine();
-            //    var result = await RequestHelper.GetTransactionHistory( model );
-            //    foreach ( var next in result.Transactions )
-            //    {
-            //        Console.WriteLine( next );
-            //    }
-            //    Console.ReadLine();
-            //}
-            //catch ( Exception ex )
-            //{
-            //    Console.WriteLine( ex.Message );
-            //    Console.ReadLine();
-            //}
-
-
-            //PresentOptionsForLoggedInUser();
+            try
+            {
+                var result = RequestHelper.GetTransactionHistory();
+                Console.WriteLine(result.Result.Content);
+                return PresentOptionsForLoggedInUser();
+            }
+            catch( Exception ex )
+            {
+                Console.WriteLine( ex.Message );
+                return false;
+            }
         }
 
         public bool Deposit()

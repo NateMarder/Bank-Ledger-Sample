@@ -31,16 +31,14 @@ namespace ConsoleBanking
             SignInStatus status;
             HttpClient client = new HttpClient();
 
-            var url = "http://localhost:54194/LoginRequest/LoginFromConsole/"
+            var url = "http://localhost:54194/Login/LoginFromConsole/"
                       + "?Email=" + model.Email
                       + "&Password=" + model.Password;
             try
             {
-
                 var response = await client.GetAsync( url );
                 response.EnsureSuccessStatusCode();
                 status = SignInStatus.Success;
-
             }
             catch ( Exception )
             {
@@ -48,12 +46,11 @@ namespace ConsoleBanking
             }
 
             client.Dispose();
-            return (int)status;
+            return (int) status;
         }
 
         public async Task<SigninStatusModel> UserSignInGetModel( LoginViewModel model )
         {
-
             var signInStatus = new SigninStatusModel();
             var client = new HttpClient();
 
@@ -62,20 +59,22 @@ namespace ConsoleBanking
                       + "&Password=" + model.Password;
             try
             {
-                Console.WriteLine("\n... attempting login at: "+url+"\n");
+                Console.WriteLine( "\n... attempting login at: " + url + "\n" );
                 var response = await client.GetAsync( url );
                 response.EnsureSuccessStatusCode();
-                signInStatus.Content =  await response.Content.ReadAsStringAsync();
+
+                ConsoleSession.Instance.Data["SessionGuid"] = await response.Content.ReadAsStringAsync();
+                signInStatus.Content = ConsoleSession.Instance.Data["SessionGuid"];
                 signInStatus.Status = SignInStatus.Success;
             }
-            catch ( Exception ex)
+            catch ( Exception ex )
             {
                 signInStatus.Content = ex.Message;
                 signInStatus.Status = SignInStatus.Failure;
             }
 
             client.Dispose();
-            Console.WriteLine( "Login Status: " + signInStatus.Content );
+            Console.WriteLine( "Login Status: " + signInStatus.Status );
             return signInStatus;
         }
 
@@ -108,37 +107,32 @@ namespace ConsoleBanking
         }
 
 
-        public async Task<TransactionHistoryModel> GetTransactionHistory( TransactionRequestModel model )
+        public async Task<TransactionHistoryModel> GetTransactionHistory()
         {
-            var requestResponse = new TransactionHistoryModel();
+            var transactionModel = new TransactionHistoryModel();
             var client = new HttpClient();
-            var type = Enum.GetName( typeof( TransactionType ), model.Type );
-            var amount = model.Amount ?? 0;
 
             var url = "http://localhost:54194/Transaction/ConsoleTransaction/"
-                      + "?Type=" + type
-                      + "&Amount=" + amount
-                      + "&SessionGuid=" + ConsoleSession.Instance.Data["SessionGuid"];
-
-            Console.WriteLine("attempting: "+url);
+                      + "?Type=" + TransactionType.GetHistory
+                      + "&UserId=" + ConsoleSession.Instance.Data["UserId"]
+                      + "&Amount=" + 0
+                      + "&Token=" + ConsoleSession.Instance.Data["Token"];
 
             try
             {
-                
-                var response = await client.GetAsync( url );
-                response.EnsureSuccessStatusCode();
-                requestResponse.Content =  await response.Content.ReadAsStringAsync();
-                //history.Transactions = response.Headers["Data"];
-                //history.Transactions = response.Headers["Data"];
+                var task = await client.GetAsync( url );
+                task.EnsureSuccessStatusCode();
+                transactionModel.Content = await task.Content.ReadAsStringAsync();
+                transactionModel.Status = task.StatusCode;
             }
             catch ( Exception ex )
             {
-                requestResponse.Status = HttpStatusCode.BadRequest;
-                requestResponse.Content = ex.Message;
+                transactionModel.Status = HttpStatusCode.BadRequest;
+                transactionModel.Content = ex.Message;
             }
 
             client.Dispose();
-            return requestResponse;
+            return transactionModel;
         }
     }
 }

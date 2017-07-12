@@ -162,7 +162,7 @@ namespace HtmlClient.Dal
             return false;
         }
 
-        public TransactionViewModel[] getTransactions( string userId )
+        public TransactionViewModel[] GetTransactionHistory( string userId )
         {
             var doc = new XmlDocument();
             doc.Load( UserDataXmlPath );

@@ -40,13 +40,16 @@ namespace HtmlClient.Models
 
         public override string ToString()
         {
-            var type = IsWithdraw ? "Withdraw" : "Deposit";
-            return "Date: " + Date + "  Type: " + type + "Amount: " + Amount;
+            var dateString = Date.Split( '(' )[0];
+            var type = IsWithdraw ? "withdrawal" : "deposit";
+            return  dateString + ":: " + type +" of $"+ Amount;
         }
     }
 
     public class TransactionRequestModel
     {
+        public string Token {get; set; }
+        public string UserId { get; set; }
         public TransactionType Type { get; set; }
         public double? Amount { get; set; }
     }
