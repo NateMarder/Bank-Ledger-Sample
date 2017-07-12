@@ -12,9 +12,8 @@ namespace HtmlClient.Controllers
     public class TransactionController : Controller
     {
         private DalHandler _dal;
-        public DalHandler Dal => _dal ?? ( _dal = new DalHandler(Session.SessionID) );
+        public DalHandler Dal => _dal ?? ( _dal = new DalHandler() );
 
-        [AuthorizeConsoleClient]
         [HttpGet]
         public ActionResult TransactionHistory()
         {
@@ -38,8 +37,34 @@ namespace HtmlClient.Controllers
             return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
         }
 
+        [HttpPost]
+        public ActionResult Transaction( TransactionViewModel model )
+        {
+            var valid = model != null;
+
+            try
+            {
+                if ( valid )
+                {
+                    Dal.SubmitTransaction( model );
+                    return new HttpStatusCodeResult( HttpStatusCode.OK );
+                }
+            }
+            catch
+            {
+                return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
+            }
+            return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
+        }
+
+        /************************************************************
+        *************************************************************
+        ** 
+        ** Console Endpoints and Helper Methods
+        **
+        *************************************************************
+        *************************************************************/
         [AuthorizeConsoleClient]
-        [HttpGet]
         public ActionResult ConsoleTransaction( TransactionRequestModel model )
         {
             try
@@ -73,26 +98,6 @@ namespace HtmlClient.Controllers
             {
                 return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
             }
-        }
-
-        [HttpPost]
-        public ActionResult Transaction( TransactionViewModel model )
-        {
-            var valid = model != null;
-
-            try
-            {
-                if ( valid )
-                {
-                    Dal.SubmitTransaction( model );
-                    return new HttpStatusCodeResult( HttpStatusCode.OK );
-                }
-            }
-            catch
-            {
-                return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
-            }
-            return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
         }
 
         private string GetTransactionSummaryString(TransactionViewModel[] transactions)

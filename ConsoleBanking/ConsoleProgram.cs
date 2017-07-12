@@ -13,56 +13,50 @@ namespace ConsoleBanking
             => _bankUserOperationsHelper ?? ( _bankUserOperationsHelper = new BankUserOperationsHelper() );
 
         private static ConsoleDialogHelper _dialogHelper;
-
         public static ConsoleDialogHelper DialogHelper =>
             _dialogHelper ?? ( _dialogHelper = new ConsoleDialogHelper() );
 
         public static int Main()
         {
             Console.WriteLine( Resources.InitialGreeting );
-            AllocateKeysForSessionDictionary();
+            AllocateSessionTokens();
             var choice = UserChoice.KeepGoing;
-
-            Task<bool> result = null;
-
+            Task<bool> task = null;
             while ( choice == UserChoice.KeepGoing )
             {
-                result = HandleAsync( BankUserOperationsHelper.PresentInitialOptions() );
-
-                if ( !result.Result )
+                task = HandleAsync( BankUserOperationsHelper.PresentInitialOptions() );
+                if ( !task.Result )
                 {
                     choice = DialogHelper.GetUserChoiceForForUserAboutToExit();
                 }
             }
 
-            Console.ReadLine();
-            return result != null && result.Result ? 0 : 1;
+            return task != null && task.Result ? 0 : 1;
         }
 
-        private static void AllocateKeysForSessionDictionary()
+        private static async Task<bool> HandleAsync( Task<bool> task )
+        {
+            await task;
+
+            if ( task.IsFaulted )
+            {
+                return false;
+            }
+
+            Console.WriteLine( task.Result
+                ? "\nMAIN: Program Ended Successfully"
+                : "\nMAIN: Program ended Unsuccessfully" );
+
+            return task.Result;
+        }
+
+        private static void AllocateSessionTokens()
         {
             ConsoleSession.Instance.Data["UserId"] = null;
             ConsoleSession.Instance.Data["Password"] = null;
             ConsoleSession.Instance.Data["SessionID"] = null;
             ConsoleSession.Instance.Data["Balance"] = null;
-        }
-
-        private static async Task<bool> HandleAsync( Task<bool> status )
-        {
-            await status;
-
-            if ( status.IsFaulted )
-            {
-                Console.WriteLine( "\n MAIN: Unhandled exception happened" );
-                return false;
-            }
-
-            var successMessage = status.Result
-                ? "MAIN: Program Ended Successfully"
-                : "MAIN: Program ended Unsuccessfully";
-
-            Console.WriteLine( "\n MAIN: Program Success:: " + successMessage );
-            return status.Result;
+            ConsoleSession.Instance.Data["ConsoleToken"] = null;
         }
     }
 }

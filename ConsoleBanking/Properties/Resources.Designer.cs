@@ -143,7 +143,8 @@ namespace ConsoleBanking.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter your emai address:.
+        ///   Looks up a localized string similar to 
+        ///Please enter your emai address:.
         /// </summary>
         public static string GetUserEmail {
             get {
@@ -251,8 +252,9 @@ namespace ConsoleBanking.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 
-        ///***********************************************************
+        ///   Looks up a localized string similar to ***********************************************************
+        ///Login Status: Logged In
+        ///
         ///Please select one of the options below:
         ///    - Press [4] to view recent transactions
         ///    - Press [5] to deposit money
@@ -268,6 +270,8 @@ namespace ConsoleBanking.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to ***********************************************************
+        ///Login Status: Not Logged In
+        ///
         ///Please select on of the following options:
         ///    - Press [1] to log into the system.
         ///    - Press [2] to create a new account.

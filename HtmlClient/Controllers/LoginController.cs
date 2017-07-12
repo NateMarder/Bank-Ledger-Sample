@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using HtmlClient.Filters;
 using HtmlClient.Models;
 using HtmlClient.Properties;
 using HtmlClient.Validators;
@@ -46,7 +47,6 @@ namespace HtmlClient.Controllers
                 if ( result.IsValid )
                 {
                     Session["UserId"] = user.Email;
-                    Session["SessionGuid"] = GetCustomFormattedGuid();
                     return RedirectToAction( "SignInSuccess" );
                 }
 
@@ -63,6 +63,20 @@ namespace HtmlClient.Controllers
             }
         }
 
+        public ActionResult SignOut()
+        {
+            Session.Abandon();
+            return View( "../SignOutComplete" );
+        }
+
+
+        /************************************************************
+        *************************************************************
+        ** 
+        ** Console Endpoints
+        **
+        *************************************************************
+        *************************************************************/
         [AllowAnonymous]
         public ActionResult LoginFromConsole( LoginViewModel model )
         {
@@ -72,6 +86,8 @@ namespace HtmlClient.Controllers
                 if ( result.IsValid )
                 {
                     Session["UserId"] = model.Email;
+                    Session["ConsoleToken"] = model.ConsoleToken;
+                    Response.StatusCode = (int) HttpStatusCode.OK;
                     return new JsonResult
                     {
                         JsonRequestBehavior = JsonRequestBehavior.AllowGet,
@@ -97,19 +113,21 @@ namespace HtmlClient.Controllers
             }
         }
 
-        public ActionResult SignOut()
-        {
-            Session.Abandon();
-            return View( "../SignOutComplete" );
-        }
 
-        private string GetCustomFormattedGuid()
+        [HttpPost]
+        [AuthorizeConsoleClient]
+        public ActionResult ConsoleSignOut()
         {
-            return Guid
-                .NewGuid()
-                .ToString( "N" )
-                .Replace( '"', ' ' )
-                .Trim();
+            try
+            {
+                Session.Abandon();
+                return new HttpStatusCodeResult( HttpStatusCode.OK );
+            }
+            catch
+            {
+                //todo: add logging
+                return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
+            }
         }
     }
 }

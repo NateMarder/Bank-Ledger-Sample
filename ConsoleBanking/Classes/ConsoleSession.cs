@@ -11,7 +11,7 @@ namespace ConsoleBanking.Classes
 
         private ConsoleSession()
         {
-            Data = new Dictionary<string, string>();        
+            Data = new Dictionary<string, string>();
         }
     }
 }

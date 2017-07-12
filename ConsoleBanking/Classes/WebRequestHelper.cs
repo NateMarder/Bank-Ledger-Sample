@@ -20,8 +20,11 @@ namespace ConsoleBanking.Classes
         {
             var signInStatus = new SigninStatusModel();
             var client = new HttpClient();
-
-            var url = $"http://localhost:54194/Login/LoginFromConsole/?Email={model.Email}&Password={model.Password}";
+            SetConsoleToken();
+            var url = $"http://localhost:54194/Login/LoginFromConsole/" +
+                      $"?Email={model.Email}" +
+                      $"&Password={model.Password}" +
+                      $"&ConsoleToken={ConsoleSession.Instance.Data["ConsoleToken"]}";
             try
             {
                 var response = await client.GetAsync( url );
@@ -37,7 +40,11 @@ namespace ConsoleBanking.Classes
             }
 
             client.Dispose();
-            Console.WriteLine( $"Login Success Status: {signInStatus.Status}" );
+
+            Console.WriteLine( signInStatus.Status == SignInStatus.Success
+                ? $"Login Success Status: {signInStatus.Status}"
+                : $"Login Success Status: {signInStatus.Status}, {signInStatus.Content}" );
+
             return signInStatus;
         }
 
@@ -68,10 +75,14 @@ namespace ConsoleBanking.Classes
         {
             var transactionModel = new TransactionHistoryModel();
             var client = new HttpClient();
+            var consoleTokeyKeyExists = ConsoleSession.Instance.Data.ContainsKey( "ConsoleToken" );
+            var userIdTokenKeyExists = ConsoleSession.Instance.Data.ContainsKey( "ConsoleToken" );
+            var consoleToken = ConsoleSession.Instance.Data["ConsoleToken"];
+            var userId = ConsoleSession.Instance.Data["UserId"];
 
             var url = "http://localhost:54194/Transaction/ConsoleTransaction/" +
-                $"?Type={TransactionType.GetHistory}&UserId={ConsoleSession.Instance.Data["UserId"]}" +
-                $"&Amount={0}&Token={ConsoleSession.Instance.Data["SessionID"]}";
+                $"?Type={TransactionType.GetHistory}&UserId={userId}" +
+                $"&Amount={0}&ConsoleToken={consoleToken}";
          
             try
             {
@@ -94,11 +105,10 @@ namespace ConsoleBanking.Classes
         {
             var client = new HttpClient();
             var type = isDeposit ? TransactionType.Deposit : TransactionType.Withdraw;
-            var messedUpToken = ConsoleSession.Instance.Data["SessionID"];
 
             var url = "http://localhost:54194/Transaction/ConsoleTransaction/" +
                       $"?Type={type}&UserId={ConsoleSession.Instance.Data["UserId"]}&Amount={amount}" +
-                      $"&Token={messedUpToken}";
+                      $"&ConsoleToken={ConsoleSession.Instance.Data["ConsoleToken"]}";
 
             try
             {
@@ -113,6 +123,17 @@ namespace ConsoleBanking.Classes
 
             client.Dispose();
             return false;
+        }
+
+        private void SetConsoleToken()
+        {
+            var ConsoleToken = Guid
+                .NewGuid()
+                .ToString( "N" )
+                .Replace( '"', ' ' )
+                .Trim();
+
+            ConsoleSession.Instance.Data["ConsoleToken"] = ConsoleToken;
         }
     }
 }
