@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using HtmlClient.Models;
+using HtmlClient.Properties;
 using HtmlClient.Validators;
 
 namespace HtmlClient.Controllers
@@ -10,7 +11,6 @@ namespace HtmlClient.Controllers
     public class LoginController : Controller
     {
         private LoginValidator _loginValidator;
-
         public LoginValidator LoginValidator
             => _loginValidator ?? ( _loginValidator = new LoginValidator() );
 
@@ -57,7 +57,7 @@ namespace HtmlClient.Controllers
             catch ( Exception ex )
             {
                 Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                TempData["LoginMessage"] = Properties.Resources.GenericErrorMessage
+                TempData["LoginMessage"] = Resources.GenericErrorMessage
                                            + Environment.NewLine + ex.Message;
                 return View( "../Login" );
             }
@@ -66,7 +66,6 @@ namespace HtmlClient.Controllers
         [AllowAnonymous]
         public ActionResult LoginFromConsole( LoginViewModel model )
         {
-            var debug = model;
             try
             {
                 var result = LoginValidator.Validate( model );
@@ -101,9 +100,8 @@ namespace HtmlClient.Controllers
         public ActionResult SignOut()
         {
             Session.Abandon();
-            return View( "../SignOutComplete" ); // JsonResult();
+            return View( "../SignOutComplete" );
         }
-
 
         private string GetCustomFormattedGuid()
         {
