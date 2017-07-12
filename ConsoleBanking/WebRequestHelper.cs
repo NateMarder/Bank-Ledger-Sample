@@ -6,7 +6,6 @@ using System.Xml.Linq;
 using ConsoleBanking.Classes;
 using ConsoleBanking.Enums;
 using ConsoleBanking.Models;
-using ConsoleBanking.Properties;
 
 namespace ConsoleBanking
 {

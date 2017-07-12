@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net;
-using System.Net.Mime;
-using System.Web;
 using System.Web.Mvc;
 using HtmlClient.Dal;
 using HtmlClient.Enums;
-using HtmlClient.Filters;
 using HtmlClient.Models;
 
 namespace HtmlClient.Controllers
