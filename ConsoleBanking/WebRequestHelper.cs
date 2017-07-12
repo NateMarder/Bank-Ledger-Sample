@@ -134,5 +134,31 @@ namespace ConsoleBanking
             client.Dispose();
             return transactionModel;
         }
+
+        public async Task<bool> DepositFunds(double amount, bool isDeposit)
+        {
+            var client = new HttpClient();
+            var type = isDeposit ? TransactionType.Deposit : TransactionType.Withdraw;
+
+            var url = "http://localhost:54194/Transaction/ConsoleTransaction/"
+                      + "?Type=" + type
+                      + "&UserId=" + ConsoleSession.Instance.Data["UserId"]
+                      + "&Amount=" + amount
+                      + "&Token=" + ConsoleSession.Instance.Data["Token"];
+
+            try
+            {
+                var task = await client.GetAsync( url );
+                task.EnsureSuccessStatusCode();
+                return task.IsSuccessStatusCode;
+            }
+            catch ( Exception ex )
+            {
+                //todo: start logging things!
+            }
+
+            client.Dispose();
+            return false;
+        }
     }
 }

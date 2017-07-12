@@ -75,7 +75,6 @@ namespace ConsoleBanking.Classes
             return result;
         }
 
-
         public bool PresentOptionsForLoggedInUser()
         {
 
@@ -142,8 +141,6 @@ namespace ConsoleBanking.Classes
 
         public bool Logout()
         {
-            Console.WriteLine( "Welcome to logout process..." );
-            Console.ReadLine();
             return true;
         }
 
@@ -152,15 +149,6 @@ namespace ConsoleBanking.Classes
             Console.WriteLine( "Welcome to user creation..." );
             Console.ReadLine();
             return true;
-        }
-
-        private bool ValidateOption( string input, char[] validInputs )
-        {
-            if ( input == null ) return false;
-            if ( input.Length > 1 ) return false;
-            if ( input.Length < 1 ) return false;
-
-            return validInputs.Contains( input.ToCharArray()[0] );
         }
     }
 }

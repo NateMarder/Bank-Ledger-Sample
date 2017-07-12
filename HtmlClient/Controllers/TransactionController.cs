@@ -44,35 +44,26 @@ namespace HtmlClient.Controllers
         [HttpGet]
         public ActionResult ConsoleTransaction( TransactionRequestModel model )
         {
-
-
-
             try
             {
                 switch ( model.Type )
                 {
                     case TransactionType.GetHistory:
-                        string transactionHistory;
+                        string transactionHistory = "No transactions found";
                         var transactions = Dal.GetTransactionHistory( model.UserId );
                         if ( transactions != null && transactions.Length > 0 )
                         {
                             transactionHistory =
-                                transactions.Aggregate( "", ( current, item ) => current + ( item.ToString() + "\n" ) );
-                        }
-                        else
-                        {
-                            transactionHistory = "No transactions found";
+                                transactions.Aggregate( "", ( current, item ) 
+                                    => current + ( item.ToString() + "\n" ) );
                         }
 
-                        return new ContentResult()
-                        {
-                            Content = transactionHistory
-                        };
+                        return new ContentResult { Content = transactionHistory };
 
                     default:
                         var transactionModel = new TransactionViewModel
                         {
-                            UserEmail = Session["UserId"]?.ToString(),
+                            UserEmail = model.UserId,
                             Date = DateTime.UtcNow.ToShortTimeString(),
                             IsWithdraw = model.Type == TransactionType.Withdraw,
                             IsDeposit = model.Type == TransactionType.Deposit,

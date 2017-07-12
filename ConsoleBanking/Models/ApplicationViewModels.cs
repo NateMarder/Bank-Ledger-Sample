@@ -38,7 +38,6 @@ namespace ConsoleBanking.Models
         public string[] Transactions { get; set; }
         public string Content { get; set; }
         public HttpStatusCode Status { get; set; }
-
     }
 
     public class TransactionViewModel

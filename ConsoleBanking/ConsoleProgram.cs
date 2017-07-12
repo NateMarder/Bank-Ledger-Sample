@@ -18,10 +18,8 @@ namespace ConsoleBanking
         public static TransactionHandler TransactionHandler
             => _transactionHandler ?? ( _transactionHandler = new TransactionHandler() );
 
-        
         private static ConsoleDialogHelper _dialogHelper;
         public static ConsoleDialogHelper DialogHelper => _dialogHelper ?? ( _dialogHelper = new ConsoleDialogHelper() );
-
 
         public static int Main()
         {
@@ -44,7 +42,6 @@ namespace ConsoleBanking
             return result != null && result.Result ? 0 : 1;
         }
 
-
         private static async Task<bool> HandleAsync( Task<bool> status )
         {
             await status;
@@ -59,7 +56,7 @@ namespace ConsoleBanking
                 ? "MAIN: Program Ended Successfully"
                 : "MAIN: Program ended Unsuccessfully";
 
-            Console.WriteLine( "\n MAIN: Program Success:: " + status.Result.ToString() );
+            Console.WriteLine( "\n MAIN: Program Success:: " + successMessage );
             return status.Result;
         }
     }
