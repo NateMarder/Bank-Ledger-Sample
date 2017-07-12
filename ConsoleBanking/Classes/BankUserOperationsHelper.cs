@@ -36,15 +36,15 @@ namespace ConsoleBanking.Classes
                     await loginResult;
                     if ( loginResult.Result.Status == SignInStatus.Success )
                         return PresentOptionsForLoggedInUser();
-                    return false;
+                    return true;
                 case UserChoice.RegisterNewAccount:
                     var registerResult = CreateUser();
                     await registerResult;
                     if ( registerResult.Result )
                         return await PresentInitialOptions();
-                    return false;
-                case UserChoice.Logout:
                     return true;
+                case UserChoice.Logout:
+                    return false;
             }
 
             return false;
@@ -171,10 +171,6 @@ namespace ConsoleBanking.Classes
                 ConsoleSession.Instance.Data["UserId"] = model.Email;
                 ConsoleSession.Instance.Data["Password"] = model.Password;
                 return true;
-
-                //var loginSuccess = Login();
-                //await loginSuccess;
-                //return loginSuccess.Result.Status == SignInStatus.Success;
             }
 
             return false;

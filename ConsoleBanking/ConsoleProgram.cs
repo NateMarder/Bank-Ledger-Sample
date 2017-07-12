@@ -21,17 +21,16 @@ namespace ConsoleBanking
             Console.WriteLine( Resources.InitialGreeting );
             AllocateSessionTokens();
             var choice = UserChoice.KeepGoing;
-            Task<bool> task = null;
             while ( choice == UserChoice.KeepGoing )
             {
-                task = HandleAsync( BankUserOperationsHelper.PresentInitialOptions() );
+                var task = HandleAsync( BankUserOperationsHelper.PresentInitialOptions() );
                 if ( !task.Result )
                 {
                     choice = DialogHelper.GetUserChoiceForForUserAboutToExit();
                 }
             }
 
-            return task != null && task.Result ? 0 : 1;
+            return 0;
         }
 
         private static async Task<bool> HandleAsync( Task<bool> task )
