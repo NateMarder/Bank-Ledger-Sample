@@ -191,7 +191,18 @@ namespace ConsoleBanking.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter a valid email address:.
+        ///   Looks up a localized string similar to 
+        ///Login Success Status: {0}.
+        /// </summary>
+        public static string LoginStatusMessage {
+            get {
+                return ResourceManager.GetString("LoginStatusMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Please enter a valid email address:.
         /// </summary>
         public static string NewUserGetEmail {
             get {
@@ -252,6 +263,16 @@ namespace ConsoleBanking.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ///Registration Success Status: {0}.
+        /// </summary>
+        public static string RegistrationStatusMessage {
+            get {
+                return ResourceManager.GetString("RegistrationStatusMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ***********************************************************
         ///Login Status: Logged In
         ///
@@ -259,7 +280,7 @@ namespace ConsoleBanking.Properties {
         ///    - Press [4] to view recent transactions
         ///    - Press [5] to deposit money
         ///    - Press [6] to withdraw money
-        ///    - Press [3] to sign out and exit
+        ///    - Press [3] to sign out
         ///***********************************************************.
         /// </summary>
         public static string UserOptionsForLoggedInUser {
@@ -285,9 +306,12 @@ namespace ConsoleBanking.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Would you like to continue banking or call it a day?
-        ///  - type [8] to keep going
-        ///  - type [3] to exit the system.
+        ///   Looks up a localized string similar to 
+        ///**********************************************************
+        ///Would you like to continue banking or call it a day?
+        ///  - Press [8] to return to initial menu
+        ///  - Press [3] leave the bank
+        ///**********************************************************.
         /// </summary>
         public static string UserOptionsForUnsuccessfulUser {
             get {

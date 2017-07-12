@@ -35,16 +35,22 @@ namespace ConsoleBanking.Classes
                     var loginResult = Login();
                     await loginResult;
                     if ( loginResult.Result.Status == SignInStatus.Success )
+                    {
                         return PresentOptionsForLoggedInUser();
+                    }
                     return true;
+
                 case UserChoice.RegisterNewAccount:
                     var registerResult = CreateUser();
                     await registerResult;
                     if ( registerResult.Result )
+                    {
                         return await PresentInitialOptions();
+                    }
                     return true;
+
                 case UserChoice.Logout:
-                    return false;
+                    break;
             }
 
             return false;
@@ -142,8 +148,8 @@ namespace ConsoleBanking.Classes
         {
             var model = new LoginViewModel
             {
-                Email = ConsoleSession.Instance.Data["UserId"] ?? DialogHelper.GetUserEmailForLogin(),
-                Password = ConsoleSession.Instance.Data["Password"] ?? DialogHelper.GetUserPasswordForLogin()
+                Email = DialogHelper.GetUserEmailForLogin(),
+                Password = DialogHelper.GetUserPasswordForLogin()
             };
 
             var result = await RequestHelper.SignInUser( model );

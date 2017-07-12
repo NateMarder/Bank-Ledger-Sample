@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ConsoleBanking.Enums;
 using ConsoleBanking.Models;
+using ConsoleBanking.Properties;
 
 namespace ConsoleBanking.Classes
 {
@@ -39,11 +40,7 @@ namespace ConsoleBanking.Classes
             }
 
             client.Dispose();
-
-            Console.WriteLine( signInStatus.Status == SignInStatus.Success
-                ? $"Login Success Status: {signInStatus.Status}, {signInStatus.Content}"
-                : $"Login Success Status: {signInStatus.Status}, {signInStatus.Content}" );
-
+            Console.WriteLine( string.Format(Resources.LoginStatusMessage, signInStatus.Status)  );
             return signInStatus;
         }
 
@@ -66,7 +63,7 @@ namespace ConsoleBanking.Classes
             }
 
             client.Dispose();
-            Console.WriteLine( $"Registration Success Status: {registrationStatus.Status}" );
+            Console.WriteLine( string.Format(Resources.RegistrationStatusMessage, registrationStatus.Status)  );
             return registrationStatus;
         }
 

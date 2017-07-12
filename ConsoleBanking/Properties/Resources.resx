@@ -162,8 +162,13 @@ Welcome to the Bank of Nate!
   <data name="InvalidNumericInput" xml:space="preserve">
     <value>Sorry, that was not a valid numeric quantity. Please try again below:</value>
   </data>
+  <data name="LoginStatusMessage" xml:space="preserve">
+    <value>
+Login Success Status: {0}</value>
+  </data>
   <data name="NewUserGetEmail" xml:space="preserve">
-    <value>Please enter a valid email address:</value>
+    <value>
+Please enter a valid email address:</value>
   </data>
   <data name="NewUserGetHomeTown" xml:space="preserve">
     <value>Please enter the name of your home town:</value>
@@ -187,6 +192,10 @@ Please provide a password that is not empty.</value>
     <value>
 Please provide a valid password.</value>
   </data>
+  <data name="RegistrationStatusMessage" xml:space="preserve">
+    <value>
+Registration Success Status: {0}</value>
+  </data>
   <data name="UserOptionsForLoggedInUser" xml:space="preserve">
     <value>***********************************************************
 Login Status: Logged In
@@ -195,7 +204,7 @@ Please select one of the options below:
     - Press [4] to view recent transactions
     - Press [5] to deposit money
     - Press [6] to withdraw money
-    - Press [3] to sign out and exit
+    - Press [3] to sign out
 ***********************************************************</value>
   </data>
   <data name="UserOptionsForNonLoggedInUser" xml:space="preserve">
@@ -209,8 +218,11 @@ Please select on of the following options:
 ***********************************************************</value>
   </data>
   <data name="UserOptionsForUnsuccessfulUser" xml:space="preserve">
-    <value>Would you like to continue banking or call it a day?
-  - type [8] to keep going
-  - type [3] to exit the system</value>
+    <value>
+**********************************************************
+Would you like to continue banking or call it a day?
+  - Press [8] to return to initial menu
+  - Press [3] leave the bank
+**********************************************************</value>
   </data>
 </root>

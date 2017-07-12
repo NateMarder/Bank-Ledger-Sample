@@ -20,33 +20,16 @@ namespace ConsoleBanking
         {
             Console.WriteLine( Resources.InitialGreeting );
             AllocateSessionTokens();
-            var choice = UserChoice.KeepGoing;
-            while ( choice == UserChoice.KeepGoing )
+            var userChoice = UserChoice.KeepGoing;
+            while ( userChoice == UserChoice.KeepGoing )
             {
-                var task = HandleAsync( BankUserOperationsHelper.PresentInitialOptions() );
-                if ( !task.Result )
-                {
-                    choice = DialogHelper.GetUserChoiceForForUserAboutToExit();
-                }
+                var task = BankUserOperationsHelper.PresentInitialOptions();
+                userChoice = task.Result 
+                    ? DialogHelper.GetUserChoiceForForUserAboutToExit() 
+                    : UserChoice.Logout;
             }
 
             return 0;
-        }
-
-        private static async Task<bool> HandleAsync( Task<bool> task )
-        {
-            await task;
-
-            if ( task.IsFaulted )
-            {
-                return false;
-            }
-
-            Console.WriteLine( task.Result
-                ? "\nMAIN: Program Ended Successfully"
-                : "\nMAIN: Program ended Unsuccessfully" );
-
-            return task.Result;
         }
 
         private static void AllocateSessionTokens()
