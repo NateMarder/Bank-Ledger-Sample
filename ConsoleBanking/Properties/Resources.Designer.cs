@@ -125,6 +125,24 @@ namespace ConsoleBanking.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the amount you would like to deposit:.
+        /// </summary>
+        public static string GetAmountForDeposit {
+            get {
+                return ResourceManager.GetString("GetAmountForDeposit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plese enter the amount you would like to withdraw:.
+        /// </summary>
+        public static string GetAmountForWithdrawal {
+            get {
+                return ResourceManager.GetString("GetAmountForWithdrawal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter your emai address:.
         /// </summary>
         public static string GetUserEmail {
@@ -159,6 +177,15 @@ namespace ConsoleBanking.Properties {
         public static string InvalidInput {
             get {
                 return ResourceManager.GetString("InvalidInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, that was not a valid numeric quantity. Please try again below:.
+        /// </summary>
+        public static string InvalidNumericInput {
+            get {
+                return ResourceManager.GetString("InvalidNumericInput", resourceCulture);
             }
         }
         
@@ -226,7 +253,7 @@ namespace ConsoleBanking.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 
         ///***********************************************************
-        ///Your are currently logged in. Please select an option:
+        ///Please select one of the options below:
         ///    - Press [4] to view recent transactions
         ///    - Press [5] to deposit money
         ///    - Press [6] to withdraw money

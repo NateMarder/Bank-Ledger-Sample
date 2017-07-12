@@ -6,98 +6,44 @@
     <Balance>0</Balance>
     <LastLogin>11:53 PM</LastLogin>
     <Transaction>
-      <TransactionDate>Sat Jul 08 2017 16:08:21 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>100</Amount>
+      <TransactionDate>07/12/2017 04:55:38</TransactionDate>
+      <Amount>200</Amount>
       <IsDeposit>True</IsDeposit>
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
     <Transaction>
-      <TransactionDate>Sat Jul 08 2017 16:08:24 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>75</Amount>
-      <IsDeposit>False</IsDeposit>
-      <IsWithdraw>True</IsWithdraw>
-    </Transaction>
-    <Transaction>
-      <TransactionDate>Sat Jul 08 2017 16:11:28 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>13.13</Amount>
-      <IsDeposit>False</IsDeposit>
-      <IsWithdraw>True</IsWithdraw>
-    </Transaction>
-    <Transaction>
-      <TransactionDate>Sat Jul 08 2017 16:11:37 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>100</Amount>
+      <TransactionDate>07/12/2017 04:55:48</TransactionDate>
+      <Amount>12.33</Amount>
       <IsDeposit>True</IsDeposit>
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
     <Transaction>
-      <TransactionDate>Sat Jul 08 2017 16:16:12 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>14</Amount>
-      <IsDeposit>False</IsDeposit>
-      <IsWithdraw>True</IsWithdraw>
-    </Transaction>
-    <Transaction>
-      <TransactionDate>Sat Jul 08 2017 16:16:25 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>90</Amount>
+      <TransactionDate>07/12/2017 04:55:52</TransactionDate>
+      <Amount>15.97</Amount>
       <IsDeposit>True</IsDeposit>
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
     <Transaction>
-      <TransactionDate>Sat Jul 08 2017 16:16:30 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>12</Amount>
+      <TransactionDate>07/12/2017 04:55:58</TransactionDate>
+      <Amount>54.21</Amount>
       <IsDeposit>False</IsDeposit>
       <IsWithdraw>True</IsWithdraw>
     </Transaction>
     <Transaction>
-      <TransactionDate>Sat Jul 08 2017 16:17:57 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>175</Amount>
+      <TransactionDate>07/12/2017 04:56:14</TransactionDate>
+      <Amount>20</Amount>
       <IsDeposit>False</IsDeposit>
       <IsWithdraw>True</IsWithdraw>
     </Transaction>
     <Transaction>
-      <TransactionDate>Sat Jul 08 2017 17:29:49 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>13</Amount>
-      <IsDeposit>False</IsDeposit>
-      <IsWithdraw>True</IsWithdraw>
-    </Transaction>
-    <Transaction>
-      <TransactionDate>Sat Jul 08 2017 17:31:56 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>0.01</Amount>
-      <IsDeposit>False</IsDeposit>
-      <IsWithdraw>True</IsWithdraw>
-    </Transaction>
-    <Transaction>
-      <TransactionDate>Sat Jul 08 2017 17:32:14 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>654</Amount>
-      <IsDeposit>False</IsDeposit>
-      <IsWithdraw>True</IsWithdraw>
-    </Transaction>
-    <Transaction>
-      <TransactionDate>Sat Jul 08 2017 17:32:24 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>666.15</Amount>
+      <TransactionDate>07/12/2017 04:56:18</TransactionDate>
+      <Amount>215</Amount>
       <IsDeposit>True</IsDeposit>
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
     <Transaction>
-      <TransactionDate>Sat Jul 08 2017 17:33:19 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>5</Amount>
-      <IsDeposit>False</IsDeposit>
-      <IsWithdraw>True</IsWithdraw>
-    </Transaction>
-    <Transaction>
-      <TransactionDate>Sat Jul 08 2017 17:33:23 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>15</Amount>
-      <IsDeposit>True</IsDeposit>
-      <IsWithdraw>False</IsWithdraw>
-    </Transaction>
-    <Transaction>
-      <TransactionDate>Sat Jul 08 2017 17:33:26 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>15</Amount>
-      <IsDeposit>False</IsDeposit>
-      <IsWithdraw>True</IsWithdraw>
-    </Transaction>
-    <Transaction>
-      <TransactionDate>Sat Jul 08 2017 17:36:19 GMT-0700 (Pacific Daylight Time)</TransactionDate>
-      <Amount>5000</Amount>
+      <TransactionDate>07/12/2017 04:56:26</TransactionDate>
+      <Amount>113</Amount>
       <IsDeposit>True</IsDeposit>
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
@@ -107,5 +53,17 @@
     <Password>#HireNate1!</Password>
     <Balance>0</Balance>
     <LastLogin>4:13 AM</LastLogin>
+  </User>
+  <User>
+    <Email>nate@nate.com</Email>
+    <Password>Nate1234!</Password>
+    <Balance>0</Balance>
+    <LastLogin>5:14 AM</LastLogin>
+  </User>
+  <User>
+    <Email>Nate1@Nate.com</Email>
+    <Password>Nate1234!</Password>
+    <Balance>0</Balance>
+    <LastLogin>5:24 AM</LastLogin>
   </User>
 </UserDataStore>

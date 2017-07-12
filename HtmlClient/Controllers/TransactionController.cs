@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
@@ -46,40 +47,32 @@ namespace HtmlClient.Controllers
         {
             try
             {
-                switch ( model.Type )
+                if ( model.Type == TransactionType.GetHistory )
                 {
-                    case TransactionType.GetHistory:
-                        string transactionHistory = "No transactions found";
-                        var transactions = Dal.GetTransactionHistory( model.UserId );
-                        if ( transactions != null && transactions.Length > 0 )
-                        {
-                            transactionHistory =
-                                transactions.Aggregate( "", ( current, item ) 
-                                    => current + ( item.ToString() + "\n" ) );
-                        }
 
-                        return new ContentResult { Content = transactionHistory };
-
-                    default:
-                        var transactionModel = new TransactionViewModel
-                        {
-                            UserEmail = model.UserId,
-                            Date = DateTime.UtcNow.ToShortTimeString(),
-                            IsWithdraw = model.Type == TransactionType.Withdraw,
-                            IsDeposit = model.Type == TransactionType.Deposit,
-                            Amount = model.Amount ?? 0,
-                        };
-
-                        var result = Dal.SubmitTransaction( transactionModel );
-
-                        return new JsonResult
-                        {
-                            JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                            Data = result ? "Transaction was successfully tendered." : "Transaction request denied"
-                        };
+                    var transactionHistory = "No transactions found";
+                    var transactions = Dal.GetTransactionHistory( model.UserId );
+                    transactionHistory = GetTransactionSummaryString( transactions );
+                    return new ContentResult {Content = transactionHistory};
                 }
+
+                var transactionModel = new TransactionViewModel
+                {
+                    UserEmail = model.UserId,
+                    Date = DateTime.UtcNow.ToString( CultureInfo.InvariantCulture ),
+                    IsWithdraw = model.Type == TransactionType.Withdraw,
+                    IsDeposit = model.Type == TransactionType.Deposit,
+                    Amount = model.Amount ?? 0,
+                };
+
+                return new ContentResult
+                {
+                    Content = Dal.SubmitTransaction( transactionModel ) 
+                        ? "Transaction was successfully tendered." 
+                        : "Transaction request denied"
+                };
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
             }
@@ -103,6 +96,23 @@ namespace HtmlClient.Controllers
                 return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
             }
             return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
+        }
+
+        private string GetTransactionSummaryString(TransactionViewModel[] transactions)
+        {
+            var summaryString = "*********************************************\nTransaction Summary:\n\n";
+            var balance = 0.0;
+
+            foreach ( var transaction in transactions )
+            {
+                balance += transaction.IsDeposit 
+                    ? transaction.Amount 
+                    : transaction.Amount * -1;
+                
+                summaryString += "  "+transaction.ToString() + "\n";
+            }
+
+            return summaryString + "\nCurrent Balance: " + balance + "\n*********************************************";
         }
     }
 }

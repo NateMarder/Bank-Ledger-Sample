@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using ConsoleBanking.Enums;
 using ConsoleBanking.Properties;
@@ -79,6 +78,29 @@ namespace ConsoleBanking.Classes
             return (UserChoice) int.Parse( input );
         }
 
+        public double GetDepositAmount()
+        {
+            Console.WriteLine( Resources.GetAmountForDeposit );
+            return GetValidDoubleFromUser();
+        }
+
+        public double GetWithdrawalAmount()
+        {
+            Console.WriteLine( Resources.GetAmountForWithdrawal );
+            return GetValidDoubleFromUser();
+        }
+
+        private double GetValidDoubleFromUser()
+        {
+            var input = Console.ReadLine();
+            while ( !ValidateDouble( input ) )
+            {
+                Console.WriteLine( Resources.InvalidNumericInput );
+                input = Console.ReadLine();
+            }
+            return Double.Parse( input );
+        }
+
         private bool ValidateUserInputForLogin( string input )
         {
             if ( input == null )
@@ -99,8 +121,6 @@ namespace ConsoleBanking.Classes
             return true;
         }
 
-
-
         private bool ValidateUserOption( string input, char[] validInputs )
         {
             if ( input == null ) return false;
@@ -111,5 +131,16 @@ namespace ConsoleBanking.Classes
 
             return validInputs.Any( @char => charInput == @char );
         }
+
+        private bool ValidateDouble( string input )
+        {
+            double testNumber;
+            if ( Double.TryParse( input, out testNumber ) )
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

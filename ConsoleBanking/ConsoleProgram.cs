@@ -19,19 +19,22 @@ namespace ConsoleBanking
             => _transactionHandler ?? ( _transactionHandler = new TransactionHandler() );
 
         private static ConsoleDialogHelper _dialogHelper;
-        public static ConsoleDialogHelper DialogHelper => _dialogHelper ?? ( _dialogHelper = new ConsoleDialogHelper() );
+
+        public static ConsoleDialogHelper DialogHelper =>
+            _dialogHelper ?? ( _dialogHelper = new ConsoleDialogHelper() );
 
         public static int Main()
         {
             Console.WriteLine( Resources.InitialGreeting );
-            var choice  = UserChoice.KeepGoing;
-            
+            AllocateKeysForSessionDictionary();
+            var choice = UserChoice.KeepGoing;
+
             Task<bool> result = null;
 
             while ( choice == UserChoice.KeepGoing )
             {
                 result = HandleAsync( BankUserOperationsHelper.PresentInitialOptions() );
-                
+
                 if ( !result.Result )
                 {
                     choice = DialogHelper.GetUserChoiceForForUserAboutToExit();
@@ -40,6 +43,14 @@ namespace ConsoleBanking
 
             Console.ReadLine();
             return result != null && result.Result ? 0 : 1;
+        }
+
+        private static void AllocateKeysForSessionDictionary()
+        {
+            ConsoleSession.Instance.Data["UserId"] = null;
+            ConsoleSession.Instance.Data["Password"] = null;
+            ConsoleSession.Instance.Data["SessionID"] = null;
+            ConsoleSession.Instance.Data["Balance"] = null;
         }
 
         private static async Task<bool> HandleAsync( Task<bool> status )

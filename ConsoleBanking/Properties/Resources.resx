@@ -138,6 +138,12 @@
   <data name="GenericErrorMessage" xml:space="preserve">
     <value>Sorry, an error occurred on and we couldn't process that request.</value>
   </data>
+  <data name="GetAmountForDeposit" xml:space="preserve">
+    <value>Please enter the amount you would like to deposit:</value>
+  </data>
+  <data name="GetAmountForWithdrawal" xml:space="preserve">
+    <value>Plese enter the amount you would like to withdraw:</value>
+  </data>
   <data name="GetUserEmail" xml:space="preserve">
     <value>Please enter your emai address:</value>
   </data>
@@ -151,6 +157,9 @@ Welcome to the Bank of Nate!
   </data>
   <data name="InvalidInput" xml:space="preserve">
     <value>Sorry, your input was invalid. Please try again below:  </value>
+  </data>
+  <data name="InvalidNumericInput" xml:space="preserve">
+    <value>Sorry, that was not a valid numeric quantity. Please try again below:</value>
   </data>
   <data name="NewUserGetEmail" xml:space="preserve">
     <value>Please enter a valid email address:</value>
@@ -180,7 +189,7 @@ Please provide a valid password.</value>
   <data name="UserOptionsForLoggedInUser" xml:space="preserve">
     <value>
 ***********************************************************
-Your are currently logged in. Please select an option:
+Please select one of the options below:
     - Press [4] to view recent transactions
     - Press [5] to deposit money
     - Press [6] to withdraw money

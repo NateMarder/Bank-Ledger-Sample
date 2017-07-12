@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net;
-using System.Threading;
+﻿using System.Net;
 using ConsoleBanking.Enums;
 
 namespace ConsoleBanking.Models
@@ -19,10 +17,22 @@ namespace ConsoleBanking.Models
         public string HomeTown { get; set; }
     }
 
+    public class RegisterViewModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+
     public class SigninStatusModel
     {
         public string Content { get; set; }
         public SignInStatus Status { get; set; }
+    }
+
+    public class RegistrationStatusModel
+    {
+        public string Content { get; set; }
+        public RegistrationStatus Status { get; set; }
     }
 
     public class TransactionRequestModel

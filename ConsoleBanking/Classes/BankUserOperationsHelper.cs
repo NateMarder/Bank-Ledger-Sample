@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using ConsoleBanking.Enums;
 using ConsoleBanking.Models;
-using ConsoleBanking.Properties;
 
 
 namespace ConsoleBanking.Classes
@@ -39,45 +36,27 @@ namespace ConsoleBanking.Classes
                     await result;
                     if ( result.Result.Status == SignInStatus.Success )
                     {
-                        ConsoleSession.Instance.Data["SessionID"] = result.Result.Content;
-                        
                         return PresentOptionsForLoggedInUser();
                     }
                     return false;
                 case UserChoice.RegisterNewAccount:
-                    return CreateUser();
+                    var registerSuccess = CreateUser();
+                    await registerSuccess;
+                    if ( registerSuccess.Result )
+                    {
+                        return PresentOptionsForLoggedInUser();
+                    }
+                    return false;
                 case UserChoice.Logout:
-                    return Logout();
+                    return true;
             }
 
             return false;
         }
 
 
-        public async Task<SigninStatusModel> Login( bool firstTime = true )
-        {
-
-            var model = new LoginViewModel
-            {
-                Email = DialogHelper.GetUserEmailForLogin(),
-                Password = DialogHelper.GetUserPasswordForLogin()
-            };
-
-            var result = await RequestHelper.UserSignInGetModel( model );
-
-            if ( result.Status == SignInStatus.Success )
-            {
-                ConsoleSession.Instance.Data["UserId"] = model.Email;
-                ConsoleSession.Instance.Data["Password"] = model.Password;
-                ConsoleSession.Instance.Data["Token"] = result.Content;
-            }
-            
-            return result;
-        }
-
         public bool PresentOptionsForLoggedInUser()
         {
-
             var choice = DialogHelper.GetUserChoiceForLoggedInOptions();
 
             try
@@ -110,33 +89,59 @@ namespace ConsoleBanking.Classes
         }
 
 
-        public bool ViewRecentTransactionsAsync()
+        private bool ViewRecentTransactionsAsync()
         {
             try
             {
                 var result = RequestHelper.GetTransactionHistory();
-                Console.WriteLine(result.Result.Content);
+                Console.WriteLine( result.Result.Content );
                 return PresentOptionsForLoggedInUser();
             }
-            catch( Exception ex )
+            catch ( Exception ex )
             {
                 Console.WriteLine( ex.Message );
                 return false;
             }
         }
 
-        public bool Deposit()
+        private bool Deposit()
         {
-            Console.WriteLine( "Welcome to the deposit process..." );
-            Console.ReadLine();
-            return true;
+            var amount = DialogHelper.GetDepositAmount();
+            try
+            {
+                var result = RequestHelper.AttemptTransaction( amount, true );
+                var displayMessage = result.Result
+                    ? "Your deposit of $" + amount + " was tendered succussfully"
+                    : "Your deposit of $" + amount + " was unsuccessful";
+
+                Console.WriteLine( displayMessage );
+                return PresentOptionsForLoggedInUser();
+            }
+            catch ( Exception ex )
+            {
+                Console.WriteLine( ex.Message );
+                return false;
+            }
         }
 
-        public bool Withdraw()
+        private bool Withdraw()
         {
-            Console.WriteLine( "Welcome to the withdraw process..." );
-            Console.ReadLine();
-            return true;
+            var amount = DialogHelper.GetWithdrawalAmount();
+            try
+            {
+                var result = RequestHelper.AttemptTransaction( amount, false );
+                var displayMessage = result.Result
+                    ? "Your withdrawal of $" + amount + " was tendered succussfully"
+                    : "Your withdrawal of $" + amount + " was unsuccessful";
+
+                Console.WriteLine( displayMessage );
+                return PresentOptionsForLoggedInUser();
+            }
+            catch ( Exception ex )
+            {
+                Console.WriteLine( ex.Message );
+                return false;
+            }
         }
 
         public bool Logout()
@@ -144,11 +149,46 @@ namespace ConsoleBanking.Classes
             return true;
         }
 
-        public bool CreateUser()
+        public async Task<SigninStatusModel> Login( bool firstTime = true )
         {
-            Console.WriteLine( "Welcome to user creation..." );
-            Console.ReadLine();
-            return true;
+
+            var model = new LoginViewModel
+            {
+                Email = ConsoleSession.Instance.Data["UserId"] ?? DialogHelper.GetUserEmailForLogin(),
+                Password = ConsoleSession.Instance.Data["Password"] ?? DialogHelper.GetUserPasswordForLogin()
+            };
+
+            var result = await RequestHelper.AttemptUserSignIn( model );
+
+            if ( result.Status == SignInStatus.Success )
+            {
+                ConsoleSession.Instance.Data["UserId"] =  model.Email;
+                ConsoleSession.Instance.Data["Password"] =  model.Password;
+                ConsoleSession.Instance.Data["SessionID"] = result.Content;
+            }
+
+            return result;
+        }
+
+        public async Task<bool> CreateUser()
+        {
+            var model = new RegisterViewModel()
+            {
+                Email = DialogHelper.GetUserEmailForLogin(),
+                Password = DialogHelper.GetUserPasswordForLogin()
+            };
+
+            var result =  RequestHelper.AttemptUserRegistration( model ).Result;
+            if ( result.Status == RegistrationStatus.Success )
+            {
+                ConsoleSession.Instance.Data["UserId"] = model.Email;
+                ConsoleSession.Instance.Data["Password"] = model.Password;
+                var loginSuccess = Login();
+                await loginSuccess;
+                return loginSuccess.Result.Status == SignInStatus.Success;
+            }
+
+            return false;
         }
     }
 }

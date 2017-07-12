@@ -41,8 +41,8 @@ namespace HtmlClient.Models
         public override string ToString()
         {
             var dateString = Date.Split( '(' )[0];
-            var type = IsWithdraw ? "withdrawal" : "deposit";
-            return  dateString + ":: " + type +" of $"+ Amount;
+            var type = IsWithdraw ? "withdrawal" : "   deposit";
+            return  dateString + "  ::  " + type +" of $"+ Amount;
         }
     }
 

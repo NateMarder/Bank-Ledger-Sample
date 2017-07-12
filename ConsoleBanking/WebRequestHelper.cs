@@ -1,19 +1,23 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Xml;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using ConsoleBanking.Classes;
 using ConsoleBanking.Enums;
-using ConsoleBanking.Interfaces;
 using ConsoleBanking.Models;
-using ConsoleBanking.Enums;
+using ConsoleBanking.Properties;
 
 namespace ConsoleBanking
 {
+
+    public interface IWebRequestHelper
+    {
+        Task<int> UserSignIn( LoginViewModel model );
+        Task<int> RegisterNewUser( LoginViewModel model );
+    }
+
+
     public class WebRequestHelper : IWebRequestHelper
     {
         private XDocument _sharedSettingsDocument;
@@ -22,14 +26,10 @@ namespace ConsoleBanking
             => _sharedSettingsDocument
                ?? ( _sharedSettingsDocument = XDocument.Load( "../SharedResources/Settings.xml" ) );
 
-        public WebRequestHelper()
-        {
-        }
-
         public async Task<int> UserSignIn( LoginViewModel model )
         {
             SignInStatus status;
-            HttpClient client = new HttpClient();
+            var client = new HttpClient();
 
             var url = "http://localhost:54194/Login/LoginFromConsole/"
                       + "?Email=" + model.Email
@@ -49,7 +49,7 @@ namespace ConsoleBanking
             return (int) status;
         }
 
-        public async Task<SigninStatusModel> UserSignInGetModel( LoginViewModel model )
+        public async Task<SigninStatusModel> AttemptUserSignIn( LoginViewModel model )
         {
             var signInStatus = new SigninStatusModel();
             var client = new HttpClient();
@@ -59,12 +59,10 @@ namespace ConsoleBanking
                       + "&Password=" + model.Password;
             try
             {
-                Console.WriteLine( "\n... attempting login at: " + url + "\n" );
                 var response = await client.GetAsync( url );
                 response.EnsureSuccessStatusCode();
-
-                ConsoleSession.Instance.Data["SessionGuid"] = await response.Content.ReadAsStringAsync();
-                signInStatus.Content = ConsoleSession.Instance.Data["SessionGuid"];
+                ConsoleSession.Instance.Data["SessionID"] = await response.Content.ReadAsStringAsync();
+                signInStatus.Content = ConsoleSession.Instance.Data["SessionID"];
                 signInStatus.Status = SignInStatus.Success;
             }
             catch ( Exception ex )
@@ -74,8 +72,33 @@ namespace ConsoleBanking
             }
 
             client.Dispose();
-            Console.WriteLine( "Login Status: " + signInStatus.Status );
+            Console.WriteLine( "Login Success Status: " + signInStatus.Status );
             return signInStatus;
+        }
+
+        public async Task<RegistrationStatusModel> AttemptUserRegistration( RegisterViewModel model )
+        {
+            var registrationStatus = new RegistrationStatusModel();
+            var client = new HttpClient();
+
+            var url = "http://localhost:54194/Register/Register/"
+                      + "?Email=" + model.Email
+                      + "&Password=" + model.Password;
+            try
+            {
+                var response = await client.GetAsync( url );
+                registrationStatus.Content = response.Content.ToString();
+                registrationStatus.Status = RegistrationStatus.Success;
+            }
+            catch ( Exception ex )
+            {
+                registrationStatus.Content = ex.Message;
+                registrationStatus.Status = RegistrationStatus.Failure;
+            }
+
+            client.Dispose();
+            Console.WriteLine( "Registration Success Status: " + registrationStatus.Status );
+            return registrationStatus;
         }
 
         public async Task<int> RegisterNewUser( LoginViewModel model )
@@ -116,7 +139,7 @@ namespace ConsoleBanking
                       + "?Type=" + TransactionType.GetHistory
                       + "&UserId=" + ConsoleSession.Instance.Data["UserId"]
                       + "&Amount=" + 0
-                      + "&Token=" + ConsoleSession.Instance.Data["Token"];
+                      + "&Token=" + ConsoleSession.Instance.Data["SessionID"];
 
             try
             {
@@ -135,7 +158,7 @@ namespace ConsoleBanking
             return transactionModel;
         }
 
-        public async Task<bool> DepositFunds(double amount, bool isDeposit)
+        public async Task<bool> AttemptTransaction( double amount, bool isDeposit )
         {
             var client = new HttpClient();
             var type = isDeposit ? TransactionType.Deposit : TransactionType.Withdraw;
@@ -144,7 +167,7 @@ namespace ConsoleBanking
                       + "?Type=" + type
                       + "&UserId=" + ConsoleSession.Instance.Data["UserId"]
                       + "&Amount=" + amount
-                      + "&Token=" + ConsoleSession.Instance.Data["Token"];
+                      + "&Token=" + ConsoleSession.Instance.Data["SessionID"];
 
             try
             {

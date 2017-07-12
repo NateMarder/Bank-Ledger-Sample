@@ -136,7 +136,7 @@ namespace HtmlClient.Dal
 
                 // add date
                 var transactionDate = doc.CreateElement( "TransactionDate" );
-                transactionDate.InnerText = model.Date.ToString( CultureInfo.InvariantCulture );
+                transactionDate.InnerText = DateTime.UtcNow.ToString( CultureInfo.InvariantCulture );
                 transaction.AppendChild( transactionDate );
 
                 // delta amount
