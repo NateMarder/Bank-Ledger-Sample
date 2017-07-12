@@ -109,7 +109,7 @@ namespace ConsoleBanking.Classes
             var amount = DialogHelper.GetDepositAmount();
             try
             {
-                var result = RequestHelper.AttemptTransaction( amount, true );
+                var result = RequestHelper.TenderTransaction( amount, true );
                 var displayMessage = result.Result
                     ? "Your deposit of $" + amount + " was tendered succussfully"
                     : "Your deposit of $" + amount + " was unsuccessful";
@@ -129,7 +129,7 @@ namespace ConsoleBanking.Classes
             var amount = DialogHelper.GetWithdrawalAmount();
             try
             {
-                var result = RequestHelper.AttemptTransaction( amount, false );
+                var result = RequestHelper.TenderTransaction( amount, false );
                 var displayMessage = result.Result
                     ? "Your withdrawal of $" + amount + " was tendered succussfully"
                     : "Your withdrawal of $" + amount + " was unsuccessful";
@@ -158,7 +158,7 @@ namespace ConsoleBanking.Classes
                 Password = ConsoleSession.Instance.Data["Password"] ?? DialogHelper.GetUserPasswordForLogin()
             };
 
-            var result = await RequestHelper.AttemptUserSignIn( model );
+            var result = await RequestHelper.SignInUser( model );
 
             if ( result.Status == SignInStatus.Success )
             {
@@ -178,7 +178,7 @@ namespace ConsoleBanking.Classes
                 Password = DialogHelper.GetUserPasswordForLogin()
             };
 
-            var result =  RequestHelper.AttemptUserRegistration( model ).Result;
+            var result =  RequestHelper.RegisterNewUser( model ).Result;
             if ( result.Status == RegistrationStatus.Success )
             {
                 ConsoleSession.Instance.Data["UserId"] = model.Email;

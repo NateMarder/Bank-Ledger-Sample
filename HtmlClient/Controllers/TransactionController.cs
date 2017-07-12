@@ -104,7 +104,7 @@ namespace HtmlClient.Controllers
                     ? transaction.Amount 
                     : transaction.Amount * -1;
                 
-                summaryString += "  "+transaction.ToString() + "\n";
+                summaryString += "  "+transaction + "\n";
             }
 
             return summaryString + "\nCurrent Balance: " + balance + "\n*********************************************";

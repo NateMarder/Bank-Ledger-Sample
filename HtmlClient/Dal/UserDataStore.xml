@@ -59,6 +59,12 @@
     <Password>Nate1234!</Password>
     <Balance>0</Balance>
     <LastLogin>5:14 AM</LastLogin>
+    <Transaction>
+      <TransactionDate>07/12/2017 05:27:51</TransactionDate>
+      <Amount>215.76</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
   </User>
   <User>
     <Email>Nate1@Nate.com</Email>

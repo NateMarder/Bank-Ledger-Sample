@@ -13,11 +13,10 @@ namespace HtmlClient.Filters
                 return false;
             }
 
-            var sessionGuid = HttpContext.Current.Request.Params["SessionGuid"];
-            var currentSessionGuid = HttpContext.Current.Session["SessionGuid"];
-            if ( sessionGuid != null && currentSessionGuid != null)
+            var token = HttpContext.Current.Request.Params["Token"];
+            if ( token != null && HttpContext.Current.Session.SessionID != null)
             {
-                return currentSessionGuid.ToString() == sessionGuid;
+                return HttpContext.Current.Session.SessionID == token;
             }
             return false;  
         }  
