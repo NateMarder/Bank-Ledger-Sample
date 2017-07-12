@@ -1,28 +1,29 @@
 ﻿using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using HtmlClient.Classes;
 
 namespace HtmlClient.Filters
 {
     public class AuthorizeConsoleClient: AuthorizeAttribute
     {
-        protected override bool AuthorizeCore(HttpContextBase httpContext)  
+        public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            // first check for all possible nulls
-            if ( httpContext?.Session?["ConsoleToken"] == null )
+            var incomingSessionToken = filterContext.HttpContext.Request.Params["SessionId"];
+            var incomingEmail = filterContext.HttpContext.Request.Params["UserId"];
+
+            if ( incomingSessionToken == null || incomingEmail == null )
             {
-                return false;
+                filterContext.Result = new HttpStatusCodeResult( HttpStatusCode.Forbidden );
+                return;
             }
 
-            // then make sure tokens match
-            return HttpContext.Current.Request.Params["ConsoleToken"] 
-                == httpContext.Session["ConsoleToken"].ToString();
+            var validParams = ActiveSessions.SessionIsAuthenticated( incomingSessionToken, incomingEmail );
+            if (!validParams)
+            {
+                filterContext.Result = new HttpStatusCodeResult( HttpStatusCode.Forbidden );
+            }
         }  
-
-        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)  
-        {  
-            filterContext.Result = new HttpStatusCodeResult( HttpStatusCode.Forbidden );
-        } 
     }
 }
 

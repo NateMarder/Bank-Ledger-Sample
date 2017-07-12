@@ -158,5 +158,22 @@ namespace HtmlClient.Properties {
                 return ResourceManager.GetString("PasswordNotValidGenericMessage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///****************************************************************************
+        ///TransactionSummary:                                
+        ///
+        ///{0}
+        ///
+        ///Current Balance: {1}
+        ///****************************************************************************
+        ///.
+        /// </summary>
+        public static string TransactionHistoryString {
+            get {
+                return ResourceManager.GetString("TransactionHistoryString", resourceCulture);
+            }
+        }
     }
 }

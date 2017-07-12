@@ -5,7 +5,7 @@ using ValidationMessages = HtmlClient.Properties.Resources;
 
 namespace HtmlClient.Validators
 {
-    public class LoginValidator : AbstractValidator<LoginViewModel>
+    public class LoginValidator : AbstractValidator<UserViewModel>
     {
         private DalHandler _dal;
         public DalHandler DalHandler 

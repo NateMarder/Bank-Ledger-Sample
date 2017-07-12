@@ -6,7 +6,7 @@ using ValidationMessages = HtmlClient.Properties.Resources;
 
 namespace HtmlClient.Validators
 {
-    public class RegistrationValidator : AbstractValidator<RegisterViewModel>
+    public class RegistrationValidator : AbstractValidator<UserViewModel>
     {
         private DalHandler _dal;
         public DalHandler DalHandler => _dal ?? ( _dal = new DalHandler() );

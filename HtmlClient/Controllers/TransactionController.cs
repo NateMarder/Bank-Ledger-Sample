@@ -6,6 +6,7 @@ using HtmlClient.Dal;
 using HtmlClient.Enums;
 using HtmlClient.Filters;
 using HtmlClient.Models;
+using HtmlClient.Properties;
 
 namespace HtmlClient.Controllers
 {
@@ -102,7 +103,7 @@ namespace HtmlClient.Controllers
 
         private string GetTransactionSummaryString(TransactionViewModel[] transactions)
         {
-            var summaryString = "\n*********************************************\nTransaction Summary:\n\n";
+            var summaryString = "";
             var balance = 0.0;
 
             foreach ( var transaction in transactions )
@@ -114,7 +115,7 @@ namespace HtmlClient.Controllers
                 summaryString += "  "+transaction + "\n";
             }
 
-            return summaryString + "\nCurrent Balance: " + balance + "\n*********************************************";
+            return string.Format( Resources.TransactionHistoryString, summaryString, balance );
         }
     }
 }

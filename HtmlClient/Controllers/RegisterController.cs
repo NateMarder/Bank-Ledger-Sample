@@ -16,7 +16,7 @@ namespace HtmlClient.Controllers
 
 
         [AllowAnonymous]
-        public ActionResult Register( RegisterViewModel model )
+        public ActionResult Register( UserViewModel model )
         {
             try
             {

@@ -40,7 +40,7 @@ namespace HtmlClient.Dal
             }
         }
 
-        public virtual bool RegisterNewUser( RegisterViewModel model )
+        public virtual bool RegisterNewUser( UserViewModel model )
         {
             var doc = new XmlDocument();
             doc.Load( UserDataXmlPath );

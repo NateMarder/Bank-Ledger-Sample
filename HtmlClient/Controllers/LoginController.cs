@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using HtmlClient.Classes;
 using HtmlClient.Filters;
 using HtmlClient.Models;
 using HtmlClient.Properties;
@@ -25,21 +26,19 @@ namespace HtmlClient.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet]
-        public ActionResult UserSignIn( LoginViewModel model )
+        public ActionResult UserSignIn( UserViewModel model )
         {
             return View( "../Login" );
         }
 
         [AllowAnonymous]
-        [HttpGet]
-        public ActionResult SignInSuccess( LoginViewModel model )
+        public ActionResult SignInSuccess( UserViewModel model )
         {
             return View( "../Home/Index" );
         }
 
         [AllowAnonymous]
-        public ActionResult ValidateSignIn( LoginViewModel user )
+        public ActionResult ValidateSignIn( UserViewModel user )
         {
             try
             {
@@ -78,37 +77,33 @@ namespace HtmlClient.Controllers
         *************************************************************
         *************************************************************/
         [AllowAnonymous]
-        public ActionResult LoginFromConsole( LoginViewModel model )
+        public ActionResult LoginFromConsole( UserViewModel model )
         {
             try
             {
                 var result = LoginValidator.Validate( model );
                 if ( result.IsValid )
                 {
-                    Session["UserId"] = model.Email;
-                    Session["ConsoleToken"] = model.ConsoleToken;
                     Response.StatusCode = (int) HttpStatusCode.OK;
-                    return new JsonResult
+                    ActiveSessions.MarkSessionAsAuthenticated( Session.SessionID, model.Email );
+                    return new ContentResult()
                     {
-                        JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                        Data = Session.SessionID
+                        Content = Session.SessionID
                     };
                 }
 
                 Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                return new JsonResult
+                return new ContentResult()
                 {
-                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                    Data = result.Errors.ToArray().Select( e => e.ErrorMessage )
+                    Content = result.Errors.ToArray().Select( e => e.ErrorMessage ).ToString()
                 };
             }
             catch ( Exception ex )
             {
                 Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                return new JsonResult
+                return new ContentResult()
                 {
-                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                    Data = ex.Message
+                    Content = ex.Message
                 };
             }
         }
@@ -120,6 +115,7 @@ namespace HtmlClient.Controllers
         {
             try
             {
+                ActiveSessions.RemoveSession( Session.SessionID );
                 Session.Abandon();
                 return new HttpStatusCodeResult( HttpStatusCode.OK );
             }

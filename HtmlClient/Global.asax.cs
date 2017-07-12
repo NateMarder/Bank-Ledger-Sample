@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Xml;
+using HtmlClient.Classes;
 
 namespace HtmlClient
 {
@@ -15,6 +17,16 @@ namespace HtmlClient
             UpdateSharedXmlFile();
         }
 
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            var session = Tuple.Create( false, Session.SessionID, string.Empty );
+            ActiveSessions.Sessions.Add( session );
+        }
+
+        protected void Session_End(object sender, EventArgs e)
+        {
+            ActiveSessions.RemoveSession( Session.SessionID );
+        }
 
         protected void UpdateSharedXmlFile()
         {

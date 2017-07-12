@@ -23,14 +23,13 @@ namespace ConsoleBanking.Classes
             SetConsoleToken();
             var url = $"http://localhost:54194/Login/LoginFromConsole/" +
                       $"?Email={model.Email}" +
-                      $"&Password={model.Password}" +
-                      $"&ConsoleToken={ConsoleSession.Instance.Data["ConsoleToken"]}";
+                      $"&Password={model.Password}";
             try
             {
                 var response = await client.GetAsync( url );
                 response.EnsureSuccessStatusCode();
-                ConsoleSession.Instance.Data["SessionID"] = await response.Content.ReadAsStringAsync();
-                signInStatus.Content = ConsoleSession.Instance.Data["SessionID"];
+                ConsoleSession.Instance.Data["SessionToken"] = await response.Content.ReadAsStringAsync();
+                signInStatus.Content = ConsoleSession.Instance.Data["SessionToken"];
                 signInStatus.Status = SignInStatus.Success;
             }
             catch ( Exception ex )
@@ -42,7 +41,7 @@ namespace ConsoleBanking.Classes
             client.Dispose();
 
             Console.WriteLine( signInStatus.Status == SignInStatus.Success
-                ? $"Login Success Status: {signInStatus.Status}"
+                ? $"Login Success Status: {signInStatus.Status}, {signInStatus.Content}"
                 : $"Login Success Status: {signInStatus.Status}, {signInStatus.Content}" );
 
             return signInStatus;
@@ -75,14 +74,11 @@ namespace ConsoleBanking.Classes
         {
             var transactionModel = new TransactionHistoryModel();
             var client = new HttpClient();
-            var consoleTokeyKeyExists = ConsoleSession.Instance.Data.ContainsKey( "ConsoleToken" );
-            var userIdTokenKeyExists = ConsoleSession.Instance.Data.ContainsKey( "ConsoleToken" );
-            var consoleToken = ConsoleSession.Instance.Data["ConsoleToken"];
             var userId = ConsoleSession.Instance.Data["UserId"];
+            var sessionId = ConsoleSession.Instance.Data["SessionToken"];
 
             var url = "http://localhost:54194/Transaction/ConsoleTransaction/" +
-                $"?Type={TransactionType.GetHistory}&UserId={userId}" +
-                $"&Amount={0}&ConsoleToken={consoleToken}";
+                $"?Type={TransactionType.GetHistory}&UserId={userId}&Amount={0}&SessionId={sessionId}";
          
             try
             {
@@ -103,12 +99,14 @@ namespace ConsoleBanking.Classes
 
         public async Task<bool> TenderTransaction( double amount, bool isDeposit )
         {
+            var transactionModel = new TransactionHistoryModel();
             var client = new HttpClient();
+            var userId = ConsoleSession.Instance.Data["UserId"];
+            var sessionId = ConsoleSession.Instance.Data["SessionToken"];
             var type = isDeposit ? TransactionType.Deposit : TransactionType.Withdraw;
 
             var url = "http://localhost:54194/Transaction/ConsoleTransaction/" +
-                      $"?Type={type}&UserId={ConsoleSession.Instance.Data["UserId"]}&Amount={amount}" +
-                      $"&ConsoleToken={ConsoleSession.Instance.Data["ConsoleToken"]}";
+                      $"?Type={type}&UserId={userId}&Amount={amount}&SessionId={sessionId}";
 
             try
             {

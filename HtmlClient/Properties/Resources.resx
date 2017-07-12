@@ -150,4 +150,15 @@
   <data name="PasswordNotValidGenericMessage" xml:space="preserve">
     <value>Please provide a valid password.</value>
   </data>
+  <data name="TransactionHistoryString" xml:space="preserve">
+    <value>
+****************************************************************************
+TransactionSummary:                                
+
+{0}
+
+Current Balance: {1}
+****************************************************************************
+</value>
+  </data>
 </root>
