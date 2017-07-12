@@ -39,7 +39,7 @@ namespace HtmlClient.Validators
         }
 
         // for testing
-        public void setDalHandler( DalHandler dalHandler )
+        public void SetDalHandler( DalHandler dalHandler )
         {
             _dal = dalHandler;
         }

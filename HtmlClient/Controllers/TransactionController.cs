@@ -14,6 +14,7 @@ namespace HtmlClient.Controllers
         private DalHandler _dal;
         public DalHandler Dal => _dal ?? ( _dal = new DalHandler(Session.SessionID) );
 
+        [AuthorizeConsoleClient]
         [HttpGet]
         public ActionResult TransactionHistory()
         {

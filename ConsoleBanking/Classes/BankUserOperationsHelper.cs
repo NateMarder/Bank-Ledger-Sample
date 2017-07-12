@@ -50,7 +50,7 @@ namespace ConsoleBanking.Classes
             return false;
         }
 
-        public bool PresentOptionsForLoggedInUser()
+        private bool PresentOptionsForLoggedInUser()
         {
             var choice = DialogHelper.GetUserChoiceForLoggedInOptions();
 
@@ -138,7 +138,7 @@ namespace ConsoleBanking.Classes
             }
         }
 
-        public async Task<SigninStatusModel> Login( bool firstTime = true )
+        private async Task<SigninStatusModel> Login( bool firstTime = true )
         {
             var model = new LoginViewModel
             {
@@ -157,7 +157,7 @@ namespace ConsoleBanking.Classes
             return result;
         }
 
-        public async Task<bool> CreateUser()
+        private async Task<bool> CreateUser()
         {
             var model = new RegisterViewModel
             {

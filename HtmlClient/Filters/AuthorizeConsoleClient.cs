@@ -7,7 +7,6 @@ namespace HtmlClient.Filters
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)  
         {  
-
             if ( HttpContext.Current == null )
             {
                 return false;
