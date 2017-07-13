@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Net;
 using System.Web.Mvc;
 using HtmlClient.Filters;
+using Libraries.Dal;
 using Libraries.Enums;
 using Libraries.Models;
 using Libraries.Properties;
@@ -11,8 +12,8 @@ namespace HtmlClient.Controllers
 {
     public class TransactionController : Controller
     {
-        private Dal.Dal _dal;
-        public Dal.Dal Dal => _dal ?? ( _dal = new Dal.Dal() );
+        private Dal _dal;
+        public Dal Dal => _dal ?? ( _dal = new Dal() );
 
         [HttpGet]
         public ActionResult TransactionHistory()
@@ -64,7 +65,7 @@ namespace HtmlClient.Controllers
         **
         *************************************************************
         *************************************************************/
-        [AuthorizeConsoleClient]
+        [AuthorizeConsoleAppUser]
         public ActionResult ConsoleTransaction( TransactionRequestModel model )
         {
             try

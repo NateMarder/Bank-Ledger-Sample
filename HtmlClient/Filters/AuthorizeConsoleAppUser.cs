@@ -4,7 +4,7 @@ using HtmlClient.Classes;
 
 namespace HtmlClient.Filters
 {
-    public class AuthorizeConsoleClient: AuthorizeAttribute
+    public class AuthorizeConsoleAppUser: AuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {

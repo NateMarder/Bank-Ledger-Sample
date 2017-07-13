@@ -3,7 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using FluentValidation.Results;
-using HtmlClient.Validators;
+using Libraries.Dal;
+using Libraries.Validators;
 using Libraries.Models;
 using Libraries.Properties;
 
@@ -11,8 +12,8 @@ namespace HtmlClient.Controllers
 {
     public class RegisterController : Controller
     {
-        private Dal.Dal _dal;
-        public Dal.Dal Dal => _dal ?? ( _dal = new Dal.Dal( Session.SessionID ) );
+        private Dal _dal;
+        public Dal Dal => _dal ?? ( _dal = new Dal( Session.SessionID ) );
 
 
         [AllowAnonymous]

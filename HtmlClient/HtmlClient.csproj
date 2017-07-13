@@ -103,10 +103,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dal\DataStore.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -137,8 +133,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
-    <Compile Include="Dal\Dal.cs" />
-    <Compile Include="Filters\AuthorizeConsoleClient.cs" />
+    <Compile Include="Filters\AuthorizeConsoleAppUser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -149,8 +144,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Validators\LoginValidator.cs" />
-    <Compile Include="Validators\RegistrationValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

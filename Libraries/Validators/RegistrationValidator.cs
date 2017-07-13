@@ -3,7 +3,7 @@ using FluentValidation;
 using Libraries.Models;
 using ValidationMessages = Libraries.Properties.Resources;
 
-namespace HtmlClient.Validators
+namespace Libraries.Validators
 {
     public class RegistrationValidator : AbstractValidator<UserViewModel>
     {

@@ -1,53 +1,46 @@
-﻿using System.Linq;
-using FluentValidation;
-using Libraries.Properties;
+﻿using FluentValidation;
+using Libraries.Models;
+using ValidationMessages = Libraries.Properties.Resources;
 
-
-namespace ConsoleBanking.Validators
+namespace Libraries.Validators
 {
-
-    public class PasswordViewModel
+    public class LoginValidator : AbstractValidator<UserViewModel>
     {
-        public string Password { get; set; }
-    }
-
-    public class LoginValidator : AbstractValidator<PasswordViewModel>
-    {
+        private Dal.Dal _dal;
+        public Dal.Dal Dal 
+            => _dal ?? ( _dal = new Dal.Dal() );
 
         public LoginValidator()
         {
+            // email validation
+            RuleFor( model => model.Email )
+                .NotEmpty()
+                .EmailAddress()
+                .Must( Exist )
+                .WithMessage( ValidationMessages.EmailDoesntExist );
+
+            // password validation
             RuleFor( model => model.Password )
-                .Length( 4, 20 )
-                .Must( ContainNumericCharacter )
-                .Must( ContainNonNumericCharacter )
-                .Must( ContainUpperCaseCharacter )
-                .Must( ContainSpecialCharacter ).WithMessage( Resources.InvalidInput );
+                .NotEmpty()
+                .Must( ( m, email ) => MatchUsersEmail( m.Password, m.Email ) )
+                .WithMessage( ValidationMessages.EmailCombinationInvalid );
         }
 
-        private bool ContainNumericCharacter( string password )
+        private bool Exist( string email )
         {
-            try { return password.ToCharArray().Any( char.IsNumber ); }
-            catch {  return false; }
+            return Dal.EmailExists( email );
         }
 
-        private bool ContainNonNumericCharacter( string password )
+        private bool MatchUsersEmail( string password, string email )
         {
-            try { return password.ToCharArray().Any( char.IsLetter ); }
-            catch {  return false; }
+            return Dal.VerifyPasswordEmailComboExists(
+                new UserViewModel {Email = email, Password = password} );
         }
 
-        private bool ContainUpperCaseCharacter( string password )
+        // for testing
+        public void SetDalHandler( Dal.Dal dal )
         {
-            try { return password.ToCharArray().Any( char.IsUpper ); }
-            catch {  return false; }
+            _dal = dal;
         }
-
-        private bool ContainSpecialCharacter( string password )
-        {
-            try { return password.ToCharArray()
-                .Any( c => ( !char.IsLetter( c ) && !char.IsNumber( c ) ) ); }
-            catch {  return false; }
-        }
-
     }
 }

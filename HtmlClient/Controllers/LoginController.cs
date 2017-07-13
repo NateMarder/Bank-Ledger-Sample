@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using FluentValidation.Results;
 using HtmlClient.Classes;
 using HtmlClient.Filters;
-using HtmlClient.Validators;
+using Libraries.Validators;
 using Libraries.Models;
 
 namespace HtmlClient.Controllers
@@ -109,7 +109,7 @@ namespace HtmlClient.Controllers
 
 
         [HttpPost]
-        [AuthorizeConsoleClient]
+        [AuthorizeConsoleAppUser]
         public ActionResult ConsoleSignOut()
         {
             try

@@ -4,10 +4,10 @@ using System.Globalization;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using HtmlClient.Properties;
+using Libraries.Properties;
 using Libraries.Models;
 
-namespace HtmlClient.Dal
+namespace Libraries.Dal
 {
     public class Dal
     {
@@ -19,7 +19,7 @@ namespace HtmlClient.Dal
         public Dal( string sessionId = null )
         {
             //todo: implement a more rigorous session validation process
-            _hostName = Settings.Default.LocalDomainWithPort;
+            //_hostName = Settings.Default.LocalDomainWithPort;
             _sharedAppSettingsPath = _hostName + "Settings.xml";
         }
 
@@ -28,19 +28,19 @@ namespace HtmlClient.Dal
                    AppDomain.CurrentDomain.BaseDirectory + "\\Dal",
                    "DataStore*" )[0] );
 
-        protected void UpdateLoginFromConsoleUrl()
-        {
-            using ( var streamWriter = new StreamWriter( _sharedAppSettingsPath ) )
-            {
-                var link = new XmlLink
-                {
-                    Name = "signin",
-                    LinkValue = _hostName + "Account/LoginFromConsole/"
-                };
-                var xmlSerializer = new XmlSerializer( link.GetType() );
-                xmlSerializer.Serialize( streamWriter, link );
-            }
-        }
+        //protected void UpdateLoginFromConsoleUrl()
+        //{
+        //    using ( var streamWriter = new StreamWriter( _sharedAppSettingsPath ) )
+        //    {
+        //        var link = new XmlLink
+        //        {
+        //            Name = "signin",
+        //            LinkValue = _hostName + "Account/LoginFromConsole/"
+        //        };
+        //        var xmlSerializer = new XmlSerializer( link.GetType() );
+        //        xmlSerializer.Serialize( streamWriter, link );
+        //    }
+        //}
 
         public virtual bool RegisterNewUser( UserViewModel model )
         {

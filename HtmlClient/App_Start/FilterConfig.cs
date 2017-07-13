@@ -7,7 +7,7 @@ namespace HtmlClient
     {
         public static void RegisterGlobalFilters( GlobalFilterCollection filters )
         {
-            filters.Add( new AuthorizeConsoleClient() );
+            filters.Add( new AuthorizeConsoleAppUser() );
         }
     }
 }
