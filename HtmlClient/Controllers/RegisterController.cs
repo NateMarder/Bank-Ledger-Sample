@@ -11,8 +11,8 @@ namespace HtmlClient.Controllers
 {
     public class RegisterController : Controller
     {
-        private DalHandler _dal;
-        public DalHandler Dal => _dal ?? ( _dal = new DalHandler( Session.SessionID ) );
+        private Dal.Dal _dal;
+        public Dal.Dal Dal => _dal ?? ( _dal = new Dal.Dal( Session.SessionID ) );
 
 
         [AllowAnonymous]

@@ -12,8 +12,8 @@ namespace HtmlClient.Controllers
 {
     public class TransactionController : Controller
     {
-        private DalHandler _dal;
-        public DalHandler Dal => _dal ?? ( _dal = new DalHandler() );
+        private Dal.Dal _dal;
+        public Dal.Dal Dal => _dal ?? ( _dal = new Dal.Dal() );
 
         [HttpGet]
         public ActionResult TransactionHistory()

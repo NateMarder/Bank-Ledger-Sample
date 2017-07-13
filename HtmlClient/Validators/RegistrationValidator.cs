@@ -8,8 +8,8 @@ namespace HtmlClient.Validators
 {
     public class RegistrationValidator : AbstractValidator<UserViewModel>
     {
-        private DalHandler _dal;
-        public DalHandler DalHandler => _dal ?? ( _dal = new DalHandler() );
+        private Dal.Dal _dal;
+        public Dal.Dal Dal => _dal ?? ( _dal = new Dal.Dal() );
 
         public RegistrationValidator()
         {
@@ -29,7 +29,7 @@ namespace HtmlClient.Validators
 
         private bool NotAlreadyExist( string email )
         {
-            return !DalHandler.EmailExists( email );
+            return !Dal.EmailExists( email );
         }
 
         private bool ContainNumericCharacter( string password )

@@ -162,7 +162,7 @@ namespace HtmlClient.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 
         ///****************************************************************************
-        ///TransactionSummary:                                
+        ///Transaction Summary:                                
         ///
         ///{0}
         ///

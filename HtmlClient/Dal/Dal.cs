@@ -9,14 +9,14 @@ using HtmlClient.Properties;
 
 namespace HtmlClient.Dal
 {
-    public class DalHandler
+    public class Dal
     {
         private readonly string _hostName;
 
         private readonly string _sharedAppSettingsPath;
         private string _userDataXmlPath;
 
-        public DalHandler( string sessionId = null )
+        public Dal( string sessionId = null )
         {
             //todo: implement a more rigorous session validation process
             _hostName = Settings.Default.LocalDomainWithPort;
@@ -26,7 +26,7 @@ namespace HtmlClient.Dal
         public string UserDataXmlPath
             => _userDataXmlPath ?? ( _userDataXmlPath = Directory.GetFiles(
                    AppDomain.CurrentDomain.BaseDirectory + "\\Dal",
-                   "UserDataStore*" )[0] );
+                   "DataStore*" )[0] );
 
         protected void UpdateLoginFromConsoleUrl()
         {
@@ -80,7 +80,7 @@ namespace HtmlClient.Dal
         {
             var doc = new XmlDocument();
             doc.Load( UserDataXmlPath );
-            var root = doc.DocumentElement; // <UserDataStore>  is root
+            var root = doc.DocumentElement; // <DataStore>  is root
             var userNodes = root?.SelectNodes( "//User" ); //all <User> Nodes
 
             if ( userNodes == null ) return false;
@@ -101,7 +101,7 @@ namespace HtmlClient.Dal
         {
             var doc = new XmlDocument();
             doc.Load( UserDataXmlPath );
-            var root = doc.DocumentElement; // <UserDataStore>  is root
+            var root = doc.DocumentElement; // <DataStore>  is root
             var userNodes = root?.SelectNodes( "//User" ); //all <User> Nodes
 
             if ( userNodes == null ) return false;

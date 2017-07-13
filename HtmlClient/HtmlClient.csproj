@@ -103,7 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dal\UserDataStore.xml">
+    <Content Include="Dal\DataStore.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
@@ -137,7 +137,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
-    <Compile Include="Dal\DalHandler.cs" />
+    <Compile Include="Dal\Dal.cs" />
     <Compile Include="Filters\AuthorizeConsoleClient.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
