@@ -6,11 +6,14 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleBanking", "ConsoleBanking\ConsoleBanking.csproj", "{CAB5E831-10D2-49DD-8F3C-4CBB2D3622C4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{79ABC556-66AF-4BCF-BEFC-3C7B11197786} = {79ABC556-66AF-4BCF-BEFC-3C7B11197786}
+		{FDBD819D-B5D4-410A-8920-B048B81571AD} = {FDBD819D-B5D4-410A-8920-B048B81571AD}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlClient", "HtmlClient\HtmlClient.csproj", "{79ABC556-66AF-4BCF-BEFC-3C7B11197786}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedResources", "SharedResources\SharedResources.shproj", "{ABC899A2-B407-404B-B321-135E2F9B6EA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries", "Libraries\Libraries.csproj", "{FDBD819D-B5D4-410A-8920-B048B81571AD}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -36,6 +39,12 @@ Global
 		{79ABC556-66AF-4BCF-BEFC-3C7B11197786}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{79ABC556-66AF-4BCF-BEFC-3C7B11197786}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79ABC556-66AF-4BCF-BEFC-3C7B11197786}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDBD819D-B5D4-410A-8920-B048B81571AD}.consoledebug|Any CPU.ActiveCfg = Release|Any CPU
+		{FDBD819D-B5D4-410A-8920-B048B81571AD}.consoledebug|Any CPU.Build.0 = Release|Any CPU
+		{FDBD819D-B5D4-410A-8920-B048B81571AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDBD819D-B5D4-410A-8920-B048B81571AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDBD819D-B5D4-410A-8920-B048B81571AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDBD819D-B5D4-410A-8920-B048B81571AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
