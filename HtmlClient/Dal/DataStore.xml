@@ -120,28 +120,4 @@
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
   </User>
-  <User>
-    <Email>Nate1@Nate.com</Email>
-    <Password>Nate1234!</Password>
-    <Balance>0</Balance>
-    <LastLogin>5:24 AM</LastLogin>
-  </User>
-  <User>
-    <Email>nate4@nate.com</Email>
-    <Password>Nate1234!</Password>
-    <Balance>0</Balance>
-    <LastLogin>8:55 PM</LastLogin>
-  </User>
-  <User>
-    <Email>nate@natenate.com</Email>
-    <Password>Nate1234!</Password>
-    <Balance>0</Balance>
-    <LastLogin>11:31 PM</LastLogin>
-    <Transaction>
-      <TransactionDate>07/12/2017 23:32:29</TransactionDate>
-      <Amount>5000</Amount>
-      <IsDeposit>True</IsDeposit>
-      <IsWithdraw>False</IsWithdraw>
-    </Transaction>
-  </User>
 </DataStore>

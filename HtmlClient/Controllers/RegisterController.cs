@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using HtmlClient.Dal;
+using FluentValidation.Results;
 using HtmlClient.Models;
 using HtmlClient.Properties;
 using HtmlClient.Validators;
@@ -39,7 +39,7 @@ namespace HtmlClient.Controllers
                 return new JsonResult
                 {
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                    Data = result.Errors.ToList().Select( er => er.ErrorMessage ).ToList().Distinct()
+                    Data = GetPrettifiedValidationError( result )
                 };
             }
             catch ( Exception ex )
@@ -50,6 +50,17 @@ namespace HtmlClient.Controllers
                     Data = Resources.GenericErrorMessage + "\n" + ex.Message
                 };
             }
+        }
+
+        private string GetPrettifiedValidationError( ValidationResult result )
+        {
+            if ( result.IsValid )
+            {
+                return null;
+            }
+
+            return result.Errors.Aggregate( "", ( current, error ) 
+                => current + ( error.ErrorMessage + "<br>" ) );
         }
     }
 }

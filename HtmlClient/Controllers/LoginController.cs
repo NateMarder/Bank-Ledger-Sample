@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using FluentValidation.Results;
 using HtmlClient.Classes;
 using HtmlClient.Filters;
 using HtmlClient.Models;
@@ -50,14 +51,13 @@ namespace HtmlClient.Controllers
                 }
 
                 Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                TempData["LoginMessage"] = result.Errors.Select( e => e.ErrorMessage ).ToString();
+                TempData["LoginMessage"] = GetPrettifiedValidationError( result );
                 return View( "../Login" );
             }
             catch ( Exception ex )
             {
                 Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                TempData["LoginMessage"] = Resources.GenericErrorMessage
-                                           + Environment.NewLine + ex.Message;
+                TempData["LoginMessage"] = ex.Message;
                 return View( "../Login" );
             }
         }
@@ -72,7 +72,7 @@ namespace HtmlClient.Controllers
         /************************************************************
         *************************************************************
         ** 
-        ** Console Endpoints
+        ** Console Endpoints and Helper Methods
         **
         *************************************************************
         *************************************************************/
@@ -124,6 +124,17 @@ namespace HtmlClient.Controllers
                 //todo: add logging
                 return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
             }
+        }
+
+        private string GetPrettifiedValidationError( ValidationResult result )
+        {
+            if ( result.IsValid )
+            {
+                return null;
+            }
+
+            return result.Errors.Aggregate( "", ( current, error ) 
+                => current + ( error.ErrorMessage + "\n" ) );
         }
     }
 }

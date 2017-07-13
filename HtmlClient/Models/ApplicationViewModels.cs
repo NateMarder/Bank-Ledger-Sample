@@ -3,7 +3,6 @@ using HtmlClient.Enums;
 
 namespace HtmlClient.Models
 {
-
     public class UserViewModel
     {
         public string Email { get; set; }

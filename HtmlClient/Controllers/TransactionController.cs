@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Net;
 using System.Web.Mvc;
-using HtmlClient.Dal;
 using HtmlClient.Enums;
 using HtmlClient.Filters;
 using HtmlClient.Models;

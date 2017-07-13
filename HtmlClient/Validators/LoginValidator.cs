@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using HtmlClient.Dal;
 using HtmlClient.Models;
 using ValidationMessages = HtmlClient.Properties.Resources;
 

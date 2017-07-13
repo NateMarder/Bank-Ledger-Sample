@@ -62,7 +62,7 @@ namespace ConsoleBanking.Models
         public override string ToString()
         {
             var type = IsWithdraw ? "Withdraw" : "Deposit";
-            return "Date: " + Date + "  Type: " + type + "Amount: " + Amount;;
+            return "Date: " + Date + "  Type: " + type + "Amount: " + Amount;
         }
     }
 }

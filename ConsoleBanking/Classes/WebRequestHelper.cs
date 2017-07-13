@@ -111,7 +111,7 @@ namespace ConsoleBanking.Classes
                 task.EnsureSuccessStatusCode();
                 return task.IsSuccessStatusCode;
             }
-            catch ( Exception ex )
+            catch ( Exception )
             {
                 //todo: start logging things!
             }

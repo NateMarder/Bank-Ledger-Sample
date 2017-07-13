@@ -10,7 +10,6 @@
         WithdrawMoney = 6
     }
 
-    // reflects owin identity sign-in enums
     public enum SignInStatus
     {
         Success = 0,
@@ -25,5 +24,4 @@
         Deposit = 1,
         Withdraw = 2 
     }
-
 }

@@ -144,7 +144,7 @@ namespace ConsoleBanking.Classes
             }
         }
 
-        private async Task<SigninStatusModel> Login( bool firstTime = true )
+        private async Task<SigninStatusModel> Login()
         {
             var model = new LoginViewModel
             {
@@ -171,8 +171,10 @@ namespace ConsoleBanking.Classes
                 Password = DialogHelper.GetUserPasswordForLogin()
             };
 
-            var result = RequestHelper.RegisterNewUser( model ).Result;
-            if ( result.Status == RegistrationStatus.Success )
+            var task = RequestHelper.RegisterNewUser( model );
+            await task;
+
+            if ( task.Result.Status == RegistrationStatus.Success )
             {
                 ConsoleSession.Instance.Data["UserId"] = model.Email;
                 ConsoleSession.Instance.Data["Password"] = model.Password;
