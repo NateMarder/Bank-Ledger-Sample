@@ -3,28 +3,30 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Xml;
+using System.Xml.Serialization;
 using HtmlClient.Models;
-using Settings = HtmlClient.Properties.Settings;
+using HtmlClient.Properties;
 
 namespace HtmlClient.Dal
 {
     public class DalHandler
     {
+        private readonly string _hostName;
+
+        private readonly string _sharedAppSettingsPath;
         private string _userDataXmlPath;
-        public string UserDataXmlPath 
-            => _userDataXmlPath ?? (_userDataXmlPath = Directory.GetFiles( 
-                    AppDomain.CurrentDomain.BaseDirectory + "\\Dal",
-                    "UserDataStore*" )[0]);
 
-        private string _sharedAppSettingsPath;
-        private string _hostName;
-
-        public DalHandler(string sessionId = null)
+        public DalHandler( string sessionId = null )
         {
             //todo: implement a more rigorous session validation process
             _hostName = Settings.Default.LocalDomainWithPort;
             _sharedAppSettingsPath = _hostName + "Settings.xml";
         }
+
+        public string UserDataXmlPath
+            => _userDataXmlPath ?? ( _userDataXmlPath = Directory.GetFiles(
+                   AppDomain.CurrentDomain.BaseDirectory + "\\Dal",
+                   "UserDataStore*" )[0] );
 
         protected void UpdateLoginFromConsoleUrl()
         {
@@ -35,7 +37,7 @@ namespace HtmlClient.Dal
                     Name = "signin",
                     LinkValue = _hostName + "Account/LoginFromConsole/"
                 };
-                var xmlSerializer = new System.Xml.Serialization.XmlSerializer( link.GetType() );
+                var xmlSerializer = new XmlSerializer( link.GetType() );
                 xmlSerializer.Serialize( streamWriter, link );
             }
         }
@@ -78,7 +80,7 @@ namespace HtmlClient.Dal
         {
             var doc = new XmlDocument();
             doc.Load( UserDataXmlPath );
-            var root = doc.DocumentElement;  // <UserDataStore>  is root
+            var root = doc.DocumentElement; // <UserDataStore>  is root
             var userNodes = root?.SelectNodes( "//User" ); //all <User> Nodes
 
             if ( userNodes == null ) return false;
@@ -89,9 +91,7 @@ namespace HtmlClient.Dal
                 if ( emailNode == null || emailNode.InnerText != model.Email ) continue;
                 var passwordNode = emailNode.NextSibling;
                 if ( passwordNode != null && passwordNode.InnerText == model.Password )
-                {
                     return true;
-                }
             }
 
             return false;
@@ -101,7 +101,7 @@ namespace HtmlClient.Dal
         {
             var doc = new XmlDocument();
             doc.Load( UserDataXmlPath );
-            var root = doc.DocumentElement;  // <UserDataStore>  is root
+            var root = doc.DocumentElement; // <UserDataStore>  is root
             var userNodes = root?.SelectNodes( "//User" ); //all <User> Nodes
 
             if ( userNodes == null ) return false;
@@ -110,19 +110,17 @@ namespace HtmlClient.Dal
             {
                 var emailNode = userNode.FirstChild;
                 if ( emailNode != null && emailNode.InnerText == searchEmail )
-                {
                     return true;
-                }
             }
 
             return false;
         }
 
-        public bool SubmitTransaction(TransactionViewModel model)
+        public bool SubmitTransaction( TransactionViewModel model )
         {
             var doc = new XmlDocument();
             doc.Load( UserDataXmlPath );
-            var root = doc.DocumentElement;  
+            var root = doc.DocumentElement;
             var userNodes = root?.SelectNodes( "//User" );
 
             if ( userNodes == null ) return false;
@@ -130,7 +128,7 @@ namespace HtmlClient.Dal
             foreach ( XmlNode userNode in userNodes )
             {
                 if ( userNode.FirstChild.InnerText != model.UserEmail ) continue;
-                
+
                 //Create New User Node
                 var transaction = doc.CreateElement( "Transaction" );
 
@@ -166,39 +164,27 @@ namespace HtmlClient.Dal
         {
             var doc = new XmlDocument();
             doc.Load( UserDataXmlPath );
-            var root = doc.DocumentElement;  
-            var userNodes = root?.SelectNodes( "//User" );
+            var root = doc.DocumentElement;
             var transactionArray = new List<TransactionViewModel>();
+            var transactionNodes = root?.SelectNodes( "//User[Email='"+userId+"']//Transaction" );
 
-            if ( userNodes == null ) return null;
-
-            foreach ( XmlNode userNode in userNodes )
+            if ( transactionNodes == null )
             {
-                if ( userNode.FirstChild.InnerText != userId ) continue;
-
-                var transactions = userNode.SelectNodes( "//Transaction" );
-
-                if ( transactions == null ) return null;
-
-                foreach ( XmlNode transaction in transactions )
-                {
-                    var nextModel = new TransactionViewModel()
-                    {
-                        Date = transaction.SelectSingleNode( "TransactionDate" )?.InnerText,
-                        Amount = double.Parse( transaction.SelectSingleNode( "Amount" )?.InnerText ),
-                        IsDeposit = transaction.SelectSingleNode( "IsDeposit" )?.InnerText == "True",
-                        IsWithdraw = transaction.SelectSingleNode( "IsWithdraw" )?.InnerText == "True",
-                    };
-                    transactionArray.Add( nextModel );
-                }
-
                 return transactionArray.ToArray();
             }
 
-            return null;
+            foreach ( XmlNode transaction in transactionNodes )
+            {
+                var nextModel = new TransactionViewModel
+                {
+                    Date = transaction.SelectSingleNode( "TransactionDate" )?.InnerText,
+                    Amount = double.Parse( transaction.SelectSingleNode( "Amount" )?.InnerText ),
+                    IsDeposit = transaction.SelectSingleNode( "IsDeposit" )?.InnerText == "True",
+                    IsWithdraw = transaction.SelectSingleNode( "IsWithdraw" )?.InnerText == "True"
+                };
+                transactionArray.Add( nextModel );
+            }
+            return transactionArray.ToArray();
         }
     }
-
-
-
 }
