@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HtmlClient.Classes
+namespace HtmlApp.Classes
 {
     public static class ActiveSessions
     {

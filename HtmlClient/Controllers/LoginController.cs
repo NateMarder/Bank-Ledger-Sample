@@ -3,12 +3,12 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using FluentValidation.Results;
-using HtmlClient.Classes;
-using HtmlClient.Filters;
+using HtmlApp.Classes;
+using HtmlApp.Filters;
 using Libraries.Validators;
 using Libraries.Models;
 
-namespace HtmlClient.Controllers
+namespace HtmlApp.Controllers
 {
     public class LoginController : Controller
     {

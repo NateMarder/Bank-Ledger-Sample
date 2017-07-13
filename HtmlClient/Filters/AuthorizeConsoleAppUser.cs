@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using System.Web.Mvc;
-using HtmlClient.Classes;
+using HtmlApp.Classes;
 
-namespace HtmlClient.Filters
+namespace HtmlApp.Filters
 {
     public class AuthorizeConsoleAppUser: AuthorizeAttribute
     {

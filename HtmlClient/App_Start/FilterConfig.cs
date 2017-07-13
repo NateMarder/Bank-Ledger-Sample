@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using HtmlClient.Filters;
+using HtmlApp.Filters;
 
-namespace HtmlClient
+namespace HtmlApp
 {
     public class FilterConfig
     {

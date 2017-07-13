@@ -8,7 +8,7 @@ using Libraries.Validators;
 using Libraries.Models;
 using Libraries.Properties;
 
-namespace HtmlClient.Controllers
+namespace HtmlApp.Controllers
 {
     public class RegisterController : Controller
     {

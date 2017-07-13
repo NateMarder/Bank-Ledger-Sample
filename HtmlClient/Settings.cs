@@ -1,4 +1,4 @@
-﻿namespace HtmlClient.Properties {
+﻿namespace HtmlApp {
     
     
     // This class allows you to handle specific events on the settings class:

@@ -2,9 +2,9 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using HtmlClient.Classes;
+using HtmlApp.Classes;
 
-namespace HtmlClient
+namespace HtmlApp
 {
     public class MvcApplication : HttpApplication
     {

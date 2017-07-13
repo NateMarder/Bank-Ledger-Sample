@@ -29,7 +29,7 @@ namespace ConsoleApp.Classes
 
         public async Task<bool> PresentInitialOptions()
         {
-            Libraries.Enums.UserChoice choice = DialogHelper.GetUserChoiceForInitialOptions();
+            var choice = DialogHelper.GetUserChoiceForInitialOptions();
 
             switch ( choice )
             {

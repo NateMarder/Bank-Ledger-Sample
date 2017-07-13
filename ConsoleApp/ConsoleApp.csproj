@@ -48,7 +48,6 @@
     <Compile Include="Classes\BankUserOperationsHelper.cs" />
     <Compile Include="Classes\ConsoleDialogHelper.cs" />
     <Compile Include="Classes\WebRequestHelper.cs" />
-    <Compile Include="Classes\XmlHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

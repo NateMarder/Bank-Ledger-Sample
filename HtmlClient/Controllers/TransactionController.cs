@@ -2,13 +2,13 @@
 using System.Globalization;
 using System.Net;
 using System.Web.Mvc;
-using HtmlClient.Filters;
+using HtmlApp.Filters;
 using Libraries.Dal;
 using Libraries.Enums;
 using Libraries.Models;
 using Libraries.Properties;
 
-namespace HtmlClient.Controllers
+namespace HtmlApp.Controllers
 {
     public class TransactionController : Controller
     {
