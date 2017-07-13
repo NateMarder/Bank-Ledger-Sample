@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleBanking", "ConsoleBanking\ConsoleBanking.csproj", "{CAB5E831-10D2-49DD-8F3C-4CBB2D3622C4}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -11,14 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleBanking", "ConsoleBa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlClient", "HtmlClient\HtmlClient.csproj", "{79ABC556-66AF-4BCF-BEFC-3C7B11197786}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedResources", "SharedResources\SharedResources.shproj", "{ABC899A2-B407-404B-B321-135E2F9B6EA3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries", "Libraries\Libraries.csproj", "{FDBD819D-B5D4-410A-8920-B048B81571AD}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		SharedResources\SharedResources.projitems*{abc899a2-b407-404b-b321-135e2f9b6ea3}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		consoledebug|Any CPU = consoledebug|Any CPU
 		Debug|Any CPU = Debug|Any CPU

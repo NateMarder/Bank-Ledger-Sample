@@ -14,7 +14,6 @@ namespace HtmlClient
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            UpdateSharedXmlFile();
         }
 
         protected void Session_Start(object sender, EventArgs e)
@@ -27,25 +26,5 @@ namespace HtmlClient
         {
             ActiveSessions.RemoveSession( Session.SessionID );
         }
-
-        protected void UpdateSharedXmlFile()
-        {
-            var projectPath = Path.GetDirectoryName( Server.MapPath( "~" ) );
-            var solutionPath = Path.GetDirectoryName( projectPath );
-            var xmlPath = solutionPath + "\\SharedResources\\Settings.xml";
-            const string ulrPrefix = "http://localhost:54194/";
-
-            var doc = new XmlDocument();
-            doc.Load( xmlPath );
-
-            //add link for console-signin
-            var loginUrl = doc.CreateElement( "LoginUrl" );
-            loginUrl.InnerText = ulrPrefix + "Login/LoginFromConsole/";
-            doc.DocumentElement?.AppendChild( loginUrl );
-
-
-            doc.Save( xmlPath );
-        }
-
     }
 }
