@@ -5,9 +5,8 @@ using System.Web.Mvc;
 using FluentValidation.Results;
 using HtmlClient.Classes;
 using HtmlClient.Filters;
-using HtmlClient.Models;
-using HtmlClient.Properties;
 using HtmlClient.Validators;
+using Libraries.Models;
 
 namespace HtmlClient.Controllers
 {

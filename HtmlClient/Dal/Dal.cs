@@ -4,8 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using HtmlClient.Models;
 using HtmlClient.Properties;
+using Libraries.Models;
 
 namespace HtmlClient.Dal
 {

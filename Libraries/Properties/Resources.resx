@@ -129,6 +129,9 @@
   <data name="EmailDoesntExist" xml:space="preserve">
     <value>Sorry that email is not recognized.</value>
   </data>
+  <data name="EmailDoesntExist1" xml:space="preserve">
+    <value>Sorry that email is not recognized.</value>
+  </data>
   <data name="EmailNotEmptyMessage" xml:space="preserve">
     <value>Please provide an email address that is not empty.</value>
   </data>
@@ -141,7 +144,53 @@
   <data name="GenericErrorMessage" xml:space="preserve">
     <value>Sorry, an error occurred on and we couldn't process that request.</value>
   </data>
+  <data name="GetAmountForDeposit" xml:space="preserve">
+    <value>Please enter the amount you would like to deposit:</value>
+  </data>
+  <data name="GetAmountForWithdrawal" xml:space="preserve">
+    <value>Plese enter the amount you would like to withdraw:</value>
+  </data>
+  <data name="GetUserEmail" xml:space="preserve">
+    <value>
+Please enter your emai address:</value>
+  </data>
+  <data name="GetUserPassword" xml:space="preserve">
+    <value>Please enter your password:</value>
+  </data>
+  <data name="InitialGreeting" xml:space="preserve">
+    <value>
+Welcome to the Bank of Nate!
+</value>
+  </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>Sorry, your input was invalid. Please try again below:  </value>
+  </data>
+  <data name="InvalidNumericInput" xml:space="preserve">
+    <value>Sorry, that was not a valid numeric quantity. Please try again below:</value>
+  </data>
+  <data name="LoginStatusMessage" xml:space="preserve">
+    <value>
+Login Success Status: {0}</value>
+  </data>
+  <data name="NewUserGetEmail" xml:space="preserve">
+    <value>
+Please enter a valid email address:</value>
+  </data>
+  <data name="NewUserGetHomeTown" xml:space="preserve">
+    <value>Please enter the name of your home town:</value>
+  </data>
+  <data name="NewUserGetPassword" xml:space="preserve">
+    <value>Please enter a password meeting the following criteria:
+  - at least 12 characters long
+  - at least 1 uppercase non-numeric character
+  - at least 1 lowercase non-numeric character
+  - at least 1 numeric character
+  - at least one special character </value>
+  </data>
   <data name="PasswordMustHaveNecessaryComponents" xml:space="preserve">
+    <value>Please provide a 4 to 20 character-length password containing letters, numbers, one uppercase letter, and one special character.</value>
+  </data>
+  <data name="PasswordMustHaveNecessaryComponents1" xml:space="preserve">
     <value>Please provide a 4 to 20 character-length password containing letters, numbers, one uppercase letter, and one special character.</value>
   </data>
   <data name="PasswordNotEmptyMessage" xml:space="preserve">
@@ -149,6 +198,10 @@
   </data>
   <data name="PasswordNotValidGenericMessage" xml:space="preserve">
     <value>Please provide a valid password.</value>
+  </data>
+  <data name="RegistrationStatusMessage" xml:space="preserve">
+    <value>
+Registration Success Status: {0}</value>
   </data>
   <data name="TransactionHistoryString" xml:space="preserve">
     <value>
@@ -160,5 +213,34 @@ Transaction Summary:
 Current Balance: {1}
 ****************************************************************************
 </value>
+  </data>
+  <data name="UserOptionsForLoggedInUser" xml:space="preserve">
+    <value>***********************************************************
+Login Status: Logged In
+
+Please select one of the options below:
+    - Press [4] to view recent transactions
+    - Press [5] to deposit money
+    - Press [6] to withdraw money
+    - Press [3] to sign out
+***********************************************************</value>
+  </data>
+  <data name="UserOptionsForNonLoggedInUser" xml:space="preserve">
+    <value>***********************************************************
+Login Status: Not Logged In
+
+Please select on of the following options:
+    - Press [1] to log into the system.
+    - Press [2] to create a new account.
+    - Press [3] to exit
+***********************************************************</value>
+  </data>
+  <data name="UserOptionsForUnsuccessfulUser" xml:space="preserve">
+    <value>
+**********************************************************
+Would you like to continue banking or call it a day?
+  - Press [8] to return to initial menu
+  - Press [3] leave the bank
+**********************************************************</value>
   </data>
 </root>

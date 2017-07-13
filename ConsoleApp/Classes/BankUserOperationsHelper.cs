@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Libraries;
 using Libraries.Enums;
+using Libraries.Models;
 
-namespace ConsoleBanking.Classes
+
+namespace ConsoleApp.Classes
 {
     public class BankUserOperationsHelper
     {
@@ -26,7 +29,7 @@ namespace ConsoleBanking.Classes
 
         public async Task<bool> PresentInitialOptions()
         {
-            var choice = DialogHelper.GetUserChoiceForInitialOptions();
+            Libraries.Enums.UserChoice choice = DialogHelper.GetUserChoiceForInitialOptions();
 
             switch ( choice )
             {

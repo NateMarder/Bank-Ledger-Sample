@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using FluentValidation;
-using HtmlClient.Models;
-using ValidationMessages = HtmlClient.Properties.Resources;
+using Libraries.Models;
+using ValidationMessages = Libraries.Properties.Resources;
 
 namespace HtmlClient.Validators
 {

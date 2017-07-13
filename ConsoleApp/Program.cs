@@ -1,34 +1,37 @@
 ﻿using System;
-using ConsoleBanking.Classes;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ConsoleApp.Classes;
+using Libraries.Properties;
 using Libraries.Enums;
-using ConsoleBanking.Properties;
 
-namespace ConsoleBanking
+namespace ConsoleApp
 {
-    public class ConsoleProgram
+    class Program
     {
-        private static BankUserOperationsHelper _bankUserOperationsHelper;
-        public static BankUserOperationsHelper BankUserOperationsHelper
-            => _bankUserOperationsHelper ?? ( _bankUserOperationsHelper = new BankUserOperationsHelper() );
-
         private static ConsoleDialogHelper _dialogHelper;
-        public static ConsoleDialogHelper DialogHelper =>
-            _dialogHelper ?? ( _dialogHelper = new ConsoleDialogHelper() );
+        public static ConsoleDialogHelper DialogHelper 
+            => _dialogHelper ?? ( _dialogHelper = new ConsoleDialogHelper() );
 
-        public static int Main()
+        private static BankUserOperationsHelper _operationsHelper;
+        public static BankUserOperationsHelper OperationsHelper 
+            => _operationsHelper ?? ( _operationsHelper = new BankUserOperationsHelper() );
+
+        static void Main( string[] args )
         {
             Console.WriteLine( Resources.InitialGreeting );
             AllocateSessionTokens();
             var userChoice = UserChoice.KeepGoing;
             while ( userChoice == UserChoice.KeepGoing )
             {
-                var task = BankUserOperationsHelper.PresentInitialOptions();
+                var task = OperationsHelper.PresentInitialOptions();
                 userChoice = task.Result 
                     ? DialogHelper.GetUserChoiceForForUserAboutToExit() 
                     : UserChoice.Logout;
             }
 
-            return 0;
         }
 
         private static void AllocateSessionTokens()
