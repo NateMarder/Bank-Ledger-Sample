@@ -3,44 +3,19 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Xml;
-using System.Xml.Serialization;
-using Libraries.Properties;
 using Libraries.Models;
 
 namespace Libraries.Dal
 {
     public class Dal
     {
-        private readonly string _hostName;
 
-        private readonly string _sharedAppSettingsPath;
         private string _userDataXmlPath;
-
-        public Dal( string sessionId = null )
-        {
-            //todo: implement a more rigorous session validation process
-            //_hostName = Settings.Default.LocalDomainWithPort;
-            _sharedAppSettingsPath = _hostName + "Settings.xml";
-        }
-
         public string UserDataXmlPath
-            => _userDataXmlPath ?? ( _userDataXmlPath = Directory.GetFiles(
-                   AppDomain.CurrentDomain.BaseDirectory + "\\Dal",
-                   "DataStore*" )[0] );
+            => _userDataXmlPath ?? (_userDataXmlPath = Directory.GetFiles(
+                   AppDomain.CurrentDomain.BaseDirectory.Replace( "HtmlClient","Libraries" ) + "\\Dal",
+                   "DataStore*" )[0]);
 
-        //protected void UpdateLoginFromConsoleUrl()
-        //{
-        //    using ( var streamWriter = new StreamWriter( _sharedAppSettingsPath ) )
-        //    {
-        //        var link = new XmlLink
-        //        {
-        //            Name = "signin",
-        //            LinkValue = _hostName + "Account/LoginFromConsole/"
-        //        };
-        //        var xmlSerializer = new XmlSerializer( link.GetType() );
-        //        xmlSerializer.Serialize( streamWriter, link );
-        //    }
-        //}
 
         public virtual bool RegisterNewUser( UserViewModel model )
         {

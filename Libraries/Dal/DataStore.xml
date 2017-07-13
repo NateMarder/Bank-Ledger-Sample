@@ -95,6 +95,12 @@
       <IsDeposit>True</IsDeposit>
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
+    <Transaction>
+      <TransactionDate>07/13/2017 23:17:47</TransactionDate>
+      <Amount>1002</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
   </User>
   <User>
     <Email>nate@nate.com</Email>

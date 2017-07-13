@@ -13,7 +13,7 @@ namespace HtmlClient.Controllers
     public class RegisterController : Controller
     {
         private Dal _dal;
-        public Dal Dal => _dal ?? ( _dal = new Dal( Session.SessionID ) );
+        public Dal Dal => _dal ?? ( _dal = new Dal() );
 
 
         [AllowAnonymous]

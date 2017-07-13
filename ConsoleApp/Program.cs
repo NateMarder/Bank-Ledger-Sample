@@ -6,7 +6,7 @@ using Libraries.SessionManagement;
 
 namespace ConsoleApp
 {
-    class Program
+    internal class Program
     {
         private static ConsoleDialogHelper _dialogHelper;
         public static ConsoleDialogHelper DialogHelper 
