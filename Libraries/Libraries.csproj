@@ -53,6 +53,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SessionManagement\ActiveSessions.cs" />
+    <Compile Include="SessionManagement\ConsoleSession.cs" />
     <Compile Include="Validators\LoginValidator.cs" />
     <Compile Include="Validators\RegistrationValidator.cs" />
   </ItemGroup>

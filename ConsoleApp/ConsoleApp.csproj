@@ -47,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Classes\BankUserOperationsHelper.cs" />
     <Compile Include="Classes\ConsoleDialogHelper.cs" />
-    <Compile Include="Classes\ConsoleSession.cs" />
     <Compile Include="Classes\WebRequestHelper.cs" />
     <Compile Include="Classes\XmlHelper.cs" />
     <Compile Include="Program.cs" />

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ConsoleApp.Classes
+namespace Libraries.SessionManagement
 {
     // singleton implementation of makeshift session
     public class ConsoleSession
