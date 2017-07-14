@@ -107,7 +107,6 @@ namespace HtmlApp.Controllers
             }
         }
 
-
         [HttpPost]
         [AuthorizeConsoleAppUser]
         public ActionResult ConsoleSignOut()
