@@ -1,45 +1,44 @@
 ﻿using System.Linq;
 using FluentValidation;
 using Libraries.Models;
-using ValidationMessages = Libraries.Properties.Resources;
+using Resources = Libraries.Properties.Resources;
+using Settings = Libraries.Properties.Settings; 
 
 namespace Libraries.Validators
 {
     public class RegistrationValidator : AbstractValidator<UserViewModel>
     {
-        private Dal.Dal _dal;
-        public Dal.Dal Dal => _dal ?? ( _dal = new Dal.Dal() );
+        private Dal.XmlDal _xmlDal;
+        public Dal.XmlDal XmlDal => _xmlDal ?? ( _xmlDal = new Dal.XmlDal() );
 
         public RegistrationValidator()
         {
             // email validation
             RuleFor( model => model.Email )
-                .EmailAddress().WithMessage( ValidationMessages.EmailNotValidGenericMessage )
-                .Must( NotAlreadyExist ).WithMessage( ValidationMessages.EmailAlreadyExists );
+                .EmailAddress().WithMessage( Resources.EmailNotValidGenericMessage )
+                .Must( NotAlreadyExist ).WithMessage( Resources.EmailAlreadyExists );
 
             // password password validation
             RuleFor( model => model.Password )
-                .Length( 4, 20 )
+                .Length( 6, 20 ).WithMessage( "Your password needs to be between 6 and 20 characters long" )
                 .Must( ContainNumericCharacter ).WithMessage( "Your password must contain one number" )
-                .Must( ContainNonNumericCharacter ).WithMessage( "Your password must contain at least one letter" )
                 .Must( ContainUpperCaseCharacter ).WithMessage( "Your password must contain at least one uppercase letter" )
                 .Must( ContainSpecialCharacter ).WithMessage( "Your passwords must contain one special character" );
         }
 
         private bool NotAlreadyExist( string email )
         {
-            return !Dal.EmailExists( email );
+            if ( Settings.Default.UseXmlDataStore )
+            {
+                return !XmlDal.EmailExists( email );
+            }
+            else return true;
+
         }
 
         private bool ContainNumericCharacter( string password )
         {
             try { return password.ToCharArray().Any( char.IsNumber ); }
-            catch {  return false; }
-        }
-
-        private bool ContainNonNumericCharacter( string password )
-        {
-            try { return password.ToCharArray().Any( char.IsLetter ); }
             catch {  return false; }
         }
 

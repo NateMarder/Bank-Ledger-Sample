@@ -12,8 +12,8 @@ namespace HtmlApp.Controllers
 {
     public class TransactionController : Controller
     {
-        private Dal _dal;
-        public Dal Dal => _dal ?? ( _dal = new Dal() );
+        private XmlDal _xmlDal;
+        public XmlDal XmlDal => _xmlDal ?? ( _xmlDal = new XmlDal() );
 
         [HttpGet]
         public ActionResult TransactionHistory()
@@ -23,7 +23,7 @@ namespace HtmlApp.Controllers
             {
                 if ( valid )
                 {
-                    var transactions = Dal.GetTransactionHistory( Session["UserId"].ToString() );
+                    var transactions = XmlDal.GetTransactionHistory( Session["UserId"].ToString() );
                     return new JsonResult
                     {
                         JsonRequestBehavior = JsonRequestBehavior.AllowGet,
@@ -47,7 +47,7 @@ namespace HtmlApp.Controllers
             {
                 if ( valid )
                 {
-                    Dal.SubmitTransaction( model );
+                    XmlDal.SubmitTransaction( model );
                     return new HttpStatusCodeResult( HttpStatusCode.OK );
                 }
             }
@@ -74,7 +74,7 @@ namespace HtmlApp.Controllers
                 {
 
                     var transactionHistory = "No transactions found";
-                    var transactions = Dal.GetTransactionHistory( model.UserId );
+                    var transactions = XmlDal.GetTransactionHistory( model.UserId );
                     transactionHistory = GetTransactionSummaryString( transactions );
                     return new ContentResult {Content = transactionHistory};
                 }
@@ -90,7 +90,7 @@ namespace HtmlApp.Controllers
 
                 return new ContentResult
                 {
-                    Content = Dal.SubmitTransaction( transactionModel ) 
+                    Content = XmlDal.SubmitTransaction( transactionModel ) 
                         ? "Transaction was successfully tendered." 
                         : "Transaction request denied"
                 };

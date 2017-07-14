@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libraries", "Libraries\Libraries.csproj", "{FDBD819D-B5D4-410A-8920-B048B81571AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{EDC311EE-34FF-4E41-83B1-3B05C350AB94}"
+	ProjectSection(ProjectDependencies) = postProject
+		{79ABC556-66AF-4BCF-BEFC-3C7B11197786} = {79ABC556-66AF-4BCF-BEFC-3C7B11197786}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlApp", "HtmlApp\HtmlApp.csproj", "{79ABC556-66AF-4BCF-BEFC-3C7B11197786}"
 EndProject

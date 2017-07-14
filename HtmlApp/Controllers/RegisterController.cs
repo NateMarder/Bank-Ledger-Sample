@@ -12,8 +12,8 @@ namespace HtmlApp.Controllers
 {
     public class RegisterController : Controller
     {
-        private Dal _dal;
-        public Dal Dal => _dal ?? ( _dal = new Dal() );
+        private XmlDal _xmlDal;
+        public XmlDal XmlDal => _xmlDal ?? ( _xmlDal = new XmlDal() );
 
         [AllowAnonymous]
         public ActionResult Register( UserViewModel model )
@@ -25,7 +25,7 @@ namespace HtmlApp.Controllers
 
                 if ( result.IsValid )
                 {
-                    Dal.RegisterNewUser( model );
+                    XmlDal.RegisterNewUser( model );
                     Response.StatusCode = (int) HttpStatusCode.OK;
 
                     return new JsonResult
@@ -60,7 +60,7 @@ namespace HtmlApp.Controllers
             }
 
             return result.Errors.Aggregate( "", ( current, error ) 
-                => current + ( error.ErrorMessage + "<br>" ) );
+                => current + ( error.ErrorMessage + "\n" ) );
         }
     }
 }

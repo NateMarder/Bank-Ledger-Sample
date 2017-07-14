@@ -7,13 +7,13 @@ using Libraries.Models;
 
 namespace Libraries.Dal
 {
-    public class Dal
+    public class XmlDal
     {
 
         private string _userDataXmlPath;
         public string UserDataXmlPath
             => _userDataXmlPath ?? (_userDataXmlPath = Directory.GetFiles(
-                   AppDomain.CurrentDomain.BaseDirectory.Replace( "HtmlClient","Libraries" ) + "\\Dal",
+                   AppDomain.CurrentDomain.BaseDirectory.Replace( "HtmlApp","Libraries" ) + "\\Dal",
                    "DataStore*" )[0]);
 
 

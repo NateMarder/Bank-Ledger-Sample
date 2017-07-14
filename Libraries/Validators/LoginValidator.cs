@@ -6,9 +6,9 @@ namespace Libraries.Validators
 {
     public class LoginValidator : AbstractValidator<UserViewModel>
     {
-        private Dal.Dal _dal;
-        public Dal.Dal Dal 
-            => _dal ?? ( _dal = new Dal.Dal() );
+        private Dal.XmlDal _xmlDal;
+        public Dal.XmlDal XmlDal 
+            => _xmlDal ?? ( _xmlDal = new Dal.XmlDal() );
 
         public LoginValidator()
         {
@@ -28,19 +28,19 @@ namespace Libraries.Validators
 
         private bool Exist( string email )
         {
-            return Dal.EmailExists( email );
+            return XmlDal.EmailExists( email );
         }
 
         private bool MatchUsersEmail( string password, string email )
         {
-            return Dal.VerifyPasswordEmailComboExists(
+            return XmlDal.VerifyPasswordEmailComboExists(
                 new UserViewModel {Email = email, Password = password} );
         }
 
         // for testing
-        public void SetDalHandler( Dal.Dal dal )
+        public void SetDalHandler( Dal.XmlDal xmlDal )
         {
-            _dal = dal;
+            _xmlDal = xmlDal;
         }
     }
 }
