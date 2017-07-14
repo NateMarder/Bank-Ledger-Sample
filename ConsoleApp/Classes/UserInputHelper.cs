@@ -5,7 +5,7 @@ using Libraries.Enums;
 
 namespace ConsoleApp.Classes
 {
-    public class ConsoleDialogHelper
+    public class UserInputHelper
     {
         public string GetEmailFromUser()
         {

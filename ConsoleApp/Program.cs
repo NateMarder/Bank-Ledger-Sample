@@ -8,13 +8,13 @@ namespace ConsoleApp
 {
     internal class Program
     {
-        private static ConsoleDialogHelper _dialogHelper;
-        public static ConsoleDialogHelper DialogHelper 
-            => _dialogHelper ?? ( _dialogHelper = new ConsoleDialogHelper() );
+        private static UserInputHelper _dialogHelper;
+        public static UserInputHelper DialogHelper 
+            => _dialogHelper ?? ( _dialogHelper = new UserInputHelper() );
 
-        private static BankUserOperationsHelper _operationsHelper;
-        public static BankUserOperationsHelper OperationsHelper 
-            => _operationsHelper ?? ( _operationsHelper = new BankUserOperationsHelper() );
+        private static UserOperationsHelper _operationsHelper;
+        public static UserOperationsHelper OperationsHelper 
+            => _operationsHelper ?? ( _operationsHelper = new UserOperationsHelper() );
 
         static void Main( string[] args )
         {

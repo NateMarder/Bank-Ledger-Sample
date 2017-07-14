@@ -7,23 +7,23 @@ using Libraries.SessionManagement;
 
 namespace ConsoleApp.Classes
 {
-    public class BankUserOperationsHelper
+    public class UserOperationsHelper
     {
 
         private WebRequestHelper _requestHelper;
         public WebRequestHelper RequestHelper
             => _requestHelper ?? ( _requestHelper = new WebRequestHelper() );
 
-        private ConsoleDialogHelper _dialogHelper;
-        public ConsoleDialogHelper DialogHelper 
-            => _dialogHelper ?? ( _dialogHelper = new ConsoleDialogHelper() );
+        private UserInputHelper _dialogHelper;
+        public UserInputHelper DialogHelper 
+            => _dialogHelper ?? ( _dialogHelper = new UserInputHelper() );
 
-        public BankUserOperationsHelper( WebRequestHelper requestHelper )
+        public UserOperationsHelper( WebRequestHelper requestHelper )
         {
             _requestHelper = requestHelper;
         }
 
-        public BankUserOperationsHelper()
+        public UserOperationsHelper()
         {
         }
 
