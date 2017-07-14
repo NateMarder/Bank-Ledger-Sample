@@ -9,30 +9,34 @@ namespace ConsoleApp.Classes
     {
         public string GetUserEmailForLogin()
         {
-            Console.WriteLine( Resources.NewUserGetEmail );
-            var email = Console.ReadLine();
+            Console.WriteLine( Resources.GetUserEmail );
+            var input = Console.ReadLine();
+            input = input?.Trim() ?? "";
 
-            while ( !ValidateUserInputForLogin( email ) )
+            while ( !ValidateEmailForLogin( input ) )
             {
                 Console.WriteLine( Resources.InvalidInput );
-                email = Console.ReadLine().Trim();
+                input = Console.ReadLine();
+                input = input?.Trim() ?? "";
             }
 
-            return email;
+            return input;
         }
 
         public string GetUserPasswordForLogin()
         {
             Console.WriteLine( Resources.GetUserPassword );
-            var password = Console.ReadLine();
+            var input = Console.ReadLine();
+            input = input?.Trim() ?? "";
 
-            while ( !ValidateUserInputForLogin( password ) )
+            while ( !ValidatePasswordForLogin( input ) )
             {
                 Console.WriteLine( Resources.InvalidInput );
-                password = Console.ReadLine().Trim();
+                input= Console.ReadLine();
+                input = input?.Trim() ?? "";
             }
 
-            return password;
+            return input;
         }
 
         public UserChoice GetUserChoiceForInitialOptions()
@@ -52,7 +56,6 @@ namespace ConsoleApp.Classes
         public UserChoice GetUserChoiceForLoggedInOptions()
         {
             Console.WriteLine( Resources.UserOptionsForLoggedInUser );
-
             var input = Console.ReadLine();
             while ( !ValidateUserOption( input, new[] {'3', '4', '5', '6'} ) )
             {
@@ -63,11 +66,9 @@ namespace ConsoleApp.Classes
             return (UserChoice) int.Parse( input );
         }
 
-
         public UserChoice GetUserChoiceForForUserAboutToExit()
         {
             Console.WriteLine( Resources.UserOptionsForUnsuccessfulUser );
-
             var input = Console.ReadLine();
             while ( !ValidateUserOption( input, new[] {'8', '3'} ) )
             {
@@ -98,27 +99,17 @@ namespace ConsoleApp.Classes
                 Console.WriteLine( Resources.InvalidNumericInput );
                 input = Console.ReadLine();
             }
-            return Double.Parse( input );
+            return double.Parse( input );
         }
 
-        private bool ValidateUserInputForLogin( string input )
+        private bool ValidatePasswordForLogin( string input )
         {
-            if ( input == null )
-            {
-                return false;
-            }
+            return input.Length >= 4 && input.Length <= 20;
+        }
 
-            if ( input.Length < 4 )
-            {
-                return false;
-            }
-
-            if ( input.Length > 20 )
-            {
-                return false;
-            }
-
-            return true;
+        private bool ValidateEmailForLogin( string input )
+        {
+            return input.Length >= 4 && input.Length <= 20;
         }
 
         private bool ValidateUserOption( string input, char[] validInputs )
@@ -134,8 +125,7 @@ namespace ConsoleApp.Classes
 
         private bool ValidateDouble( string input )
         {
-            double testNumber;
-            if ( Double.TryParse( input, out testNumber ) )
+            if( double.TryParse( input, out double testNumber ) )
             {
                 return true;
             }
