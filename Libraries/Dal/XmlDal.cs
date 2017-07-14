@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Xml;
+using Libraries.Interfaces;
 using Libraries.Models;
 
 namespace Libraries.Dal
 {
-    public class XmlDal
+    public class XmlDal : IBankLedgerDataAccessLayer
     {
-
         private string _userDataXmlPath;
         public string UserDataXmlPath
             => _userDataXmlPath ?? (_userDataXmlPath = Directory.GetFiles(
                    AppDomain.CurrentDomain.BaseDirectory.Replace( "HtmlApp","Libraries" ) + "\\Dal",
-                   "DataStore*" )[0]);
-
+                   "XmlDataStore*" )[0]);
 
         public virtual bool RegisterNewUser( UserViewModel model )
         {

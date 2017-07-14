@@ -43,9 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\UserAccount.cs" />
+    <Compile Include="Components\UserAccountComponent.cs" />
+    <Compile Include="Dal\LocalDal.cs" />
+    <Compile Include="Dal\LocalDataStore.cs" />
     <Compile Include="Dal\XmlDal.cs" />
     <Compile Include="Enums\BankLedgerEnums.cs" />
+    <Compile Include="Interfaces\BankLedgerInterfaces.cs" />
     <Compile Include="Models\BankLedgerModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -78,7 +81,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dal\DataStore.xml">
+    <Content Include="Dal\XmlDataStore.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

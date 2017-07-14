@@ -33,7 +33,6 @@ namespace Libraries.Validators
                 return !XmlDal.EmailExists( email );
             }
             else return true;
-
         }
 
         private bool ContainNumericCharacter( string password )

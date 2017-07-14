@@ -2,17 +2,17 @@
 
 namespace Libraries.Components
 {
-    public class UserAccount
+    public class UserAccountComponent
     {
         private UserAccountModel _model;
         public UserAccountModel Model => _model ?? ( _model = new UserAccountModel() );
 
-        public UserAccount(UserAccountModel model)
+        public UserAccountComponent(UserAccountModel model)
         {
             _model = model;
         }
 
-        public UserAccount()
+        public UserAccountComponent()
         {
         }
 

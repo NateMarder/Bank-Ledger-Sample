@@ -39,7 +39,7 @@ namespace Libraries.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    var temp = new global::System.Resources.ResourceManager("Libraries.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Libraries.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -247,6 +247,42 @@ namespace Libraries.Properties {
         public static string NewUserGetPassword {
             get {
                 return ResourceManager.GetString("NewUserGetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password needs to be between 6 and 20 characters long.
+        /// </summary>
+        public static string PasswordMustBeSixToTwenty {
+            get {
+                return ResourceManager.GetString("PasswordMustBeSixToTwenty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password must contain one number.
+        /// </summary>
+        public static string PasswordMustContainNumber {
+            get {
+                return ResourceManager.GetString("PasswordMustContainNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your passwords must contain one special character.
+        /// </summary>
+        public static string PasswordMustContainOneSpecialCharacter {
+            get {
+                return ResourceManager.GetString("PasswordMustContainOneSpecialCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password must contain at least one uppercase letter.
+        /// </summary>
+        public static string PasswordMustContainUpperCaseLetter {
+            get {
+                return ResourceManager.GetString("PasswordMustContainUpperCaseLetter", resourceCulture);
             }
         }
         

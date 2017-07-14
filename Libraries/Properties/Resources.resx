@@ -187,6 +187,18 @@ Please enter a valid email address:</value>
   - at least 1 numeric character
   - at least one special character </value>
   </data>
+  <data name="PasswordMustBeSixToTwenty" xml:space="preserve">
+    <value>Your password needs to be between 6 and 20 characters long</value>
+  </data>
+  <data name="PasswordMustContainNumber" xml:space="preserve">
+    <value>Your password must contain one number</value>
+  </data>
+  <data name="PasswordMustContainOneSpecialCharacter" xml:space="preserve">
+    <value>Your passwords must contain one special character</value>
+  </data>
+  <data name="PasswordMustContainUpperCaseLetter" xml:space="preserve">
+    <value>Your password must contain at least one uppercase letter</value>
+  </data>
   <data name="PasswordMustHaveNecessaryComponents" xml:space="preserve">
     <value>Please provide a 4 to 20 character-length password containing letters, numbers, one uppercase letter, and one special character.</value>
   </data>
