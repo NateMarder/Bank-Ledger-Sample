@@ -62,7 +62,7 @@ namespace HtmlApp.Controllers
         }
 
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult SignOut()
         {
             Session.Abandon();

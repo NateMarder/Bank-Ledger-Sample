@@ -72,4 +72,40 @@
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
   </User>
+  <User>
+    <Email>nate@nate2.com</Email>
+    <Password>Nate12345!</Password>
+    <Balance>0</Balance>
+    <LastLogin>6:08 PM</LastLogin>
+    <Transaction>
+      <TransactionDate>07/14/2017 18:08:46</TransactionDate>
+      <Amount>150</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 18:08:50</TransactionDate>
+      <Amount>200</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 18:08:56</TransactionDate>
+      <Amount>25</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 18:25:15</TransactionDate>
+      <Amount>12</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 18:25:19</TransactionDate>
+      <Amount>100</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+  </User>
 </DataStore>

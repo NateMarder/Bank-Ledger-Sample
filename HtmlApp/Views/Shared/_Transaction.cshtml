@@ -6,7 +6,7 @@
         <h2>Withdraw</h2>
         <form id="submit-withdraw">
             <div class="form-group input-group-lg">
-                <input id="withdraw-input" type="number" class="form-control" placeholder="Enter Withdraw Amount ($)" min=".01" max="5000" step="any">
+                <input id="withdraw-input" type="number" class="form-control" placeholder="Enter Withdraw Amount ($)" min=".01" max="5000" step="any" required>
                 <button class="btn btn-lg btn-primary" type="submit">Submit</button>
             </div>
         </form>
@@ -16,7 +16,7 @@
         <h2>Deposit</h2>
         <form id="submit-deposit">
             <div class="form-group input-group-lg">
-                <input id="deposit-input" type="number" class="form-control" placeholder="Enter Deposit Amount ($)" min=".01" max="5000" step="any">
+                <input id="deposit-input" type="number" class="form-control" placeholder="Enter Deposit Amount ($)" min=".01" max="5000" step="any" required>
                 <button class="btn btn-lg btn-primary" type="submit">Submit</button>
             </div>
         </form>
@@ -103,13 +103,18 @@
         //Deposit
         $("#submit-deposit").submit(function(e) {
             e.preventDefault();
-            
+
             var data = {
                 UserEmail: "@Session["UserId"]",
                 Date: new Date(),
                 IsWithdraw: false,
                 IsDeposit: true,
                 Amount: $("#deposit-input").val()
+            }
+
+            if (data.Amount === "") {
+                $("#deposit-input").val("0");
+                return;
             }
 
             var jqxhr = $.ajax({
@@ -137,6 +142,11 @@
                 IsWithdraw: true,
                 IsDeposit: false,
                 Amount: $("#withdraw-input").val()
+            }
+
+            if (data.Amount === "") {
+                $("#deposit-input").val("0");
+                return $("#submit-withdraw").submit();
             }
 
             var jqxhr = $.ajax({
