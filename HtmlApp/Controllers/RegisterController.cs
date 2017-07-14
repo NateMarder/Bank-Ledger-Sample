@@ -15,7 +15,6 @@ namespace HtmlApp.Controllers
         private Dal _dal;
         public Dal Dal => _dal ?? ( _dal = new Dal() );
 
-
         [AllowAnonymous]
         public ActionResult Register( UserViewModel model )
         {
