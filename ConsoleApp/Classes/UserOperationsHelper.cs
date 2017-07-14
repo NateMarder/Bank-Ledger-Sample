@@ -9,7 +9,6 @@ namespace ConsoleApp.Classes
 {
     public class UserOperationsHelper
     {
-
         private WebRequestHelper _requestHelper;
         public WebRequestHelper RequestHelper
             => _requestHelper ?? ( _requestHelper = new WebRequestHelper() );

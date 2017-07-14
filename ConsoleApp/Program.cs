@@ -32,6 +32,7 @@ namespace ConsoleApp
 
         private static void AllocateSessionTokens()
         {
+            // todo: just check for nulls before attempting to read values, this is just silly
             ConsoleSession.Instance.Data["UserId"] = null;
             ConsoleSession.Instance.Data["Password"] = null;
             ConsoleSession.Instance.Data["SessionID"] = null;
