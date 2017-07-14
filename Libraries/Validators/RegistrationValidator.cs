@@ -2,7 +2,7 @@
 using FluentValidation;
 using Libraries.Models;
 using Resources = Libraries.Properties.Resources;
-using Settings = Libraries.Properties.Settings; 
+using Settings = Libraries.Properties.Settings;
 
 namespace Libraries.Validators
 {
@@ -10,6 +10,9 @@ namespace Libraries.Validators
     {
         private Dal.XmlDal _xmlDal;
         public Dal.XmlDal XmlDal => _xmlDal ?? ( _xmlDal = new Dal.XmlDal() );
+
+        private Dal.LocalDal _localDal;
+        public Dal.LocalDal LocalDal => _localDal ?? ( _localDal = new Dal.LocalDal() );
 
         public RegistrationValidator()
         {
@@ -20,10 +23,10 @@ namespace Libraries.Validators
 
             // password password validation
             RuleFor( model => model.Password )
-                .Length( 6, 20 ).WithMessage( "Your password needs to be between 6 and 20 characters long" )
-                .Must( ContainNumericCharacter ).WithMessage( "Your password must contain one number" )
-                .Must( ContainUpperCaseCharacter ).WithMessage( "Your password must contain at least one uppercase letter" )
-                .Must( ContainSpecialCharacter ).WithMessage( "Your passwords must contain one special character" );
+                .Length( 6, 20 ).WithMessage( Resources.PasswordMustBeSixToTwenty )
+                .Must( ContainNumericCharacter ).WithMessage( Resources.PasswordMustContainNumber )
+                .Must( ContainUpperCaseCharacter ).WithMessage( Resources.PasswordMustContainUpperCaseLetter )
+                .Must( ContainSpecialCharacter ).WithMessage( Resources.PasswordMustContainOneSpecialCharacter );
         }
 
         private bool NotAlreadyExist( string email )
@@ -32,26 +35,27 @@ namespace Libraries.Validators
             {
                 return !XmlDal.EmailExists( email );
             }
-            else return true;
+
+            //todo: implement this method
+            //return !LocalDal.EmailExists( email );  
+
+            return true;
         }
 
         private bool ContainNumericCharacter( string password )
         {
-            try { return password.ToCharArray().Any( char.IsNumber ); }
-            catch {  return false; }
+            return password.ToCharArray().Any( char.IsNumber );
         }
 
         private bool ContainUpperCaseCharacter( string password )
         {
-            try { return password.ToCharArray().Any( char.IsUpper ); }
-            catch {  return false; }
+            return password.ToCharArray().Any( char.IsUpper );
         }
 
         private bool ContainSpecialCharacter( string password )
         {
-            try { return password.ToCharArray()
-                .Any( c => ( !char.IsLetter( c ) && !char.IsNumber( c ) ) ); }
-            catch {  return false; }
+            return password.ToCharArray()
+                .Any( c => ( !char.IsLetter( c ) && !char.IsNumber( c ) ) );
         }
     }
 }
