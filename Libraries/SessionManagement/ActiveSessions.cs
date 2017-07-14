@@ -48,7 +48,7 @@ namespace Libraries.SessionManagement
             }
         }
 
-        public static bool SessionIsAuthenticated( string sessionId, string email )
+        public static bool CheckSessionAuthentication( string sessionId, string email )
         {
             foreach ( var nextTuple in Sessions )
             {
