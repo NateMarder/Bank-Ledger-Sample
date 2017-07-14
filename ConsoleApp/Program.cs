@@ -16,7 +16,7 @@ namespace ConsoleApp
         public static UserOperationsHelper OperationsHelper 
             => _operationsHelper ?? ( _operationsHelper = new UserOperationsHelper() );
 
-        static void Main( string[] args )
+        static void Main()
         {
             Console.WriteLine( Resources.InitialGreeting );
             AllocateSessionTokens();
@@ -28,7 +28,6 @@ namespace ConsoleApp
                     ? DialogHelper.GetUserChoiceForForUserAboutToExit() 
                     : UserChoice.Logout;
             }
-
         }
 
         private static void AllocateSessionTokens()

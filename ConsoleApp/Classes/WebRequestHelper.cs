@@ -97,7 +97,6 @@ namespace ConsoleApp.Classes
 
         public async Task<bool> TenderTransaction( double amount, bool isDeposit )
         {
-            var transactionModel = new TransactionHistoryModel();
             var client = new HttpClient();
             var userId = ConsoleSession.Instance.Data["UserId"];
             var sessionId = ConsoleSession.Instance.Data["SessionToken"];
