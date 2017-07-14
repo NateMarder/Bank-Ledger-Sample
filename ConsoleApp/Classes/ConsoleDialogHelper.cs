@@ -10,14 +10,13 @@ namespace ConsoleApp.Classes
         public string GetUserEmailForLogin()
         {
             Console.WriteLine( Resources.GetUserEmail );
-            var input = Console.ReadLine();
-            input = input?.Trim() ?? "";
+            // this 'input' pattern gets input while preventing exceptions
+            var input = Console.ReadLine()?.Trim() ?? ""; 
 
             while ( !ValidateEmailForLogin( input ) )
             {
                 Console.WriteLine( Resources.InvalidInput );
-                input = Console.ReadLine();
-                input = input?.Trim() ?? "";
+                input = Console.ReadLine()?.Trim() ?? "";
             }
 
             return input;
