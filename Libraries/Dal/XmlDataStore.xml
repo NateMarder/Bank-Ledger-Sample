@@ -107,6 +107,54 @@
       <IsDeposit>True</IsDeposit>
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 17:36:11</TransactionDate>
+      <Amount>10.36</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 17:36:48</TransactionDate>
+      <Amount>13.36</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 17:37:01</TransactionDate>
+      <Amount>9</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 17:37:23</TransactionDate>
+      <Amount>13.31</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 17:45:53</TransactionDate>
+      <Amount>120</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 17:45:58</TransactionDate>
+      <Amount>50</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 17:47:44</TransactionDate>
+      <Amount>135</Amount>
+      <IsDeposit>False</IsDeposit>
+      <IsWithdraw>True</IsWithdraw>
+    </Transaction>
+    <Transaction>
+      <TransactionDate>07/14/2017 17:47:49</TransactionDate>
+      <Amount>56</Amount>
+      <IsDeposit>True</IsDeposit>
+      <IsWithdraw>False</IsWithdraw>
+    </Transaction>
   </User>
   <User>
     <Email>nate@nate.com</Email>

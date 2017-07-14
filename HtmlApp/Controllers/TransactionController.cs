@@ -15,8 +15,63 @@ namespace HtmlApp.Controllers
         private XmlDal _xmlDal;
         public XmlDal XmlDal => _xmlDal ?? ( _xmlDal = new XmlDal() );
 
+        private LocalDal _localDal;
+        public LocalDal LocalDal => _localDal ?? ( _localDal = new LocalDal() );
+
         [HttpGet]
         public ActionResult TransactionHistory()
+        {
+            try
+            {
+                var userId = Session["UserId"].ToString();
+                var data = Properties.Settings.Default.UseXmlDataStore
+                    ? XmlDal.GetTransactionHistory( userId )
+                    : LocalDal.GetTransactionHistory( userId );
+
+                return new JsonResult
+                {
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                    Data = Json(data)
+                };
+            }
+            catch
+            {
+                return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
+            }
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Transaction( TransactionViewModel model )
+        {
+            //todo: validate that transaction view model properly
+            try
+            {
+                if ( Properties.Settings.Default.UseXmlDataStore )
+                {
+                    XmlDal.SubmitTransaction( model );
+                }
+                else
+                {
+                    LocalDal.SubmitTransaction( model );
+                }
+
+                return new HttpStatusCodeResult( HttpStatusCode.OK );
+            }
+            catch
+            {
+                return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
+            }
+        }
+
+        /************************************************************
+        *************************************************************
+        ** 
+        ** Console Endpoints and Helper Methods
+        **
+        *************************************************************
+        *************************************************************/
+        [HttpGet, AuthorizeConsoleAppUser]
+        public ActionResult TransactionHistoryForConsole()
         {
             var valid = Session["UserId"] != null;
             try
@@ -38,35 +93,8 @@ namespace HtmlApp.Controllers
             return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
         }
 
-        [HttpPost]
-        public ActionResult Transaction( TransactionViewModel model )
-        {
-            var valid = model != null;
-
-            try
-            {
-                if ( valid )
-                {
-                    XmlDal.SubmitTransaction( model );
-                    return new HttpStatusCodeResult( HttpStatusCode.OK );
-                }
-            }
-            catch
-            {
-                return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
-            }
-            return new HttpStatusCodeResult( HttpStatusCode.InternalServerError );
-        }
-
-        /************************************************************
-        *************************************************************
-        ** 
-        ** Console Endpoints and Helper Methods
-        **
-        *************************************************************
-        *************************************************************/
         [AuthorizeConsoleAppUser]
-        public ActionResult ConsoleTransaction( TransactionRequestModel model )
+        public ActionResult TransactionForConsole( TransactionRequestModel model )
         {
             try
             {

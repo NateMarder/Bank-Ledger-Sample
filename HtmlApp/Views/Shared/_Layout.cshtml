@@ -8,7 +8,8 @@
     <link href="~/Styles/bootstrap.min.css" rel="stylesheet"/>
     <link href="~/Styles/Site.css" rel="stylesheet"/>
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>        
+    <script src="~/Scripts/AjaxAntiForgeryHelper.js"></script>
 </head>
 
 @{
@@ -31,7 +32,8 @@
 </div>
 
 <div class="container body-content">
-    @RenderBody()
+    @RenderBody()              
+    @Html.AntiForgeryToken()
 </div>
 
 </body>

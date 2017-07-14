@@ -99,3 +99,8 @@ input[type="email"] { margin-bottom: 15px; }
     animation: progress 2s infinite linear;
     transform-origin: 50% 50%;
 }
+
+.transaction-scroll-container {
+    max-height: 500px;
+    overflow-y: auto;
+}
