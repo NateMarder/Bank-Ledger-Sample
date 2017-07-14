@@ -7,12 +7,11 @@ namespace ConsoleApp.Classes
 {
     public class ConsoleDialogHelper
     {
-        public string GetUserEmailForLogin()
+        public string GetEmailFromUser()
         {
             Console.WriteLine( Resources.GetUserEmail );
             // this 'input' pattern gets input while preventing exceptions
             var input = Console.ReadLine()?.Trim() ?? ""; 
-
             while ( !ValidateEmailForLogin( input ) )
             {
                 Console.WriteLine( Resources.InvalidInput );
@@ -22,7 +21,7 @@ namespace ConsoleApp.Classes
             return input;
         }
 
-        public string GetUserPasswordForLogin()
+        public string GetPasswordFromUser()
         {
             Console.WriteLine( Resources.GetUserPassword );
             var input = Console.ReadLine();
@@ -81,16 +80,16 @@ namespace ConsoleApp.Classes
         public double GetDepositAmount()
         {
             Console.WriteLine( Resources.GetAmountForDeposit );
-            return GetValidDoubleFromUser();
+            return GetValidTransactionAmount();
         }
 
         public double GetWithdrawalAmount()
         {
             Console.WriteLine( Resources.GetAmountForWithdrawal );
-            return GetValidDoubleFromUser();
+            return GetValidTransactionAmount();
         }
 
-        private double GetValidDoubleFromUser()
+        private double GetValidTransactionAmount()
         {
             var input = Console.ReadLine();
             while ( !ValidateDouble( input ) )

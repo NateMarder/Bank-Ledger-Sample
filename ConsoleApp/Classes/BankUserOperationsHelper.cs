@@ -150,8 +150,8 @@ namespace ConsoleApp.Classes
         {
             var model = new LoginViewModel
             {
-                Email = DialogHelper.GetUserEmailForLogin(),
-                Password = DialogHelper.GetUserPasswordForLogin()
+                Email = DialogHelper.GetEmailFromUser(),
+                Password = DialogHelper.GetPasswordFromUser()
             };
 
             var result = await RequestHelper.SignInUser( model );
@@ -169,8 +169,8 @@ namespace ConsoleApp.Classes
         {
             var model = new RegisterViewModel
             {
-                Email = DialogHelper.GetUserEmailForLogin(),
-                Password = DialogHelper.GetUserPasswordForLogin()
+                Email = DialogHelper.GetEmailFromUser(),
+                Password = DialogHelper.GetPasswordFromUser()
             };
 
             var task = RequestHelper.RegisterNewUser( model );
