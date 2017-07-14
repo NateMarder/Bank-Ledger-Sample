@@ -7,4 +7,4 @@
   - *a console-portal*
   - *asynchronous thread handling*
   
- ## Please Note this is a work in progress! I have yet to complete validation, and I haven't started writing unit tests.
+ ### Please Note this is a work in progress! I have yet to complete validation, and I haven't started writing unit tests. But hopefully code-reviewers can see where I'm going with it and why.
