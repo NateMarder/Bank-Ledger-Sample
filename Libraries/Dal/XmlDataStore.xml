@@ -108,4 +108,10 @@
       <IsWithdraw>False</IsWithdraw>
     </Transaction>
   </User>
+  <User>
+    <Email>email@email.com</Email>
+    <Password>Nate1234!</Password>
+    <Balance>0</Balance>
+    <LastLogin>9:16 PM</LastLogin>
+  </User>
 </DataStore>

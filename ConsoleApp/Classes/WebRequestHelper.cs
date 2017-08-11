@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Libraries.Enums;
 using Libraries.Models;
@@ -23,12 +25,13 @@ namespace ConsoleApp.Classes
             var signInStatus = new SigninStatusModel();
             var client = new HttpClient();
             SetConsoleToken();
-            var url = $"http://localhost:54194/Login/LoginFromConsole/" +
-                      $"?Email={model.Email}" +
-                      $"&Password={model.Password}";
+
+            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes( $"{model.Email} {model.Password}" ));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( "Basic", credentials );
+
             try
             {
-                var response = await client.GetAsync( url );
+                var response = await client.GetAsync( "http://localhost:54194/Login/LoginFromConsole/" );
                 response.EnsureSuccessStatusCode();
                 ConsoleSession.Instance.Data["SessionToken"] = await response.Content.ReadAsStringAsync();
                 signInStatus.Content = ConsoleSession.Instance.Data["SessionToken"];

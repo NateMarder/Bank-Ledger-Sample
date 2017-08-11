@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using FluentValidation.Results;
 using HtmlApp.Classes;
@@ -61,14 +62,12 @@ namespace HtmlApp.Controllers
             }
         }
 
-
         [HttpPost]
         public ActionResult SignOut()
         {
             Session.Abandon();
             return View( "../SignOutComplete" );
         }
-
 
         /************************************************************
         *************************************************************
@@ -78,8 +77,9 @@ namespace HtmlApp.Controllers
         *************************************************************
         *************************************************************/
         [AllowAnonymous]
-        public ActionResult LoginFromConsole( UserViewModel model )
+        public ActionResult LoginFromConsole( )
         {
+            var model = DecodeAuthorizationHeaders( Request );
             try
             {
                 var result = LoginValidator.Validate( model );
@@ -135,6 +135,20 @@ namespace HtmlApp.Controllers
 
             return result.Errors.Aggregate( "", ( current, error ) 
                 => current + ( error.ErrorMessage + "\n" ) );
+        }
+
+        private UserViewModel DecodeAuthorizationHeaders( HttpRequestBase request )
+        {
+            var encodedCredentials = request.Headers[1].Split()[1];
+            var bytes = Convert.FromBase64String( encodedCredentials );
+            var decoded = BitConverter.ToString( bytes );
+            var parts = decoded.Split();
+
+            return new UserViewModel
+            {
+                Email = parts[0],
+                Password = parts[1]
+            };
         }
     }
 }
